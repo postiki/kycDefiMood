@@ -6,12 +6,19 @@ interface IFormProps {
     onChange: (e: any) => void
     title: string,
     placeHolder: string,
+    big?: boolean
 }
 
-const Form: React.FC<IFormProps> = ({onChange, title, placeHolder}) => {
+const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, big}) => {
     //TODO add variables mask
+    //TODO add big size
+    //TODO add small size with place holder position center
+
     return (
-        <input className={'kyc-form'} placeholder={placeHolder} onChange={onChange}/>
+        <div className={'kyc-form'}>
+            <label>{title}</label>
+            <input placeholder={placeHolder} onChange={onChange}/>
+        </div>
     )
 }
 
@@ -19,6 +26,7 @@ Form.propTypes = {
     onChange: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     placeHolder: PropTypes.string.isRequired,
+    big: PropTypes.bool
 }
 
 export default Form;

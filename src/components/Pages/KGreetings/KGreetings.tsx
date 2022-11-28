@@ -29,27 +29,29 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
 
     return (
         <div className="kyc-greetings">
-            <h1>{translation('title')}</h1>
-            {!sendCode && <h2>{translation('subtitle')}</h2>}
-            {sendCode && <h2>{translation('sendCode')}</h2>}
+            <div className="kyc-greetings__wrapper">
+                <h1>{translation('title')}</h1>
+                {!sendCode && <h2>{translation('subtitle')}</h2>}
+                {sendCode && <h2>{translation('sendCode')}</h2>}
 
-            {!sendCode &&
-                <Form
-                    onChange={(e) => setEmail(e.target.value)}
-                    title={translation('formTitle')}
-                    placeHolder={translation('formPlaceHolder')}
-                />
-            }
-            {sendCode &&
-                <Form
-                    onChange={(e) => setCode(e.target.value)}
-                    title={translation('sendCodeFormTitle')}
-                    placeHolder={translation('sendCodeFormPlaceHolder')}
-                />
-            }
+                {!sendCode &&
+                    <Form
+                        onChange={(e) => setEmail(e.target.value)}
+                        title={translation('formTitle')}
+                        placeHolder={translation('formPlaceHolder')}
+                    />
+                }
+                {sendCode &&
+                    <Form
+                        onChange={(e) => setCode(e.target.value)}
+                        title={translation('sendCodeFormTitle')}
+                        placeHolder={translation('sendCodeFormPlaceHolder')}
+                    />
+                }
 
-            {!sendCode && <Button handleClick={handleSendCode}/>}
-            {sendCode && <Button handleClick={handleApplyCode}/>}
+                {!sendCode && <Button handleClick={handleSendCode}/>}
+                {sendCode && <Button handleClick={handleApplyCode}/>}
+            </div>
         </div>
     );
 }

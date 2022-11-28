@@ -4,6 +4,7 @@ import useTranslation from "../../../hooks/useTranslation";
 import Form from "../../UI/Form";
 import Select from "../../UI/Select";
 import Button from "../../UI/Button";
+import CheckBox from "../../UI/CheckBox";
 
 interface IKPersonalProps {
 
@@ -22,11 +23,23 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const [checked, setChecked] = useState(false)
 
-    //TODO create checkBox component
+    const [pName, setPName] = useState('')
+    const [pSite, setPSite] = useState('')
+
+    const [pDesc, setPDesc] = useState('')
+    const [pGh, setPGh] = useState('')
+    const [pTw, setPTw] = useState('')
+    const [pDc, setPDc] = useState('')
+    const [pTg, setPTg] = useState('')
+
 
     const handleComplete = () => {
-
+        console.log('complete')
     }
+
+    const handleChangeBox = () => {
+        setChecked(!checked);
+    };
 
     return (
         <div className="kyc-personal">
@@ -47,20 +60,24 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 <Select
                     onChange={(e) => setCitizenship(e.target.value)}
                     title={translation('selectCitizenshipTitle')}
+                    points={['some']}
                 />
                 <Select
                     onChange={(e) => setResidence(e.target.value)}
                     title={translation('selectResidenceTitle')}
+                    points={['some']}
                 />
             </div>
             <div className="kyc-personal-thirdRow">
                 <Select
                     onChange={(e) => setDocType(e.target.value)}
                     title={translation('selectDocTypeTitle')}
+                    points={['some']}
                 />
                 <Select
                     onChange={(e) => setDocNumber(e.target.value)}
                     title={translation('selectDocNumbTitle')}
+                    points={['some']}
                 />
             </div>
             <Form
@@ -69,12 +86,58 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 placeHolder={translation('formWalletPlaceHolder')}
             />
             <div className="kyc-personal-fourRow">
-                <input type={'checkbox'} checked={checked}/>
-                <label onChange={() => setChecked(!checked)}>
-                    {translation('checkBoxLabel')}
-                </label>
+                <CheckBox
+                    label={translation('checkBoxLabel')}
+                    handleChange={handleChangeBox}
+                    checked={checked}
+                />
                 {!checked && <Button handleClick={handleComplete}/>}
             </div>
+
+            {checked && (
+                <>
+                    <div className="kyc-personal-fiveRow">
+                        <Form
+                            onChange={(e) => setPName(e.target.value)}
+                            title={translation('formPNameTitle')}
+                            placeHolder={translation('formPNamePlaceHolder')}
+                        />
+                        <Form
+                            onChange={(e) => setPSite(e.target.value)}
+                            title={translation('formPSiteTitle')}
+                            placeHolder={translation('formPSitePlaceHolder')}
+                        />
+                    </div>
+                    <Form
+                        onChange={(e) => setPDesc(e.target.value)}
+                        title={translation('formPDescTitle')}
+                        placeHolder={translation('formPDescPlaceHolder')}
+                        big
+                    />
+                    <Form
+                        onChange={(e) => setPGh(e.target.value)}
+                        title={translation('formPGhTitle')}
+                        placeHolder={translation('formPGhPlaceHolder')}
+                    />
+                    <Form
+                        onChange={(e) => setPTw(e.target.value)}
+                        title={translation('formPTwTitle')}
+                        placeHolder={translation('formPTwPlaceHolder')}
+                    />
+                    <Form
+                        onChange={(e) => setPDc(e.target.value)}
+                        title={translation('formPDcTitle')}
+                        placeHolder={translation('formPDcPlaceHolder')}
+                    />
+                    <Form
+                        onChange={(e) => setPTg(e.target.value)}
+                        title={translation('formPTgTitle')}
+                        placeHolder={translation('formPTgPlaceHolder')}
+                    />
+                    <Button handleClick={handleComplete}/>
+                </>
+            )}
+
         </div>
     );
 }

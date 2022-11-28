@@ -7,8 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-p{
+p, input, h1, h2{
   margin: 0;
+}
+
+input{
+  outline: none;
+  background: none;
+  border: none;
 }
 
 code {

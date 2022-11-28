@@ -7,11 +7,20 @@
   padding: calc(35 / 1440 * 100vw) 0;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   border: 3px solid #090909;
+
+  &__wrapper {
+    width: 76%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   h1 {
     @include h2-bold;

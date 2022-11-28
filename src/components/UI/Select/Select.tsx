@@ -5,17 +5,20 @@ import PropTypes from "prop-types";
 interface ISelectorProps {
     onChange: (e: any) => void
     title: string,
-    points?: Array<string>
+    points: Array<string>
 }
 
 const Select: React.FC<ISelectorProps> = ({onChange, title, points}) => {
     return (
-        <select className={'kyc-select'} onChange={onChange}>
-            <option>some</option>
-            <option>some</option>
-            <option>some</option>
-            <option>some</option>
-        </select>
+        <div className={'kyc-select'}>
+            <label>{title}</label>
+            <select onChange={onChange}>
+                <option>some</option>
+                <option>some</option>
+                <option>some</option>
+                <option>some</option>
+            </select>
+        </div>
     )
 }
 

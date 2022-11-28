@@ -2,14 +2,16 @@
 
 .kyc-personal {
   width: calc(825 / 1440 * 100vw);
-  height: calc(298 / 1080 * 100vh);
+  height: auto;
 
-  padding: calc(35 / 1440 * 100vw) 0;
+  padding: 35px calc(95 / 1440 * 100vw);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  gap: 30px;
 
   border: 3px solid #090909;
 
@@ -19,30 +21,36 @@
   }
 
   &-firstRow {
-    width: 77%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 30px;
   }
 
   &-secondRow {
-    width: 77%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    gap: 30px;
   }
 
   &-thirdRow {
-    width: 77%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    gap: 30px;
   }
 
   &-fourRow {
-    width: 77%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    gap: 30px;
   }
 }
