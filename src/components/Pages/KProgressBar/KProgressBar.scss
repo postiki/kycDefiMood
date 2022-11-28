@@ -1,0 +1,10 @@
+@import './src/scss/mixins';
+
+.kyc-progressbar {
+  width: calc(234 / 1440 * 100vw);
+  height: calc(480 / 1080 * 100vh);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

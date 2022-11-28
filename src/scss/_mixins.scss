@@ -1,0 +1,49 @@
+@mixin h1-bold{
+  font-family: FeatureMono, 'sans-serif';
+  font-size:64px;
+  font-weight:700;
+  line-height:64px;
+  letter-spacing:0;
+
+  color: #090909;
+}
+
+@mixin h2-bold{
+  font-family: FeatureMono, 'sans-serif';
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0;
+
+  color: #090909;
+}
+
+@mixin h3-bold{
+  font-family: FeatureMono, 'sans-serif';
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0;
+
+  color: #090909;
+}
+
+@mixin h3-regular{
+  font-family: FeatureMono, 'sans-serif';
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0;
+
+  color: #090909;
+}
+
+@mixin h4-regular{
+  font-family: FeatureMono, 'sans-serif';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0;
+
+  color: #090909;
+}

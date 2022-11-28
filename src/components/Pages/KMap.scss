@@ -1,0 +1,12 @@
+@import './src/scss/mixins';
+
+.k-map {
+  padding: 15px calc(165 / 1440 * 100vw) 0 calc(165 / 1440 * 100vw); //TODO add response padding
+
+  &-body {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+  }
+}

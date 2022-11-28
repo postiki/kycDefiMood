@@ -1,0 +1,15 @@
+@import './src/scss/mixins';
+
+.kyc-header {
+  width: 100%;
+  padding-bottom: calc(75 / 1080 * 100vh);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    @include h1-bold;
+    color: rgba(132, 135, 134, 0.5);
+  }
+}

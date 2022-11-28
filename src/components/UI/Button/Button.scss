@@ -1,0 +1,15 @@
+@import './src/scss/mixins';
+
+.kyc-button{
+  width: calc(224 / 1440 * 100vw);
+  height: calc(48 / 1080 * 100vh);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include h3-bold;
+  color: white;
+
+  background-color: #1E24CC;
+}

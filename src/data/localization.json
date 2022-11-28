@@ -1,0 +1,36 @@
+{
+  "en": {
+    "header": {
+      "title": "kyc.systems"
+    },
+    "greetings": {
+      "title": "Welcome, now you will pass KYC",
+      "subtitle": "First, verify your email",
+      "formTitle": "Email",
+      "formPlaceHolder": "example@gmail.com",
+      "sendCode": "Verification code sent to your email",
+      "sendCodeFormTitle": "Verification_code",
+      "sendCodeFormPlaceHolder": "000 - 000 - 000"
+    },
+    "personal": {
+      "title": "Enter personal information",
+      "formNameTitle": "Full_name",
+      "formNamePlaceHolder": "Jonson Jon Jonotonov",
+      "formDateTitle": "Date_of_birth",
+      "formDatePlaceHolder": "04\n/\nNovember\n/\n1999",
+      "selectCitizenshipTitle":"Citizenship",
+      "selectResidenceTitle":"Country_of_residence",
+      "selectDocTypeTitle":"Document_type",
+      "selectDocNumbTitle":"Document_number",
+      "formDocumentTitle": "Document_number",
+      "formDocumentPlaceHolder": "00 00 000000",
+      "formWalletTitle": "Wallet_address",
+      "formWalletPlaceHolder": "0x9758e7B12C95Cb2b7eBA068100F857aD3170F882",
+      "checkBoxLabel": "I’m a project owner"
+    },
+    "button": {
+      "titleM":"",
+      "titleD": "Enter"
+    }
+  }
+}
