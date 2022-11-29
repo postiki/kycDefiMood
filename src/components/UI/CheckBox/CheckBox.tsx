@@ -10,15 +10,13 @@ interface ISelectorProps {
 
 const CheckBox: React.FC<ISelectorProps> = ({handleChange, label, checked}) => {
     return (
-        <div className={'kyc-checkBox'}>
-            <label>
-                <input
-                    type={'checkbox'}
-                    checked={checked}
-                    onChange={handleChange}
-                />
+        <div className={'kyc-checkBox'} onClick={handleChange}>
+            <div className={'kyc-checkBox__box'}>
+                {checked && <div className={'kyc-checkBox__box-check'}></div>}
+            </div>
+            <div className={'kyc-checkBox__label'}>
                 {label}
-            </label>
+            </div>
         </div>
     )
 }

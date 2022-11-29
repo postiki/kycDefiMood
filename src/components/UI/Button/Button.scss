@@ -8,8 +8,27 @@
   align-items: center;
   justify-content: center;
 
-  @include h3-bold;
-  color: white;
-
   background-color: #1E24CC;
+
+  &:hover{
+    background-color: #00059C;
+  }
+
+  &:active{
+    background-color: #00035B;
+  }
+
+  &--alt{
+    background-color: white;
+    border: 3px solid #1E24CC;
+
+    p{
+      color: #1E24CC !important;
+    }
+  }
+
+  p{
+    @include h3-bold;
+    color: white;
+  }
 }

@@ -1,6 +1,11 @@
 @import './src/scss/mixins';
 
 .k-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+
   padding: 15px calc(165 / 1440 * 100vw) 0 calc(165 / 1440 * 100vw); //TODO add response padding
 
   &-body {
@@ -8,5 +13,23 @@
 
     display: flex;
     justify-content: space-between;
+  }
+
+  &-footer {
+    width: 350px;
+    height: 350px;
+
+    text-align: center;
+    pointer-events: none;
+
+    p{
+      @include h3-regular;
+      color: #848786;
+    }
+
+    span{
+      @include h3-bold;
+      color: #090909;
+    }
   }
 }

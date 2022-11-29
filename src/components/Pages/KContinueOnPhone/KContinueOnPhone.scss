@@ -1,0 +1,87 @@
+@import './src/scss/mixins';
+
+.kyc-continue {
+  width: calc(825 / 1440 * 100vw);
+  height: calc(483 / 1080 * 100vh);
+
+  padding: calc(35 / 1440 * 100vw) 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid #090909;
+
+  &__wrapper {
+    width: 76%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+  }
+
+  &__body {
+    width: 100%;
+    height: 66%;
+
+    display: flex;
+    justify-content: space-between;
+
+    &-left {
+      width: 17%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      text-align: center;
+
+      p {
+        @include h3-regular;
+      }
+    }
+
+    &-right {
+      width: 81%;
+      height: 100%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      border: 3px solid #090909;
+
+      &-wrapper {
+        width: 70%;
+        height: 80%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  h1 {
+    @include h2-bold;
+    color: #1E24CC;
+  }
+
+  h2 {
+    @include h3-bold;
+    color: #090909;
+  }
+
+  h3 {
+    @include h4-regular;
+    color: #090909;
+  }
+}

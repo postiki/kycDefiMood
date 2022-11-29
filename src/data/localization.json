@@ -4,24 +4,36 @@
       "title": "kyc.systems"
     },
     "greetings": {
+      "btnEnter": "Enter",
+      "btnContinue": "Enter",
       "title": "Welcome, now you will pass KYC",
       "subtitle": "First, verify your email",
       "formTitle": "Email",
       "formPlaceHolder": "example@gmail.com",
       "sendCode": "Verification code sent to your email",
       "sendCodeFormTitle": "Verification_code",
-      "sendCodeFormPlaceHolder": "000 - 000 - 000"
+      "sendCodeFormPlaceHolder": "000 - 000 - 000",
+      "sendCodeNotReceive": "Code still not received?",
+      "sendCodeSendAgain": "Send code again",
+      "completeTitle": "Email successfully verified ヽ(・∀・)ﾉ",
+      "enabledReferral": "Do you have a referral code?",
+      "enterCode": "enterCode",
+      "referralCode": "Enter referral code",
+      "referralFormTitle": "Referral_code",
+      "referralFormPlaceHolder": "012 - 345 - 678"
     },
     "personal": {
+      "btnEnter": "Enter",
+      "btnContinue": "Continue",
       "title": "Enter personal information",
       "formNameTitle": "Full_name",
       "formNamePlaceHolder": "Jonson Jon Jonotonov",
       "formDateTitle": "Date_of_birth",
       "formDatePlaceHolder": "04\n/\nNovember\n/\n1999",
-      "selectCitizenshipTitle":"Citizenship",
-      "selectResidenceTitle":"Country_of_residence",
-      "selectDocTypeTitle":"Document_type",
-      "selectDocNumbTitle":"Document_number",
+      "selectCitizenshipTitle": "Citizenship",
+      "selectResidenceTitle": "Country_of_residence",
+      "selectDocTypeTitle": "Document_type",
+      "selectDocNumbTitle": "Document_number",
       "formDocumentTitle": "Document_number",
       "formDocumentPlaceHolder": "00 00 000000",
       "formWalletTitle": "Wallet_address",
@@ -42,9 +54,19 @@
       "formPTgTitle": "Project_Telegram",
       "formPTgPlaceHolder": "https://t.me/example"
     },
-    "button": {
-      "titleM":"",
-      "titleD": "Enter"
+    "continue": {
+      "btnGoBack": "Go back",
+      "title": "Identification",
+      "identity": "“Identity document”, “Selfie”:",
+      "subtitle": "To pass the confirmation of the identity document and selfie, continue on the phone",
+      "scan": "Scan by phone"
+    },
+    "progressbar": {
+      "start": "Let's start",
+      "personal": "Personal info",
+      "identity": "Identity document",
+      "selfie": "Selfie",
+      "success": "Success"
     }
   }
 }

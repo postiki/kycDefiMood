@@ -2,18 +2,26 @@
 
 .kyc-personal {
   width: calc(825 / 1440 * 100vw);
-  height: auto;
 
-  padding: 35px calc(95 / 1440 * 100vw);
+  padding: calc(35 / 1440 * 100vw) 0;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-
-  gap: 30px;
+  justify-content: center;
 
   border: 3px solid #090909;
+
+  &__wrapper {
+    width: 76%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+  }
 
   h1 {
     @include h2-bold;
@@ -23,8 +31,8 @@
   &-firstRow {
     width: 100%;
     display: grid;
-    grid-template-columns: 55% 45%;
-    gap: 30px;
+    grid-template-columns: 55% 41%;
+    justify-content: space-between;
   }
 
   &-secondRow {
@@ -46,6 +54,15 @@
   }
 
   &-fourRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+  }
+
+  &-fiveRow {
     width: 100%;
     display: flex;
     justify-content: space-between;

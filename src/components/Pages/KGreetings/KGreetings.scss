@@ -30,4 +30,8 @@
   h2 {
     @include h3-bold;
   }
+
+  p{
+    @include h4-regular;
+  }
 }
