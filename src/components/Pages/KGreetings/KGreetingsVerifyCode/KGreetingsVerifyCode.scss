@@ -12,6 +12,7 @@
   text-align: center;
 
   span{
-    color: #1E24CC;
+    color: var(--title-color);
+    border-bottom: 1px solid var(--title-color);
   }
 }

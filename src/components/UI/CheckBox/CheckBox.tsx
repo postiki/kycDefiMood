@@ -3,14 +3,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 interface ISelectorProps {
-    handleChange: (e: any) => void
+    onToggle: () => void
     label: string,
     checked: boolean
 }
 
-const CheckBox: React.FC<ISelectorProps> = ({handleChange, label, checked}) => {
+const CheckBox: React.FC<ISelectorProps> = ({onToggle, label, checked}) => {
     return (
-        <div className={'kyc-checkBox'} onClick={handleChange}>
+        <div className={'kyc-checkBox'} onClick={() => onToggle()}>
             <div className={'kyc-checkBox__box'}>
                 {checked && <div className={'kyc-checkBox__box-check'}></div>}
             </div>
@@ -22,7 +22,7 @@ const CheckBox: React.FC<ISelectorProps> = ({handleChange, label, checked}) => {
 }
 
 CheckBox.propTypes = {
-    handleChange: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired
 }

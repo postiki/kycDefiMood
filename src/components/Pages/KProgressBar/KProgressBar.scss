@@ -14,7 +14,7 @@
     height: 25%;
 
     margin-left: 20px;
-    background: #090909;
+    background: var(--border-color);
   }
 
   &-item {
@@ -30,13 +30,13 @@
       align-items: center;
       justify-content: center;
 
-      border: 3px solid #090909;
+      border: 3px solid var(--border-color);
 
       &-check {
         width: 26px;
         height: 26px;
 
-        background: #1E24CC;
+        background: var(--title-color);
       }
     }
 
@@ -45,7 +45,7 @@
       color: #848786;
 
       &--active{
-        color: #1E24CC;
+        color: var(--title-color);
       }
     }
   }

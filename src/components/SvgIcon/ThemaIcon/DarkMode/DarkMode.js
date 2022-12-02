@@ -1,5 +1,5 @@
 import React from 'react';
-import IconModal from "../../UI/IconModal";
+import IconModal from "../../../UI/IconModal";
 
 const DarkMode = props => (
     <IconModal viewBox="0 0  28 28" {...props}>

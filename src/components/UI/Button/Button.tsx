@@ -8,20 +8,23 @@ interface IButtonProps {
     handleClick: () => void
     title?: string,
     alt?: boolean
+    disabled?: boolean
 }
 
-const Button: React.FC<IButtonProps> = ({handleClick, title, alt}) => {
+const Button: React.FC<IButtonProps> = ({handleClick, title, alt, disabled}) => {
     // const translation = useTranslation('button')
     //TODO add choose variables title of screen resolution
     return (
-        <div className={classNames({
+        <button className={classNames({
             'kyc-button': true,
-            'kyc-button--alt': alt
+            'kyc-button--alt': alt,
+            'kyc-button--disabled': disabled
         })}
-             onClick={handleClick}
+                disabled={disabled}
+                onClick={handleClick}
         >
             <p>{title}</p>
-        </div>
+        </button>
     )
 }
 

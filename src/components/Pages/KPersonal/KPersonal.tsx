@@ -1,11 +1,14 @@
 import './KPersonal.scss';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useTranslation from "../../../hooks/useTranslation";
 import Form from "../../UI/Form";
 import Select from "../../UI/Select";
 import Button from "../../UI/Button";
 import CheckBox from "../../UI/CheckBox";
 import {stageUp} from "../../../entities/progress-manager";
+
+import country from './country.json'
+import SelectCountry from "../../UI/SelectCountry";
 
 interface IKPersonalProps {
 
@@ -14,33 +17,49 @@ interface IKPersonalProps {
 const KPersonal: React.FC<IKPersonalProps> = () => {
     const translation = useTranslation('personal')
 
-    const [name, setName] = useState('')
-    const [date, setDate] = useState('')
-    const [citizenship, setCitizenship] = useState('')
-    const [residence, setResidence] = useState('')
-    const [docType, setDocType] = useState('')
-    const [docNumber, setDocNumber] = useState('')
-    const [addr, setAddr] = useState('')
+    const [name, setName] = useState<string | null>('')
+    const [date, setDate] = useState<string | null>('')
+    const [citizenship, setCitizenship] = useState<string | null>('')
+    const [residence, setResidence] = useState<string | null>('')
+    const [docType, setDocType] = useState<string | null>('')
+    const [docNumber, setDocNumber] = useState<string | null>('')
+    const [addr, setAddr] = useState<string | null>('')
 
     const [checked, setChecked] = useState(false)
 
-    const [pName, setPName] = useState('')
-    const [pSite, setPSite] = useState('')
+    const [pName, setPName] = useState<string | null>('')
+    const [pSite, setPSite] = useState<string | null>('')
 
-    const [pDesc, setPDesc] = useState('')
-    const [pGh, setPGh] = useState('')
-    const [pTw, setPTw] = useState('')
-    const [pDc, setPDc] = useState('')
-    const [pTg, setPTg] = useState('')
+    const [pDesc, setPDesc] = useState<string | null>('')
+    const [pGh, setPGh] = useState<string | null>('')
+    const [pTw, setPTw] = useState<string | null>('')
+    const [pDc, setPDc] = useState<string | null>('')
+    const [pTg, setPTg] = useState<string | null>('')
 
 
     const handleComplete = () => {
+        //TODO send here data to backend
         stageUp()
     }
 
-    const handleChangeBox = () => {
-        setChecked(!checked);
-    };
+    useEffect(() => {
+        setName(localStorage.getItem('name'))
+        setDate(localStorage.getItem('date'))
+        setCitizenship(localStorage.getItem('citizenship'))
+        setResidence(localStorage.getItem('residence'))
+        setDocType(localStorage.getItem('docType'))
+        setDocNumber(localStorage.getItem('docNumber'))
+        setAddr(localStorage.getItem('addr'))
+
+
+        setPName(localStorage.getItem('pName'))
+        setPSite(localStorage.getItem('pSite'))
+        setPDesc(localStorage.getItem('pDesc'))
+        setPGh(localStorage.getItem('pGh'))
+        setPTw(localStorage.getItem('pTw'))
+        setPDc(localStorage.getItem('pDc'))
+        setPTg(localStorage.getItem('pTg'))
+    }, [])
 
     return (
         <div className="kyc-personal">
@@ -48,49 +67,74 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 <h1>{translation('title')}</h1>
                 <div className="kyc-personal-firstRow">
                     <Form
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                            setName(e.target.value)
+                            localStorage.setItem('name', e.target.value)
+                        }}
                         title={translation('formNameTitle')}
                         placeHolder={translation('formNamePlaceHolder')}
+                        value={name}
                     />
                     <Form
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e) => {
+                            setDate(e.target.value)
+                            localStorage.setItem('date', e.target.value)
+                        }}
                         title={translation('formDateTitle')}
                         placeHolder={translation('formDatePlaceHolder')}
+                        value={date}
                     />
                 </div>
                 <div className="kyc-personal-secondRow">
-                    <Select
-                        onChange={(e) => setCitizenship(e.target.value)}
+                    <SelectCountry
+                        onChange={(props) => {
+                            setCitizenship(props)
+                            localStorage.setItem('citizenship', props)
+                        }}
                         title={translation('selectCitizenshipTitle')}
-                        points={['some']}
+                        points={country}
                     />
-                    <Select
-                        onChange={(e) => setResidence(e.target.value)}
+                    <SelectCountry
+                        onChange={(props) => {
+                            setResidence(props)
+                            localStorage.setItem('residence', props)
+                        }}
                         title={translation('selectResidenceTitle')}
-                        points={['some']}
+                        points={country}
                     />
                 </div>
                 <div className="kyc-personal-thirdRow">
                     <Select
-                        onChange={(e) => setDocType(e.target.value)}
+                        onChange={(props) => {
+                            setDocType(props)
+                            localStorage.setItem('docType', props)
+                        }}
                         title={translation('selectDocTypeTitle')}
-                        points={['some']}
+                        points={['Passport', 'ID card', 'Driving license']}
                     />
-                    <Select
-                        onChange={(e) => setDocNumber(e.target.value)}
-                        title={translation('selectDocNumbTitle')}
-                        points={['some']}
+                    <Form
+                        onChange={(e) => {
+                            setDocNumber(e.target.value)
+                            localStorage.setItem('docNumber', e.target.value)
+                        }}
+                        title={translation('formDocNumbTitle')}
+                        placeHolder={translation('formDocNumbPlaceHolder')}
+                        value={docNumber}
                     />
                 </div>
                 <Form
-                    onChange={(e) => setAddr(e.target.value)}
+                    onChange={(e) => {
+                        setAddr(e.target.value)
+                        localStorage.setItem('addr', e.target.value)
+                    }}
                     title={translation('formWalletTitle')}
                     placeHolder={translation('formWalletPlaceHolder')}
+                    value={addr}
                 />
                 <div className="kyc-personal-fourRow">
                     <CheckBox
                         label={translation('checkBoxLabel')}
-                        handleChange={handleChangeBox}
+                        onToggle={() => setChecked(!checked)}
                         checked={checked}
                     />
                     {!checked && <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
@@ -100,40 +144,68 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                     <>
                         <div className="kyc-personal-fiveRow">
                             <Form
-                                onChange={(e) => setPName(e.target.value)}
+                                onChange={(e) => {
+                                    setPName(e.target.value)
+                                    localStorage.setItem('pName', e.target.value)
+                                }}
                                 title={translation('formPNameTitle')}
                                 placeHolder={translation('formPNamePlaceHolder')}
+                                value={pName}
                             />
                             <Form
-                                onChange={(e) => setPSite(e.target.value)}
+                                onChange={(e) => {
+                                    setPSite(e.target.value)
+                                    localStorage.setItem('pSite', e.target.value)
+                                }}
                                 title={translation('formPSiteTitle')}
                                 placeHolder={translation('formPSitePlaceHolder')}
+                                value={pSite}
                             />
                         </div>
                         <Form
-                            onChange={(e) => setPDesc(e.target.value)}
+                            onChange={(e) => {
+                                setPDesc(e.target.value)
+                                localStorage.setItem('pDesc', e.target.value)
+                            }}
                             title={translation('formPDescTitle')}
                             placeHolder={translation('formPDescPlaceHolder')}
+                            value={pDesc}
                         />
                         <Form
-                            onChange={(e) => setPGh(e.target.value)}
+                            onChange={(e) => {
+                                setPGh(e.target.value)
+                                localStorage.setItem('pGh', e.target.value)
+                            }}
                             title={translation('formPGhTitle')}
                             placeHolder={translation('formPGhPlaceHolder')}
+                            value={pGh}
                         />
                         <Form
-                            onChange={(e) => setPTw(e.target.value)}
+                            onChange={(e) => {
+                                setPTw(e.target.value)
+                                localStorage.setItem('pTw', e.target.value)
+                            }}
                             title={translation('formPTwTitle')}
                             placeHolder={translation('formPTwPlaceHolder')}
+                            value={pTw}
                         />
                         <Form
-                            onChange={(e) => setPDc(e.target.value)}
+                            onChange={(e) => {
+                                setPDc(e.target.value)
+                                localStorage.setItem('pDc', e.target.value)
+                            }}
                             title={translation('formPDcTitle')}
                             placeHolder={translation('formPDcPlaceHolder')}
+                            value={pDc}
                         />
                         <Form
-                            onChange={(e) => setPTg(e.target.value)}
+                            onChange={(e) => {
+                                setPTg(e.target.value)
+                                localStorage.setItem('pTg', e.target.value)
+                            }}
                             title={translation('formPTgTitle')}
                             placeHolder={translation('formPTgPlaceHolder')}
+                            value={pTg}
                         />
                         <Button handleClick={handleComplete} title={translation('btnContinue')}/>
                     </>

@@ -1,7 +1,8 @@
 import './KHeader.scss';
 import React from 'react';
 import useTranslation from "../../../hooks/useTranslation";
-import DarkMode from "../../SvgIcon/ThemaIcon";
+import KThemeToggle from "../KThemeToggle";
+
 
 interface IKHeaderProps {
 
@@ -13,7 +14,7 @@ const KHeader: React.FC<IKHeaderProps> = () => {
     return (
         <div className="kyc-header">
             <p>{translation('title')}</p>
-            <DarkMode/>
+            <KThemeToggle/>
         </div>
     );
 }

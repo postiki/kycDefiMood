@@ -4,6 +4,8 @@ import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 
+import * as api from '../../../../services/api';
+
 interface IKGreetingsReferralProps {
     handleComplete: (props: string) => void
 }
@@ -13,6 +15,8 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
     const [referralId, setReferralId] = useState('')
 
     const handleApply = () => {
+        api.addRefCode(localStorage.getItem('email'), referralId)
+        //TODO add catch error if not saved
         handleComplete(referralId)
     }
 
@@ -25,6 +29,7 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
                 title={translation('referralFormTitle')}
                 placeHolder={translation('referralFormPlaceHolder')}
                 small
+                value={referralId}
             />
             <Button handleClick={handleApply} title={translation('btnEnter')}/>
         </div>

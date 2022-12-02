@@ -39,7 +39,7 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
     }, [stage])
 
     return (
-        <div className="kyc-progressbar">
+        <div className="kyc-progressbar" style={{display: 'none'}}>
             <div className={'kyc-progressbar-item'}>
                 <div className={'kyc-progressbar-item-box'}>
                     {separatedStage.start && <div className={'kyc-progressbar-item-box-check'}/>}

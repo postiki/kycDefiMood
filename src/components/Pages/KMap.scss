@@ -7,6 +7,8 @@
   gap: 80px;
 
   padding: 15px calc(165 / 1440 * 100vw) 0 calc(165 / 1440 * 100vw); //TODO add response padding
+  padding-bottom: 36px;
+  background-color: var(--background-color);
 
   &-body {
     width: 100%;
@@ -17,19 +19,45 @@
 
   &-footer {
     width: 350px;
-    height: 350px;
+    height: 386px;
 
     text-align: center;
     pointer-events: none;
 
-    p{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: var(--background-color);
+
+    &-logo {
+      width: 350px;
+      height: 350px;
+
+      //background-size: contain;
+      //background-color: transparent;
+      //background-position: center;
+
+      video{
+        width: 100%;
+      }
+    }
+
+    p {
       @include h3-regular;
       color: #848786;
     }
 
-    span{
+    span {
       @include h3-bold;
-      color: #090909;
+      color: var(--text-color);
     }
+  }
+}
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .k-map {
+    padding: 20px 15px;
+    gap: 60px;
   }
 }

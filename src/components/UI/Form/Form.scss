@@ -34,12 +34,13 @@
       }
     }
 
-    label {
+    p {
       position: absolute;
-      top: -12px;
+
+      top: -7px;
       left: 20px;
 
-      padding: 6px;
+      padding: 0 5px;
 
       background: white;
 
@@ -54,25 +55,28 @@
 
     padding-left: 15px;
 
-    border: 3px solid #090909;
+    border: 3px solid var(--border-color);
     box-sizing: border-box;
 
     @include h3-regular;
+    color: var(--text-color);
 
     &:focus {
-      color: #090909;
+      color: var(--text-color);
     }
   }
 
-  label {
+  p {
     position: absolute;
-    top: -12px;
+
+    top: -7px;
     left: 20px;
 
-    padding: 6px;
+    padding: 0 5px;
 
-    background: white;
+    background: var(--background-color);
 
     @include h4-regular;
+    color: var(--text-color);
   }
 }

@@ -7,13 +7,15 @@ import {useStore} from "effector-react";
 import {stage$} from "../../entities/progress-manager";
 import KPersonal from "./KPersonal";
 import KContinueOnPhone from "./KContinueOnPhone";
+import {useTheme} from "../../hooks/useThemes";
 
-interface IKMapProps {
+interface IKPersonalProps {
 
 }
 
-const KMap: React.FC<IKMapProps> = () => {
+const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
+    const {theme} = useTheme()
     return (
         <div className="k-map">
             <KHeader/>
@@ -24,12 +26,17 @@ const KMap: React.FC<IKMapProps> = () => {
                 {stage === 3 && <KContinueOnPhone/>}
             </div>
             <div className="k-map-footer">
-                <iframe
-                    title={'logoAnimation'}
-                    src='https://my.spline.design/untitled-face9c72c891169cc43185676a5f35f0/'
-                    width='100%' height='100%'
-                    frameBorder={0}
-                />
+                <div
+                    className={'k-map-footer-logo'}
+                >
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        id="myVideo"
+                        src={`/video/light.mov`}
+                    />
+                </div>
                 <p>Powered by <span>defimoon</span></p>
             </div>
         </div>

@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
+import * as api from '../../../../services/api';
 
 interface IKGreetingsVerifyCodeProps {
     handleComplete: (props: string) => void
@@ -12,9 +13,24 @@ interface IKGreetingsVerifyCodeProps {
 const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
     const [code, setCode] = useState('')
+    const [err, setErr] = useState('')
+
+    const saveUser = () => {
+        api.saveUser(localStorage.getItem('email'))
+    }
 
     const handleApplyCode = () => {
-        handleComplete(code)
+        // api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
+        //     if (!invalid) {
+        //         setErr('');
+        //         saveUser()
+        //         handleComplete(code)
+        //     } else {
+        //         setErr('not valid code');
+        //     }
+        // });
+
+        handleComplete(code) //TODO remove
     }
 
     return (
@@ -26,6 +42,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                 title={translation('sendCodeFormTitle')}
                 placeHolder={translation('sendCodeFormPlaceHolder')}
                 small
+                value={code}
             />
             <Button handleClick={handleApplyCode} title={translation('btnEnter')}/>
             <p>

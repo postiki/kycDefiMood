@@ -4,6 +4,9 @@ import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 
+import * as api from '../../../../services/api';
+import {idGenerator} from "../../../../services/idGenerator";
+
 interface IKGreetingsEmailProps {
     handleComplete: (props: string) => void
 }
@@ -13,8 +16,15 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     const [email, setEmail] = useState('')
 
     const handleSendCode = () => {
+        // api.getVerifyCode(email, idGenerator(24)).then(r => {
+        //     localStorage.setItem('id', r.id)
+        //     localStorage.setItem('email', email)
+        // })
+
         handleComplete(email)
     }
+
+    const disabledButton = false; //TODO add regex
 
     return (
         <div className={'greetings-email'}>
@@ -24,8 +34,9 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
                 onChange={(e) => setEmail(e.target.value)}
                 title={translation('formTitle')}
                 placeHolder={translation('formPlaceHolder')}
+                value={email}
             />
-            <Button handleClick={handleSendCode} title={translation('btnEnter')}/>
+            <Button disabled={disabledButton} handleClick={handleSendCode} title={translation('btnEnter')}/>
         </div>
     )
 }

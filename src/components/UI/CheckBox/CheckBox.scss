@@ -5,6 +5,7 @@
   height: 25px;
 
   display: flex;
+  align-items: center;
   gap: 15px;
 
   &__box {
@@ -15,17 +16,18 @@
     align-items: center;
     justify-content: center;
 
-    border: 2px solid #090909;
+    border: 2px solid var(--border-color);
 
     &-check{
       width: 14px;
       height: 14px;
 
-      background: #1E24CC;
+      background: var(--title-color);
     }
   }
 
   &__label {
     @include h3-regular;
+    color: var(--text-color);
   }
 }

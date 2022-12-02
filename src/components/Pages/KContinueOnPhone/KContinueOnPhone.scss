@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
 
-  border: 3px solid #090909;
+  border: 3px solid var(--border-color);
 
   &__wrapper {
     width: 76%;
@@ -43,6 +43,7 @@
 
       p {
         @include h3-regular;
+        color: var(--text-color)
       }
     }
 
@@ -56,7 +57,7 @@
       justify-content: center;
       text-align: center;
 
-      border: 3px solid #090909;
+      border: 3px solid var(--border-color);
 
       &-wrapper {
         width: 70%;
@@ -72,16 +73,16 @@
 
   h1 {
     @include h2-bold;
-    color: #1E24CC;
+    color: var(--title-color);
   }
 
   h2 {
     @include h3-bold;
-    color: #090909;
+    color: var(--text-color);
   }
 
   h3 {
     @include h4-regular;
-    color: #090909;
+    color: var(--text-color);
   }
 }

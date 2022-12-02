@@ -1,0 +1,78 @@
+@import './src/scss/mixins';
+
+.kyc-select-country {
+  position: relative;
+  width: 100%;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+
+  border: 3px solid #090909;
+
+  &-title {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+
+    padding: 0 5px;
+
+    background: white;
+
+    @include h4-regular;
+
+    z-index: 3;
+  }
+
+  &-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+
+    background: white;
+
+    input {
+      p {
+        @include h3-regular;
+      }
+    }
+  }
+
+  &-dropdown {
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 144px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    outline: 3px solid #090909;
+
+    z-index: 1;
+    background: white;
+
+    overflow: scroll;
+
+    &-item {
+      width: 80%;
+
+      display: flex;
+      padding: 15px 0;
+
+      p {
+        @include h3-regular;
+      }
+
+      border-bottom: 3px solid #090909;
+    }
+  }
+}
