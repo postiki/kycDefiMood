@@ -31,3 +31,24 @@
     color: var(--text-color);
   }
 }
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-checkBox {
+    width: auto;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    &__box {
+      width: 18px;
+      height: 18px;
+
+      &-check{
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}

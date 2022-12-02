@@ -6,7 +6,7 @@ import KGreetings from "./KGreetings";
 import {useStore} from "effector-react";
 import {stage$} from "../../entities/progress-manager";
 import KPersonal from "./KPersonal";
-import KContinueOnPhone from "./KContinueOnPhone";
+import KContinueOnPhone from "./KPersonal/KContinueOnPhone";
 import {useTheme} from "../../hooks/useThemes";
 
 interface IKPersonalProps {
@@ -23,7 +23,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
                 <KProgressBar/>
                 {stage === 1 && <KGreetings/>}
                 {stage === 2 && <KPersonal/>}
-                {stage === 3 && <KContinueOnPhone/>}
+                {/*{stage === 3 && <KContinueOnPhone/>}*/}
             </div>
             <div className="k-map-footer">
                 <div
@@ -34,7 +34,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
                         muted
                         loop
                         id="myVideo"
-                        src={`/video/light.mov`}
+                        src={`/video/${theme}.mp4`}
                     />
                 </div>
                 <p>Powered by <span>defimoon</span></p>

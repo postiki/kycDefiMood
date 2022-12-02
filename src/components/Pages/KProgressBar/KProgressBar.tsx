@@ -5,6 +5,13 @@ import {useStore} from "effector-react";
 import {stage$} from "../../../entities/progress-manager";
 import classNames from "classnames";
 
+const stages = {
+    0: 'start',
+    1: 'personal',
+    2: 'identity',
+    3: 'success',
+}
+
 interface IKProgressBarProps {
 
 }
@@ -38,8 +45,23 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
         }
     }, [stage])
 
+    const isMobile = window.innerWidth < 1366
+
+    // @ts-ignore
+    const stageName= stages[stage-1]
+
+    if (isMobile) {
+        return (
+            <div className="kyc-progressbar-mobile">
+                <h1>Step {stage}/5:
+                    <span>{translation(`${stageName}`)}</span>
+                </h1>
+            </div>
+        )
+    }
+
     return (
-        <div className="kyc-progressbar" style={{display: 'none'}}>
+        <div className="kyc-progressbar">
             <div className={'kyc-progressbar-item'}>
                 <div className={'kyc-progressbar-item-box'}>
                     {separatedStage.start && <div className={'kyc-progressbar-item-box-check'}/>}

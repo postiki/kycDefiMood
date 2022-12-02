@@ -9,7 +9,7 @@
   justify-content: space-between;
   flex-direction: column;
 
-  &-line{
+  &-line {
     width: 3px;
     height: 25%;
 
@@ -44,9 +44,29 @@
       @include h3-bold;
       color: #848786;
 
-      &--active{
+      &--active {
         color: var(--title-color);
       }
     }
+  }
+}
+
+.kyc-progressbar-mobile {
+  width: 80%;
+  height: 39px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid var(--border-color);
+
+  h1 {
+    @include h3-bold;
+    color: var(--text-color);
+  }
+
+  span {
+    color: var(--title-color);
   }
 }

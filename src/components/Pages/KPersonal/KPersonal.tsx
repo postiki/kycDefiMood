@@ -9,6 +9,7 @@ import {stageUp} from "../../../entities/progress-manager";
 
 import country from './country.json'
 import SelectCountry from "../../UI/SelectCountry";
+import KContinueOnPhone from "./KContinueOnPhone";
 
 interface IKPersonalProps {
 
@@ -36,10 +37,16 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const [pDc, setPDc] = useState<string | null>('')
     const [pTg, setPTg] = useState<string | null>('')
 
+    const [complete, setComplete] = useState(false)
+
 
     const handleComplete = () => {
         //TODO send here data to backend
-        stageUp()
+
+        setComplete(true)
+        if (isMobile){
+            stageUp()
+        }
     }
 
     useEffect(() => {
@@ -61,6 +68,14 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         setPTg(localStorage.getItem('pTg'))
     }, [])
 
+    const isMobile = window.innerWidth < 1366
+
+    if (complete && !isMobile) {
+        return (
+            <KContinueOnPhone/>
+        )
+    }
+
     return (
         <div className="kyc-personal">
             <div className="kyc-personal__wrapper">
@@ -75,6 +90,19 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         placeHolder={translation('formNamePlaceHolder')}
                         value={name}
                     />
+                    {!isMobile &&
+                        <Form
+                            onChange={(e) => {
+                                setDate(e.target.value)
+                                localStorage.setItem('date', e.target.value)
+                            }}
+                            title={translation('formDateTitle')}
+                            placeHolder={translation('formDatePlaceHolder')}
+                            value={date}
+                        />
+                    }
+                </div>
+                {isMobile &&
                     <Form
                         onChange={(e) => {
                             setDate(e.target.value)
@@ -84,7 +112,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         placeHolder={translation('formDatePlaceHolder')}
                         value={date}
                     />
-                </div>
+                }
                 <div className="kyc-personal-secondRow">
                     <SelectCountry
                         onChange={(props) => {
@@ -94,6 +122,18 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         title={translation('selectCitizenshipTitle')}
                         points={country}
                     />
+                    {!isMobile &&
+                        <SelectCountry
+                            onChange={(props) => {
+                                setResidence(props)
+                                localStorage.setItem('residence', props)
+                            }}
+                            title={translation('selectResidenceTitle')}
+                            points={country}
+                        />
+                    }
+                </div>
+                {isMobile &&
                     <SelectCountry
                         onChange={(props) => {
                             setResidence(props)
@@ -102,7 +142,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         title={translation('selectResidenceTitle')}
                         points={country}
                     />
-                </div>
+                }
                 <div className="kyc-personal-thirdRow">
                     <Select
                         onChange={(props) => {
@@ -112,6 +152,19 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         title={translation('selectDocTypeTitle')}
                         points={['Passport', 'ID card', 'Driving license']}
                     />
+                    {!isMobile &&
+                        <Form
+                            onChange={(e) => {
+                                setDocNumber(e.target.value)
+                                localStorage.setItem('docNumber', e.target.value)
+                            }}
+                            title={translation('formDocNumbTitle')}
+                            placeHolder={translation('formDocNumbPlaceHolder')}
+                            value={docNumber}
+                        />
+                    }
+                </div>
+                {isMobile &&
                     <Form
                         onChange={(e) => {
                             setDocNumber(e.target.value)
@@ -121,7 +174,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         placeHolder={translation('formDocNumbPlaceHolder')}
                         value={docNumber}
                     />
-                </div>
+                }
                 <Form
                     onChange={(e) => {
                         setAddr(e.target.value)
@@ -137,8 +190,9 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         onToggle={() => setChecked(!checked)}
                         checked={checked}
                     />
-                    {!checked && <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
+                    {!checked && !isMobile && <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
                 </div>
+                {!checked && isMobile && <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
 
                 {checked && (
                     <>
@@ -152,6 +206,19 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                                 placeHolder={translation('formPNamePlaceHolder')}
                                 value={pName}
                             />
+                            {!isMobile &&
+                                <Form
+                                    onChange={(e) => {
+                                        setPSite(e.target.value)
+                                        localStorage.setItem('pSite', e.target.value)
+                                    }}
+                                    title={translation('formPSiteTitle')}
+                                    placeHolder={translation('formPSitePlaceHolder')}
+                                    value={pSite}
+                                />
+                            }
+                        </div>
+                        {isMobile &&
                             <Form
                                 onChange={(e) => {
                                     setPSite(e.target.value)
@@ -161,7 +228,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                                 placeHolder={translation('formPSitePlaceHolder')}
                                 value={pSite}
                             />
-                        </div>
+                        }
                         <Form
                             onChange={(e) => {
                                 setPDesc(e.target.value)

@@ -1,8 +1,8 @@
 import './KContinueOnPhone.scss'
 import React from "react";
-import useTranslation from "../../../hooks/useTranslation";
-import Button from "../../UI/Button";
-import {stageDown} from "../../../entities/progress-manager";
+import useTranslation from "../../../../hooks/useTranslation";
+import Button from "../../../UI/Button";
+import {stageDown} from "../../../../entities/progress-manager";
 
 interface IKContinueOnPhoneProps {
 
