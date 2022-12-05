@@ -67,6 +67,13 @@
       "identity": "Identity document",
       "selfie": "Selfie",
       "success": "Success"
+    },
+    "identity": {
+      "title": "Take a photo of the identity document",
+      "access": "Give access to the camera",
+      "allowBtn" : "Allow",
+      "btn": "UploadPhoto",
+      "retake": "Retake photo"
     }
   }
 }

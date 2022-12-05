@@ -73,3 +73,33 @@ export async function addRefCode(email, refCode){
 
     return res.json()
 }
+
+export async function addPersonalInfo(email, {...props}){
+    const res = await fetch(`${BASE_URL}/user/info`,{
+        method: 'POST',
+        headers: JSON_HEADERS,
+        body: JSON.stringify({
+            email: email,
+            name: props.name,
+            date: props.date,
+            citizenship: props.citizenship,
+            residence: props.residence,
+            docType: props.docType,
+            docNumber: props.docNumber,
+            addr: props.addr,
+            pName: props?.pName,
+            pSite: props?.pSite,
+            pDesc: props?.pDesc,
+            pGh: props?.pGh,
+            pTw: props?.pTw,
+            pDc: props?.pDc,
+            pTg: props?.pTg,
+        }),
+    });
+
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return res.json()
+}

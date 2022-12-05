@@ -5,9 +5,10 @@ import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 import * as api from '../../../../services/api';
+import {setStage} from "../../../../entities/progress-manager";
 
 interface IKGreetingsVerifyCodeProps {
-    handleComplete: (props: string) => void
+    handleComplete: () => void
 }
 
 const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleComplete}) => {
@@ -16,21 +17,28 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const [err, setErr] = useState('')
 
     const saveUser = () => {
-        api.saveUser(localStorage.getItem('email'))
+        api.saveUser(localStorage.getItem('email')).then(r => {
+            console.log(r)
+            const completeStage = r.stage
+
+            switch (completeStage){
+                case '2': handleComplete()
+                    break
+                case '3': setStage(3)
+                    break
+            }
+        })
     }
 
     const handleApplyCode = () => {
-        // api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
-        //     if (!invalid) {
-        //         setErr('');
-        //         saveUser()
-        //         handleComplete(code)
-        //     } else {
-        //         setErr('not valid code');
-        //     }
-        // });
-
-        handleComplete(code) //TODO remove
+        api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
+            if (!invalid) {
+                setErr('');
+                saveUser()
+            } else {
+                setErr('not valid code');
+            }
+        });
     }
 
     return (

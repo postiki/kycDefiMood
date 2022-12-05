@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px;
 
   padding: 15px calc(165 / 1440 * 100vw) 36px calc(165 / 1440 * 100vw); //TODO add response padding
   background-color: var(--background-color);
@@ -14,7 +13,9 @@
 
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+
+    padding-bottom: 80px;
   }
 
   &-footer {
@@ -58,10 +59,10 @@
 @media (min-width: 360px) and (max-width: 428px) {
   .k-map {
     padding: 40px 15px;
-    gap: 60px;
 
     &-body{
       flex-direction: column;
+      align-items: center;
       gap: 25px;
     }
   }

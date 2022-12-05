@@ -16,12 +16,13 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     const [email, setEmail] = useState('')
 
     const handleSendCode = () => {
-        // api.getVerifyCode(email, idGenerator(24)).then(r => {
-        //     localStorage.setItem('id', r.id)
-        //     localStorage.setItem('email', email)
-        // })
-
-        handleComplete(email)
+        api.getVerifyCode(email, idGenerator(24)).then(r => {
+            localStorage.setItem('id', r.id)
+            localStorage.setItem('email', email)
+            handleComplete(email)
+        })
+        // localStorage.setItem('email', email)//TODO remove
+        // handleComplete(email)//TODO remove
     }
 
     const disabledButton = false; //TODO add regex

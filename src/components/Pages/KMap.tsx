@@ -1,13 +1,14 @@
 import './KMap.scss';
-import React from 'react';
+import React, {useEffect} from 'react';
 import KHeader from "./KHeader";
 import KProgressBar from "./KProgressBar";
 import KGreetings from "./KGreetings";
 import {useStore} from "effector-react";
-import {stage$} from "../../entities/progress-manager";
+import {stage$, stageUp} from "../../entities/progress-manager";
 import KPersonal from "./KPersonal";
-import KContinueOnPhone from "./KPersonal/KContinueOnPhone";
+
 import {useTheme} from "../../hooks/useThemes";
+import KIdentity from "./KIdentity";
 
 interface IKPersonalProps {
 
@@ -16,14 +17,25 @@ interface IKPersonalProps {
 const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
     const {theme} = useTheme()
+
+    const queryParameters = new URLSearchParams(window.location.search)
+    const token = queryParameters.get("token")
+
+    useEffect(() => {
+        if (token === '444') {
+            stageUp()
+        }
+    }, [])
+
     return (
         <div className="k-map">
             <KHeader/>
             <div className="k-map-body">
                 <KProgressBar/>
-                {stage === 1 && <KGreetings/>}
-                {stage === 2 && <KPersonal/>}
-                {/*{stage === 3 && <KContinueOnPhone/>}*/}
+                {stage === 1 && <KIdentity/>}
+                {/*{stage === 1 && <KGreetings/>}*/}
+                {/*{stage === 2 && <KPersonal/>}*/}
+                {/*{stage === 3 && <KIdentity/>}*/}
             </div>
             <div className="k-map-footer">
                 <div

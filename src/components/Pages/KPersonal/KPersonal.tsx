@@ -9,7 +9,9 @@ import {stageUp} from "../../../entities/progress-manager";
 
 import country from './country.json'
 import SelectCountry from "../../UI/SelectCountry";
-import KContinueOnPhone from "./KContinueOnPhone";
+import KContinueOnPhone from "../KIdentity/KContinueOnPhone";
+
+import * as api from '../../../services/api';
 
 interface IKPersonalProps {
 
@@ -42,11 +44,26 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const handleComplete = () => {
         //TODO send here data to backend
-
-        setComplete(true)
-        if (isMobile){
-            stageUp()
+        const info = {
+            name: name,
+            date: date,
+            citizenship: citizenship,
+            residence: residence,
+            docType: docType,
+            docNumber: docNumber,
+            addr: addr,
+            pName: pName,
+            pSite: pSite,
+            pDesc: pDesc,
+            pGh: pGh,
+            pTw: pTw,
+            pDc: pDc,
+            pTg: pTg,
         }
+
+        api.addPersonalInfo(localStorage.getItem('email'), info).then(r => console.log(r))
+
+        stageUp()
     }
 
     useEffect(() => {
@@ -69,12 +86,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     }, [])
 
     const isMobile = window.innerWidth < 1366
-
-    if (complete && !isMobile) {
-        return (
-            <KContinueOnPhone/>
-        )
-    }
 
     return (
         <div className="kyc-personal">
