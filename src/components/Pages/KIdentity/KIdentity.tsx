@@ -22,11 +22,10 @@ const KIdentity: React.FC<IKIdentifyProps> = () => {
     return (
         <div className={'kyc-identify'}>
             <h1>{translation('title')}</h1>
-
-            <div className={'kyc-identify-photo'}></div>
-
-            <Button handleClick={() => console.log('')} title={translation('btn')}/>
-
+            <div className={'kyc-identify-photo'}>
+                <Button handleClick={ () => console.log('give access')}/>
+            </div>
+            <Button handleClick={() => console.log('upload')} title={translation('btn')}/>
             <h3>{translation('retake')}</h3>
         </div>
     )

@@ -9,6 +9,8 @@
   justify-content: space-between;
   align-items: center;
 
+  text-align: center;
+
   padding: 20px 0;
 
   border: 3px solid var(--border-color);
@@ -18,13 +20,20 @@
     color: var(--title-color)
   }
 
-  h3{
+  h3 {
     @include h4-regular;
     color: var(--title-color);
     border-bottom: 1px solid var(--title-color);
   }
 
   &-photo {
+    width: 90%;
+    height: 65%;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid var(--border-color);
   }
 }
