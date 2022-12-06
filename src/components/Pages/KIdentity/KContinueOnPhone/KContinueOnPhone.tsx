@@ -1,11 +1,13 @@
 import './KContinueOnPhone.scss'
-import React from "react";
-// import jwt from 'jsonwebtoken';
+import React, {useEffect, useState} from "react";
 import QRCode from "react-qr-code";
+import jwt from 'jsonwebtoken'
 
 import useTranslation from "../../../../hooks/useTranslation";
 import Button from "../../../UI/Button";
 import {stageDown} from "../../../../entities/progress-manager";
+
+import * as api from '../../../../services/api';
 
 interface IKContinueOnPhoneProps {
 
@@ -13,17 +15,23 @@ interface IKContinueOnPhoneProps {
 
 const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
     const translation = useTranslation('continue')
+    const [url, setUrl] = useState('')
 
-    // const getToken = () => {
-    //     const token = jwt.sign({
-    //         username: localStorage.getItem('id'),
-    //         expiresIn: process.env.REACT_APP_TOKEN_EXP
-    //     }, process.env.REACT_APP_SECRECT_TOKEN || '');
-    //
-    //     //TODO send to backend
-    // }
+    const newUrl = () => {
+        const token = jwt.sign({
+            info: 'someinfo',
+            // expiresIn:  Math.floor(Date.now() / 1000) - Number(process.env.REACT_APP_TOKEN_EXP)
+            expiresIn:  Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
+        }, process.env.REACT_APP_SECRECT_TOKEN || '');
 
+        console.log(`http://192.168.100.2:3000/?token=${token}`, process.env.REACT_APP_TOKEN_EXP, process.env.REACT_APP_SECRECT_TOKEN)
 
+        return setUrl(`http://192.168.100.2:3000/?token=${token}`)
+    }
+
+    useEffect(() => {
+        newUrl()
+    }, [])
     return (
         <div className={'kyc-continue'}>
             <div className={'kyc-continue__wrapper'}>
@@ -41,16 +49,23 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
                                 <QRCode
                                     size={256}
                                     style={{height: "auto", maxWidth: "100%", width: "100%"}}
-                                    value={'http://192.168.100.2:3000/?token=444'}
+                                    value={url}
                                     viewBox={`0 0 256 256`}
                                 />
                             </div>
-                            <h3>{translation('scan')}</h3>
+                            <h3 onClick={() => newUrl()}>{translation('scan')}</h3>
                         </div>
                     </div>
                 </div>
                 <Button
-                    handleClick={() => stageDown()}
+                    handleClick={() => console.log({
+                        // 'token': token,
+                        // 'encodedString': encodedToken,
+                        // 'originalURL': originalURL,
+                        // 'encodedURL': encodedURL,
+                        // 'decodedURL': decodedURL,
+                        // 'decodedString': decodedString,
+                    })}
                     title={translation('btnGoBack')}
                     alt
                 />
@@ -59,4 +74,4 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
     )
 }
 
-export default KContinueOnPhone
+export default KContinueOnPhone;

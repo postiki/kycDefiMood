@@ -23,7 +23,7 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
         })
         // localStorage.setItem('email', email)//TODO remove
         // handleComplete(email)//TODO remove
-    }
+    } //TODO remove to effector
 
     const disabledButton = false; //TODO add regex
 

@@ -28,7 +28,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                     break
             }
         })
-    }
+    } //TODO remove to effector
 
     const handleApplyCode = () => {
         api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
@@ -39,7 +39,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                 setErr('not valid code');
             }
         });
-    }
+    } //TODO remove to effector
 
     return (
         <div className={'greetings-verify'}>
