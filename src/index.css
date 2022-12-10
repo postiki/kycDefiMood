@@ -7,8 +7,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-p, input, h1, h2, h3 {
+p, input, h1, h2, h3,input {
     margin: 0;
+    padding: 0;
+}
+
+th{
+    font-weight: inherit;
 }
 
 input {
@@ -33,6 +38,7 @@ html[data-theme='dark'] {
     --button-backgroud-hover: #50FFA0;
     --button-backgroud-disabled: rgba(66, 219, 136, 0.5);
     --button-backgroud-active: #35B36F;
+    --bg-gif: url(/public/images/black.gif)
 }
 
 html[data-theme='light'] {
@@ -46,4 +52,5 @@ html[data-theme='light'] {
     --button-backgroud-hover: #00059C;
     --button-backgroud-disabled: #BBBDEF;
     --button-backgroud-active: #00035B;
+    --bg-gif: url(/public/images/white.gif)
 }

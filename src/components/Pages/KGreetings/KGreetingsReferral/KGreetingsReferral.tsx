@@ -15,9 +15,7 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
     const [referralId, setReferralId] = useState('')
 
     const handleApply = () => {
-        api.addRefCode(localStorage.getItem('email'), referralId)
-        //TODO add catch error if not saved
-        handleComplete(referralId)
+        api.addRefCode(localStorage.getItem('email'), referralId).then(r => r.ok && handleComplete(referralId))
     }
 
     return (

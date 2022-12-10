@@ -6,6 +6,9 @@ import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 import * as api from '../../../../services/api';
 import {setStage} from "../../../../entities/progress-manager";
+import {useDebounce} from "react-use";
+import validateEmail from "../../../../services/validateEmail";
+import validateCode from "../../../../services/validateCode";
 
 interface IKGreetingsVerifyCodeProps {
     handleComplete: () => void
@@ -14,17 +17,29 @@ interface IKGreetingsVerifyCodeProps {
 const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
     const [code, setCode] = useState('')
-    const [err, setErr] = useState('')
+    const [error, setError] = useState('')
+    const [disabledBtn, setDisabledBtn] = useState(false)
 
     const saveUser = () => {
         api.saveUser(localStorage.getItem('email')).then(r => {
             console.log(r)
             const completeStage = r.stage
 
-            switch (completeStage){
-                case '2': handleComplete()
+            switch (completeStage) {
+                case '2':
+                    handleComplete()
                     break
-                case '3': setStage(3)
+                case '3':
+                    setStage(3)
+                    break
+                case '4':
+                    setStage(4)
+                    break
+                case '5':
+                    setStage(5)
+                    break
+                case '6':
+                    setStage(6)
                     break
             }
         })
@@ -33,13 +48,28 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const handleApplyCode = () => {
         api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
             if (!invalid) {
-                setErr('');
+                setError('errorCode');
                 saveUser()
             } else {
-                setErr('not valid code');
+                setError('not valid code');
             }
         });
     } //TODO remove to effector
+
+    useDebounce(
+        () => {
+            if (!validateCode(code)) {
+                setError('incorrectCode')
+                setDisabledBtn(true)
+                return;
+            }
+
+            setError('')
+            setDisabledBtn(false)
+        },
+        200,
+        [code]
+    );
 
     return (
         <div className={'greetings-verify'}>
@@ -51,8 +81,9 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                 placeHolder={translation('sendCodeFormPlaceHolder')}
                 small
                 value={code}
+                error={translation(`${error}`)}
             />
-            <Button handleClick={handleApplyCode} title={translation('btnEnter')}/>
+            <Button disabled={disabledBtn} handleClick={handleApplyCode} title={translation('btnEnter')}/>
             <p>
                 {translation('sendCodeNotReceive')}
                 <br/>

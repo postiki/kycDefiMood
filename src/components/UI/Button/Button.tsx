@@ -23,7 +23,7 @@ const Button: React.FC<IButtonProps> = ({handleClick, title, alt, disabled}) => 
                 disabled={disabled}
                 onClick={handleClick}
         >
-            <p>{title}</p>
+            {title}
         </button>
     )
 }

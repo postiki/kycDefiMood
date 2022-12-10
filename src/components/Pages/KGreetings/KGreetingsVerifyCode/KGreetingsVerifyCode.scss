@@ -11,6 +11,11 @@
 
   text-align: center;
 
+  p{
+    @include h4-regular;
+    color: var(--text-color);
+  }
+
   span{
     color: var(--title-color);
     border-bottom: 1px solid var(--title-color);

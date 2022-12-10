@@ -3,19 +3,21 @@ import React, {useEffect} from 'react';
 import KHeader from "./KHeader";
 import KProgressBar from "./KProgressBar";
 import {useStore} from "effector-react";
-import {setStage, stage$, stageUp} from "../../entities/progress-manager";
+import {useJwt} from "react-jwt";
+
+import {setStage, stage$} from "../../entities/progress-manager";
 
 import {useTheme} from "../../hooks/useThemes";
 import KIdentity from "./KIdentity";
 import KGreetings from "./KGreetings";
 import KPersonal from "./KPersonal";
+import KCalendar from "./KVideoCall/KCalendar/KCalendar";
+import KVideoCall from "./KVideoCall/KVideoCall";
+import KSuccess from "./KSuccess";
 
-import * as api from '../../services/api'
-import jwt from "jsonwebtoken";
-import {useJwt} from "react-jwt";
-
-interface token {
+interface IToken {
     expiresIn: string
+    info: string
 }
 
 interface IKPersonalProps {
@@ -24,25 +26,21 @@ interface IKPersonalProps {
 
 const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
-    const {theme} = useTheme()
     const queryParameters = new URLSearchParams(window.location.search)
     const token = queryParameters.get("token")
 
-    const {decodedToken, reEvaluateToken} = useJwt(token || '');
+    const {decodedToken} = useJwt(token || '');
 
+    //TODO remove all ts ignore
     useEffect(() => {
-        console.log({
-            'date now': new Date(),// @ts-ignore
-            'expiresIn': new Date(decodedToken?.expiresIn),// @ts-ignore
-            'isExpired': new Date() > new Date(decodedToken?.expiresIn || null),// @ts-ignore
-            'token': token
-        })
+        if (decodedToken) {
+            // @ts-ignore
+            let isExpired = new Date() > new Date(decodedToken.expiresIn)
 
-        // @ts-ignore
-        let isExpired = new Date() > new Date(decodedToken?.expiresIn || null)
-
-        if (!isExpired) {
-            setStage(3)
+            if (decodedToken && !isExpired) {
+                // @ts-ignore
+                setStage(decodedToken.info)
+            }
         }
     }, [decodedToken, token])
 
@@ -52,22 +50,20 @@ const KMap: React.FC<IKPersonalProps> = () => {
             <KHeader/>
             <div className="k-map-body">
                 <KProgressBar/>
+                {/*{stage === 1 && <KVideoCall/>}*/}
+                {/*{stage === 1 && <KIdentity doc={'doc'}/>}*/}
+                {/*{stage === 1 && <KSuccess/>}*/}
                 {stage === 1 && <KGreetings/>}
                 {stage === 2 && <KPersonal/>}
-                {stage === 3 && <KIdentity/>}
+                {stage === 3 && <KIdentity doc={'doc'}/>}
+                {stage === 4 && <KIdentity doc={'selfie'}/>}
+                {stage === 5 && <KVideoCall/>}
+                {stage === 6 && <KSuccess/>}
             </div>
             <div className="k-map-footer">
                 <div
                     className={'k-map-footer-logo'}
-                >
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        id="myVideo"
-                        src={`/video/${theme}.mp4`}
-                    />
-                </div>
+                />
                 <p>Powered by <span>defimoon</span></p>
             </div>
         </div>

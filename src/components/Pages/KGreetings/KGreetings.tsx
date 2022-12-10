@@ -43,8 +43,6 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
     }
 
     const handleComplete = () => {
-        //TODO send here state to backend
-
         stageUp()
     }
 

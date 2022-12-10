@@ -23,13 +23,15 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
         onChange(selectItem)
     })
 
+    useEffect(() => setFilter(selectItem), [selectItem])
+
     const items = !showDropdown ? points : points.filter(i => i.name.toLowerCase().includes(filter.toLowerCase()))
 
     return (
         <div
             className={classNames({
                 'kyc-select-country': true,
-                // 'kyc-select-country--open': showDropdown,
+                'kyc-select-country--open': showDropdown,
             })}
             onClick={() => setShowDropdown(!showDropdown)}
         >
@@ -48,6 +50,10 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
                             <div
                                 key={index}
                                 className={'kyc-select-country-dropdown-item'}
+                                onClick={() => setSelectItem(country.name)}
+                                style={{
+                                    // margin: index === 0 ? '15px 0 15px 0' : '10px'
+                                }}
                             >
                                 <p>{country.name}</p>
                             </div>

@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 15px calc(165 / 1440 * 100vw) 36px calc(165 / 1440 * 100vw); //TODO add response padding
+  padding: 15px calc(165 / 1440 * 100vw) 36px calc(165 / 1440 * 100vw);
   background-color: var(--background-color);
 
   &-body {
@@ -35,13 +35,11 @@
       width: 350px;
       height: 350px;
 
-      //background-size: contain;
-      //background-color: transparent;
-      //background-position: center;
+      background-size: contain;
+      background-color: transparent;
+      background-position: center;
 
-      video{
-        width: 100%;
-      }
+     background-image: var(--bg-gif);
     }
 
     p {

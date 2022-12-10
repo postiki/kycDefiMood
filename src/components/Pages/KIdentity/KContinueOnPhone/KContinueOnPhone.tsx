@@ -5,9 +5,10 @@ import jwt from 'jsonwebtoken'
 
 import useTranslation from "../../../../hooks/useTranslation";
 import Button from "../../../UI/Button";
-import {stageDown} from "../../../../entities/progress-manager";
+import {stage$, stageDown} from "../../../../entities/progress-manager";
 
 import * as api from '../../../../services/api';
+import {useStore} from "effector-react";
 
 interface IKContinueOnPhoneProps {
 
@@ -16,11 +17,11 @@ interface IKContinueOnPhoneProps {
 const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
     const translation = useTranslation('continue')
     const [url, setUrl] = useState('')
+    const stage = useStore(stage$)
 
     const newUrl = () => {
         const token = jwt.sign({
-            info: 'someinfo',
-            // expiresIn:  Math.floor(Date.now() / 1000) - Number(process.env.REACT_APP_TOKEN_EXP)
+            info: stage,
             expiresIn:  Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
         }, process.env.REACT_APP_SECRECT_TOKEN || '');
 

@@ -9,19 +9,21 @@ interface IFormProps {
     placeHolder: string,
     small?: boolean,
     value?: string | number | null
+    error?: string
 }
 
-const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value}) => {
-    //TODO add variables mask
+const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value,error}) => {
 
     return (
         <div className={classNames({
             'kyc-form': true,
             'kyc-form--small': small,
+            'kyc-form--error': error,
         })}
         >
             <p>{title}</p>
             <input placeholder={placeHolder} value={value || ''} onChange={onChange}/>
+            <div className={'kyc-form-error'}>{error}</div>
         </div>
     )
 }
@@ -31,7 +33,8 @@ Form.propTypes = {
     title: PropTypes.string.isRequired,
     placeHolder: PropTypes.string.isRequired,
     small: PropTypes.bool,
-    value: PropTypes.string
+    value: PropTypes.string,
+    error: PropTypes.string
 }
 
 export default Form;

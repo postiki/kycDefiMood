@@ -43,7 +43,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
 
     const handleComplete = () => {
-        //TODO send here data to backend
         const info = {
             name: name,
             date: date,

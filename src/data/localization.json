@@ -20,7 +20,10 @@
       "enterCode": "enterCode",
       "referralCode": "Enter referral code",
       "referralFormTitle": "Referral_code",
-      "referralFormPlaceHolder": "012 - 345 - 678"
+      "referralFormPlaceHolder": "012 - 345 - 678",
+      "errorEmail": "Email entered incorrectly, please check the spelling of your email",
+      "errorCode": "Incorrect code",
+      "incorrectCode": "code must be of 6 digits"
     },
     "personal": {
       "btnEnter": "Enter",
@@ -66,6 +69,7 @@
       "personal": "Personal info",
       "identity": "Identity document",
       "selfie": "Selfie",
+      "schedule": "Video call",
       "success": "Success"
     },
     "identity": {
@@ -74,6 +78,17 @@
       "allowBtn" : "Allow",
       "btn": "UploadPhoto",
       "retake": "Retake photo"
+    },
+    "schedule": {
+      "title": "Schedule an interview",
+      "btn": "Continue",
+      "pickerTitle": "Select_a_date ",
+      "timeFromTitle": "Select_a_time"
+    },
+    "success": {
+      "title": "Submission  completed successfully",
+      "complete": "Registration completed successfully,thank you ヽ(・∀・)ﾉ",
+      "btn": "Done"
     }
   }
 }

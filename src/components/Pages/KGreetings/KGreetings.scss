@@ -29,11 +29,6 @@
     @include h3-bold;
     color: var(--text-color);
   }
-
-  p{
-    @include h4-regular;
-    color: var(--text-color);
-  }
 }
 
 @media (min-width: 360px) and (max-width: 428px) {

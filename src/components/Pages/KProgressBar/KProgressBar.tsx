@@ -9,7 +9,10 @@ const stages = {
     0: 'start',
     1: 'personal',
     2: 'identity',
-    3: 'success',
+    3: 'identity',
+    4: 'selfie',
+    5: 'schedule',
+    6: 'success',
 }
 
 interface IKProgressBarProps {
@@ -25,6 +28,7 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
         personal: false,
         identity: false,
         selfie: false,
+        schedule: false,
         success: false
     })
 
@@ -40,6 +44,9 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
                 setSeparatedStage(prevState => ({...prevState, selfie: true}))
                 break;
             case 5:
+                setSeparatedStage(prevState => ({...prevState, schedule: true}))
+                break;
+            case 6:
                 setSeparatedStage(prevState => ({...prevState, success: true}))
                 break;
         }
@@ -48,12 +55,12 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
     const isMobile = window.innerWidth < 1366
 
     // @ts-ignore
-    const stageName= stages[stage-1]
+    const stageName= stages[stage]
 
     if (isMobile) {
         return (
             <div className="kyc-progressbar-mobile">
-                <h1>Step {stage}/5:
+                <h1>Step {stage}/6:
                     <span>{translation(`${stageName}`)}</span>
                 </h1>
             </div>
@@ -111,6 +118,19 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
                 })}
                 >
                     <p>{translation('selfie')}</p>
+                </div>
+            </div>
+            <div className={'kyc-progressbar-line'}/>
+            <div className={'kyc-progressbar-item'}>
+                <div className={'kyc-progressbar-item-box'}>
+                    {separatedStage.schedule && <div className={'kyc-progressbar-item-box-check'}/>}
+                </div>
+                <div className={classNames({
+                    'kyc-progressbar-item-label': true,
+                    'kyc-progressbar-item-label--active': separatedStage.schedule
+                })}
+                >
+                    <p>{translation('schedule')}</p>
                 </div>
             </div>
             <div className={'kyc-progressbar-line'}/>

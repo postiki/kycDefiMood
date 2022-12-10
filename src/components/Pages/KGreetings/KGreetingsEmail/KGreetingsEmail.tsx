@@ -6,6 +6,8 @@ import Button from "../../../UI/Button";
 
 import * as api from '../../../../services/api';
 import {idGenerator} from "../../../../services/idGenerator";
+import {useDebounce} from "react-use";
+import validateEmail from "../../../../services/validateEmail";
 
 interface IKGreetingsEmailProps {
     handleComplete: (props: string) => void
@@ -14,6 +16,8 @@ interface IKGreetingsEmailProps {
 const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
     const [email, setEmail] = useState('')
+    const [error, setError] = useState('')
+    const [disabledBtn, setDisabledBtn] = useState(true)
 
     const handleSendCode = () => {
         api.getVerifyCode(email, idGenerator(24)).then(r => {
@@ -21,11 +25,26 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
             localStorage.setItem('email', email)
             handleComplete(email)
         })
-        // localStorage.setItem('email', email)//TODO remove
-        // handleComplete(email)//TODO remove
     } //TODO remove to effector
 
-    const disabledButton = false; //TODO add regex
+    useDebounce(
+        () => {
+            if(email.length === 0){
+                setDisabledBtn(true)
+                return;
+            }
+            if (!validateEmail(email)) {
+                setError('errorEmail')
+                setDisabledBtn(true)
+                return;
+            }
+
+            setError('')
+            setDisabledBtn(false)
+        },
+        200,
+        [email]
+    );
 
     return (
         <div className={'greetings-email'}>
@@ -36,8 +55,9 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
                 title={translation('formTitle')}
                 placeHolder={translation('formPlaceHolder')}
                 value={email}
+                error={translation(`${error}`)}
             />
-            <Button disabled={disabledButton} handleClick={handleSendCode} title={translation('btnEnter')}/>
+            <Button disabled={disabledBtn} handleClick={handleSendCode} title={translation('btnEnter')}/>
         </div>
     )
 }

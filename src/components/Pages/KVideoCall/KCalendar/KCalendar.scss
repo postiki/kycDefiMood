@@ -1,0 +1,110 @@
+@import '../../../../scss/mixins';
+
+.kyc-calendar {
+  position: relative;
+
+  width: 100%;
+
+  height: 42px;
+
+  border: 3px solid var(--border-color);
+
+  &-preview {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include h3-regular;
+    color: var(--title-color);
+  }
+
+  &--open {
+    border-top: 3px solid var(--border-color);
+    border-left: 3px solid var(--border-color);
+    border-right: 3px solid var(--border-color);
+    border-bottom: none;
+  }
+
+  p {
+    position: absolute;
+
+    top: -12px;
+    left: 20px;
+
+    padding: 0 5px;
+
+    background: var(--background-color);
+
+    @include h4-regular;
+    color: var(--text-color);
+  }
+}
+
+.calendar {
+  position: absolute;
+  left: -3px;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--background-color);
+
+  border-left: 3px solid var(--border-color);
+  border-right: 3px solid var(--border-color);
+  border-bottom: 3px solid var(--border-color);
+
+  &-wrapper {
+    width: 90%;
+
+    table {
+      width: 100%;
+      text-align: center;
+    }
+
+    thead {
+      @include h4-regular;
+      color: var(--text-color);
+    }
+
+    tbody {
+      @include h3-regular;
+      color: var(--text-color);
+    }
+
+    .today {
+      @include h3-bold;
+      color: var(--title-color);
+    }
+    td{
+      padding: 5px 0;
+    }
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 0;
+
+    @include h3-bold;
+    color: var(--title-color);
+
+    border-top: 3px solid var(--border-color);
+
+    svg {
+      width: 20px;
+    }
+  }
+}
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-calendar {
+    z-index: 1;
+  }
+}

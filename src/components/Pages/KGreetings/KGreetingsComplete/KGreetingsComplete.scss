@@ -11,6 +11,10 @@
 
   text-align: center;
 
+  p{
+    @include h3-regular;
+  }
+
   span{
     color: var(--title-color);
     border-bottom: 1px solid var(--title-color);

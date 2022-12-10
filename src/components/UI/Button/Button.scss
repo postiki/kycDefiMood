@@ -13,6 +13,9 @@
   outline: none;
   border: none;
 
+  @include h3-bold;
+  color: var(--background-color);
+
   &:hover {
     background-color: var(--button-backgroud-hover);
   }
@@ -33,14 +36,7 @@
     background-color: var(--background-color);
     border: 3px solid var(--button-backgroud);
 
-    p {
-      color: var(--button-backgroud) !important;
-    }
-  }
-
-  p {
-    @include h3-bold;
-    color: var(--button-text-color);
+    color: var(--button-backgroud);
   }
 }
 

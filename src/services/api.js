@@ -4,8 +4,8 @@ const JSON_HEADERS = {
     'Content-Type': 'application/json',
 };
 
-export async function getVerifyCode(email, id){
-    const res = await fetch(`${BASE_URL}/verify`,{
+export async function getVerifyCode(email, id) {
+    const res = await fetch(`${BASE_URL}/verify`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({
@@ -37,11 +37,11 @@ export async function checkVerifyCode(code, id) {
         throw new Error(res.statusText);
     }
 
-   return body.invalid
+    return body.invalid
 }
 
-export async function saveUser(email, refCode){
-    const res = await fetch(`${BASE_URL}/user`,{
+export async function saveUser(email, refCode) {
+    const res = await fetch(`${BASE_URL}/user`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({
@@ -57,8 +57,8 @@ export async function saveUser(email, refCode){
     return res.json()
 }
 
-export async function addRefCode(email, refCode){
-    const res = await fetch(`${BASE_URL}/user/referral`,{
+export async function addRefCode(email, refCode) {
+    const res = await fetch(`${BASE_URL}/user/referral`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({
@@ -71,11 +71,11 @@ export async function addRefCode(email, refCode){
         throw new Error(res.statusText);
     }
 
-    return res.json()
+    return res
 }
 
-export async function addPersonalInfo(email, {...props}){
-    const res = await fetch(`${BASE_URL}/user/info`,{
+export async function addPersonalInfo(email, {...props}) {
+    const res = await fetch(`${BASE_URL}/user/info`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({
@@ -102,4 +102,37 @@ export async function addPersonalInfo(email, {...props}){
     }
 
     return res.json()
+}
+
+
+export async function uploadImage(formData, doc) {
+    const res = await fetch(`${BASE_URL}/upload/${doc}`, {
+        method: 'POST',
+        // headers: JSON_HEADERS,
+        body: formData
+    });
+
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return res
+}
+
+export async function saveSchedule(email, date) {
+    const res = await fetch(`${BASE_URL}/schedule`, {
+        method: 'POST',
+        headers: JSON_HEADERS,
+        body: JSON.stringify({
+            email: email,
+            date: date,
+            stage: '6'
+        })
+    });
+
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return res
 }
