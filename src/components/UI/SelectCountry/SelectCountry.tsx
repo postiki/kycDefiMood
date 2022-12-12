@@ -3,6 +3,9 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import flags from '../../../data/emoji.json'
+import ArrowNext from "../../SvgIcon/ArrowNext";
+
 interface IObject {
     name: string,
     code: string
@@ -16,14 +19,14 @@ interface ISelectorProps {
 
 const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
     const [showDropdown, setShowDropdown] = useState(false)
-    const [selectItem, setSelectItem] = useState(points[0].name)
-    const [filter, setFilter] = useState(points[0].name)
+    const [selectItem, setSelectItem] = useState(points[66])
+    const [filter, setFilter] = useState(points[66].name)
 
     useEffect(() => {
-        onChange(selectItem)
+        onChange(selectItem.name)
     })
 
-    useEffect(() => setFilter(selectItem), [selectItem])
+    useEffect(() => setFilter(selectItem.name), [selectItem])
 
     const items = !showDropdown ? points : points.filter(i => i.name.toLowerCase().includes(filter.toLowerCase()))
 
@@ -39,8 +42,19 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
                 <p>{title}</p>
             </div>
 
-            <div className={'kyc-select-country-input'}>
-                <input value={filter} onChange={(e) => setFilter(e.target.value)}/>
+            <div
+                 className={classNames({
+                     'kyc-select-country-input': true,
+                     'kyc-select-country-input--open': showDropdown
+                 })}
+            >
+                <div className={'kyc-select-country-input__flag'}>
+                    {flags.filter(i => i.code === selectItem.code).map(i => i.emoji)}
+                </div>
+                <input name={'input'} value={filter} onChange={(e) => setFilter(e.target.value)}/>
+                <div className={'kyc-select-country-input__arrow'}>
+                    <ArrowNext/>
+                </div>
             </div>
 
             {showDropdown &&
@@ -50,11 +64,11 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
                             <div
                                 key={index}
                                 className={'kyc-select-country-dropdown-item'}
-                                onClick={() => setSelectItem(country.name)}
-                                style={{
-                                    // margin: index === 0 ? '15px 0 15px 0' : '10px'
-                                }}
+                                onClick={() => setSelectItem(country)}
                             >
+                                <div className={'kyc-select-country-dropdown-item-flag'}>
+                                    {flags.filter(i => i.code === country.code).map(i => i.emoji)}
+                                </div>
                                 <p>{country.name}</p>
                             </div>
                         )
@@ -68,12 +82,6 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
 SelectCountry.propTypes = {
     onChange: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
-    // points: PropTypes.arrayOf(
-    //     PropTypes.shape({
-    //         name: PropTypes.string.isRequired,
-    //         code: PropTypes.string.isRequired,
-    //     }).isRequired
-    // ),
 }
 
 export default SelectCountry;

@@ -20,9 +20,10 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const [error, setError] = useState('')
     const [disabledBtn, setDisabledBtn] = useState(false)
 
+    //TODO add resend code
+
     const saveUser = () => {
         api.saveUser(localStorage.getItem('email')).then(r => {
-            console.log(r)
             const completeStage = r.stage
 
             switch (completeStage) {
@@ -48,10 +49,10 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const handleApplyCode = () => {
         api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
             if (!invalid) {
-                setError('errorCode');
+                setError('');
                 saveUser()
             } else {
-                setError('not valid code');
+                setError('errorCode');
             }
         });
     } //TODO remove to effector

@@ -31,6 +31,8 @@ export async function checkVerifyCode(code, id) {
         }),
     });
 
+    console.log(res)
+
     const body = await res.json();
 
     if (!res.ok) {
@@ -126,7 +128,6 @@ export async function saveSchedule(email, date) {
         body: JSON.stringify({
             email: email,
             date: date,
-            stage: '6'
         })
     });
 

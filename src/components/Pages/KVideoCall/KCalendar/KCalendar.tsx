@@ -76,9 +76,18 @@ const KCalendar: React.FC<IKCalendarProps> = ({onChange}) => {
             })}
             onClick={() => setShowCalendar(!showCalendar)}
         >
-            <div className={'kyc-calendar-preview'}>
+            <div
+                 className={classNames({
+                     'kyc-calendar-preview': true,
+                     'kyc-calendar-preview--open': showCalendar
+                 })}
+            >
                 <p>{translation('pickerTitle')}</p>
+                <div>📅</div>
                 {`${moment().add(data, 'days').format('Do')} ${moment().add(currentMonth, 'month').format('MMMM')} ${moment().add(currentMonth, 'month').format('YYYY')}`}
+                <div className={'kyc-calendar-preview__arrow'}>
+                    <ArrowNext/>
+                </div>
             </div>
             {showCalendar &&
                 <div className='calendar'>

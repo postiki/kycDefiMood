@@ -62,7 +62,8 @@
       "title": "Identification",
       "identity": "“Identity document”, “Selfie”:",
       "subtitle": "To pass the confirmation of the identity document and selfie, continue on the phone",
-      "scan": "Scan by phone"
+      "scan": "Scan by phone",
+      "refresh":"Refresh QR-code"
     },
     "progressbar": {
       "start": "Let's start",

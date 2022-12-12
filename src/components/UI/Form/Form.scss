@@ -104,3 +104,9 @@
     color: var(--text-color);
   }
 }
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-form--error > div{
+    white-space: break-spaces;
+  }
+}

@@ -7,8 +7,16 @@
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
   border: 3px solid var(--border-color);
+
+  &--open {
+    border-top: 3px solid var(--border-color);
+    border-left: 3px solid var(--border-color);
+    border-right: 3px solid var(--border-color);
+    border-bottom: none;
+  }
 
   &-title {
     position: absolute;
@@ -24,37 +32,44 @@
   }
 
   &-item {
+    width: 90%;
+
     display: flex;
     align-items: center;
-    gap: 10px;
-
-    padding-left: 15px;
+    justify-content: space-between;
 
     @include h3-regular;
     color: var(--text-color);
 
-    &-dot {
-      width: 18px;
-      height: 18px;
+    &--open {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__arrow {
+      width: 20px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      border: 2px solid var(--border-color);
+      transform: rotate(90deg);
 
-      &-check {
-        width: 14px;
-        height: 14px;
+      svg {
+        width: 20px;
+        fill: transparent;
 
-        background: var(--title-color)
+        path {
+          fill: var(--text-color);
+        }
       }
     }
   }
 
   &-dropdown {
     position: absolute;
-    top: 5px;
+    top: 41px;
     left: -3px;
 
     width: 100%;
@@ -72,6 +87,8 @@
     border-bottom: 3px solid var(--border-color);
 
     &-item {
+      width: 90%;
+
       display: flex;
       align-items: center;
       gap: 10px;
@@ -80,9 +97,9 @@
       padding-top: 13px;
       margin-left: 15px;
 
-      border-bottom: 2px solid var(--border-color);
+      border-top: 2px solid var(--border-color);
 
-      div{
+      div {
         gap: 10px !important;
       }
     }

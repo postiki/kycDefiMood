@@ -22,12 +22,12 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
     const newUrl = () => {
         const token = jwt.sign({
             info: stage,
-            expiresIn:  Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
+            expiresIn: Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
         }, process.env.REACT_APP_SECRECT_TOKEN || '');
 
-        console.log(`http://192.168.100.2:3000/?token=${token}`, process.env.REACT_APP_TOKEN_EXP, process.env.REACT_APP_SECRECT_TOKEN)
+        console.log(`http://localhost:3000/?token=${token}`)
 
-        return setUrl(`http://192.168.100.2:3000/?token=${token}`)
+        return setUrl(`http://localhost:3000/?token=${token}`)
     }
 
     useEffect(() => {
@@ -54,7 +54,8 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
                                     viewBox={`0 0 256 256`}
                                 />
                             </div>
-                            <h3 onClick={() => newUrl()}>{translation('scan')}</h3>
+                            <h3>{translation('scan')}</h3>
+                            <h3 className={'bordered'} onClick={() => newUrl()}>{translation('refresh')}</h3>
                         </div>
                     </div>
                 </div>

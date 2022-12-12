@@ -7,7 +7,7 @@ import Button from "../../UI/Button";
 import CheckBox from "../../UI/CheckBox";
 import {stageUp} from "../../../entities/progress-manager";
 
-import country from './country.json'
+import country from '../../../data/country.json'
 import SelectCountry from "../../UI/SelectCountry";
 import KContinueOnPhone from "../KIdentity/KContinueOnPhone";
 
@@ -38,8 +38,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const [pTw, setPTw] = useState<string | null>('')
     const [pDc, setPDc] = useState<string | null>('')
     const [pTg, setPTg] = useState<string | null>('')
-
-    const [complete, setComplete] = useState(false)
 
 
     const handleComplete = () => {

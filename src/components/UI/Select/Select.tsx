@@ -2,6 +2,8 @@ import './Select.scss'
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import CheckBox from "../CheckBox";
+import ArrowNext from "../../SvgIcon/ArrowNext";
+import classNames from "classnames";
 
 interface ISelectorProps {
     onChange: (props: string) => void
@@ -11,7 +13,6 @@ interface ISelectorProps {
 }
 
 const Select: React.FC<ISelectorProps> = ({onChange, title, points, doted}) => {
-    //TODO refactor
     const [showDropdown, setShowDropdown] = useState(false)
     const [selectItem, setSelectItem] = useState(points[0])
 
@@ -20,13 +21,19 @@ const Select: React.FC<ISelectorProps> = ({onChange, title, points, doted}) => {
     })
 
     return (
-        <div className={'kyc-select'} onClick={() => setShowDropdown(!showDropdown)}>
+        <div
+            className={classNames({
+                'kyc-select': true,
+                'kyc-select--open': showDropdown
+            })}
+            onClick={() => setShowDropdown(!showDropdown)}
+        >
             <div className={'kyc-select-title'}>{title}</div>
             <div className={'kyc-select-item'}>
-                <div className={'kyc-select-item-dot'}>
-                    <div className={'kyc-select-item-dot-check'}/>
+                <p>🕑{' '}{selectItem}</p>
+                <div className={'kyc-select-item__arrow'}>
+                    <ArrowNext/>
                 </div>
-                <p>{selectItem}</p>
             </div>
             {showDropdown &&
                 <div className={'kyc-select-dropdown'}>
@@ -34,15 +41,11 @@ const Select: React.FC<ISelectorProps> = ({onChange, title, points, doted}) => {
                         return (
                             <div className={'kyc-select-dropdown-item'}
                                  key={index}
-                                 style={{
-                                     paddingTop: index === 0 ? 3.5 : 13,
-                                     borderBottom: index + 1 === points.length ? 'none' : '2px solid var(--border-color)'
-                                 }}
                             >
                                 <CheckBox
                                     onToggle={() => setSelectItem(i)}
                                     label={i}
-                                    checked={selectItem === i && true}
+                                    // checked={selectItem === i && true}
                                 />
                             </div>
                         )

@@ -15,10 +15,36 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    gap: 20px;
 
     @include h3-regular;
     color: var(--title-color);
+
+    &--open{
+      svg{
+        transform: rotate(180deg);
+      }
+    }
+
+    &__arrow {
+      width: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transform: rotate(90deg);
+
+      svg {
+        width: 20px;
+        fill: transparent;
+
+        path{
+          fill: var(--text-color);
+        }
+      }
+    }
   }
 
   &--open {
@@ -80,7 +106,8 @@
       @include h3-bold;
       color: var(--title-color);
     }
-    td{
+
+    td {
       padding: 5px 0;
     }
   }
@@ -99,6 +126,11 @@
 
     svg {
       width: 20px;
+      fill: var(--title-color);
+
+      path{
+        fill: var(--background-color);
+      }
     }
   }
 }

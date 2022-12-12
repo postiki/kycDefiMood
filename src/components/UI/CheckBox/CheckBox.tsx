@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 interface ISelectorProps {
     onToggle: () => void
     label: string,
-    checked: boolean
+    checked?: boolean
 }
 
 const CheckBox: React.FC<ISelectorProps> = ({onToggle, label, checked}) => {
@@ -24,7 +24,7 @@ const CheckBox: React.FC<ISelectorProps> = ({onToggle, label, checked}) => {
 CheckBox.propTypes = {
     onToggle: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
-    checked: PropTypes.bool.isRequired
+    checked: PropTypes.bool
 }
 
 export default CheckBox;

@@ -11,10 +11,10 @@
   border: 3px solid var(--border-color);
 
   &--open {
-    //border-top: 3px solid var(--border-color);
-    //border-left: 3px solid var(--border-color);
-    //border-right: 3px solid var(--border-color);
-    //border-bottom: none;
+    border-top: 3px solid var(--border-color);
+    border-left: 3px solid var(--border-color);
+    border-right: 3px solid var(--border-color);
+    border-bottom: 3px solid transparent;
   }
 
   &-title {
@@ -24,7 +24,8 @@
 
     padding: 0 5px;
 
-    background: white;
+    background: var(--background-color);
+    color: var(--text-color) !important;
 
     @include h4-regular;
 
@@ -39,19 +40,48 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+
+    padding: 0 17px;
+    box-sizing: border-box;
 
     z-index: 2;
 
-    background: white;
+    background: var(--background-color);
 
     input {
       width: 100%;
       height: 100%;
 
+      color: var(--text-color) !important;
+
       text-align: left;
-      padding-left: 30px;
 
       @include h3-regular;
+    }
+
+    &--open {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__arrow {
+      width: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transform: rotate(90deg);
+      svg {
+        width: 20px;
+        fill: transparent;
+
+        path {
+          fill: var(--text-color);
+        }
+      }
     }
   }
 
@@ -61,7 +91,7 @@
     left: -3px;
 
     width: 100%;
-    height: 144px;
+    height: 95px;
 
     display: flex;
     flex-direction: column;
@@ -71,23 +101,40 @@
     border-right: 3px solid var(--border-color);
     border-bottom: 3px solid var(--border-color);
 
-    z-index: 1;
-    background: white;
+    z-index: 4;
+    background: var(--background-color);
 
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
     &-item {
-      width: 80%;
+      width: 90%;
 
       display: flex;
+      align-items: center;
+      gap: 10px;
 
       padding: 10px 0;
 
+      white-space: nowrap;
+
+      background: none;
+      appearance: none;
+
+      border-top: 3px solid var(--border-color) !important;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+
       p {
         @include h3-regular;
+        color: var(--text-color);
       }
 
-      border-top: 3px solid var(--border-color);
+      &__flag {
+        width: 18px;
+        height: auto;
+      }
     }
   }
 }

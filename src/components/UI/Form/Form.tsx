@@ -12,7 +12,7 @@ interface IFormProps {
     error?: string
 }
 
-const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value,error}) => {
+const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value, error}) => {
 
     return (
         <div className={classNames({
@@ -23,7 +23,7 @@ const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value,
         >
             <p>{title}</p>
             <input placeholder={placeHolder} value={value || ''} onChange={onChange}/>
-            <div className={'kyc-form-error'}>{error}</div>
+            {error && <div className={'kyc-form-error'}>{error}</div>}
         </div>
     )
 }
