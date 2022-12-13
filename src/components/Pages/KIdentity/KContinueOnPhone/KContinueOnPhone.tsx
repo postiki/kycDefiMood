@@ -21,13 +21,13 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
 
     const newUrl = () => {
         const token = jwt.sign({
-            info: stage,
+            info: `${stage}_${localStorage.getItem('email')}`,
             expiresIn: Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
         }, process.env.REACT_APP_SECRECT_TOKEN || '');
 
         // console.log(`${process.env.REACT_APP_API_QR}/?token=${token}`)
 
-        return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}&email=${localStorage.getItem('email')}`)
+        return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}`)
     }
 
     useEffect(() => {

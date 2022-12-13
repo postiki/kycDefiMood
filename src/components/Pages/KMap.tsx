@@ -1,11 +1,11 @@
 import './KMap.scss';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import KHeader from "./KHeader";
 import KProgressBar from "./KProgressBar";
 import {useStore} from "effector-react";
 import {useJwt} from "react-jwt";
 
-import {setStage, stage$} from "../../entities/progress-manager";
+import {addUserEmail, setStage, stage$} from "../../entities/progress-manager";
 
 import {useTheme} from "../../hooks/useThemes";
 import KIdentity from "./KIdentity";
@@ -28,20 +28,21 @@ const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
     const queryParameters = new URLSearchParams(window.location.search)
     const token = queryParameters.get("token")
-    const email = queryParameters.get("email")
-
     const {decodedToken} = useJwt(token || '');
 
     //TODO remove all ts ignore
     useEffect(() => {
-        if (decodedToken && email) {
-            localStorage.setItem('email', email)
+        if (decodedToken) {
+            // @ts-ignore
+            const splitMsg = (decodedToken.info).split('_')
+            addUserEmail(splitMsg[1])
+
             // @ts-ignore
             let isExpired = new Date() > new Date(decodedToken.expiresIn)
 
             if (decodedToken && !isExpired) {
-                // @ts-ignore
-                setStage(decodedToken.info)
+
+                setStage(splitMsg[0])
             }
         }
     }, [decodedToken, token])
