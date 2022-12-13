@@ -34,7 +34,7 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
 
         }
         console.log(formData)
-        // api.uploadImage(formData, doc).then(r => r.ok && stageUp())
+        api.uploadImage(formData, doc).then(r => r.ok && stageUp())
     }
 
     const handleRetake = () => {
