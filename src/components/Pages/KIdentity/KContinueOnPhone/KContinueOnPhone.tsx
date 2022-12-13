@@ -5,9 +5,7 @@ import jwt from 'jsonwebtoken'
 
 import useTranslation from "../../../../hooks/useTranslation";
 import Button from "../../../UI/Button";
-import {stage$, stageDown} from "../../../../entities/progress-manager";
-
-import * as api from '../../../../services/api';
+import {stage$} from "../../../../entities/progress-manager";
 import {useStore} from "effector-react";
 
 interface IKContinueOnPhoneProps {

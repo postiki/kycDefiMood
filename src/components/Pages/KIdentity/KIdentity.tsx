@@ -30,7 +30,7 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
         let formData = new FormData();
         const file = selectedFile;
         if (file) {
-            formData.append('File', file, `${doc}_${localStorage.getItem('email')}`);
+            formData.append('File', file, `${doc}:${localStorage.getItem('email')}`);
 
         }
         console.log(formData)
