@@ -27,7 +27,7 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
 
         console.log(`${process.env.REACT_APP_API_QR}/?token=${token}`)
 
-        return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}`)
+        return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}&email=${localStorage.getItem('email')}`)
     }
 
     useEffect(() => {

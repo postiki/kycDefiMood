@@ -31,8 +31,10 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
         const file = selectedFile;
         if (file) {
             formData.append('File', file, `${doc}_${localStorage.getItem('email')}`);
+
         }
-        api.uploadImage(formData, doc).then(r => r.ok && stageUp())
+        console.log(formData)
+        // api.uploadImage(formData, doc).then(r => r.ok && stageUp())
     }
 
     const handleRetake = () => {

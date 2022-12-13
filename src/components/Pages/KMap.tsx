@@ -28,12 +28,14 @@ const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
     const queryParameters = new URLSearchParams(window.location.search)
     const token = queryParameters.get("token")
+    const email = queryParameters.get("email")
 
     const {decodedToken} = useJwt(token || '');
 
     //TODO remove all ts ignore
     useEffect(() => {
-        if (decodedToken) {
+        if (decodedToken && email) {
+            localStorage.setItem('email', email)
             // @ts-ignore
             let isExpired = new Date() > new Date(decodedToken.expiresIn)
 
