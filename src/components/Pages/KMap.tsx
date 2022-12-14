@@ -41,10 +41,12 @@ const KMap: React.FC<IKPersonalProps> = () => {
 
             if (decodedToken && !isExpired) {
 
-                setStage(splitMsg[0])
+                setStage(Number(splitMsg[0]))
             }
         }
     }, [decodedToken, token])
+
+    useEffect(() => {console.log(stage)}, [stage])
 
     return (
         <div className="k-map">
