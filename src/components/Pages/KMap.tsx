@@ -52,16 +52,16 @@ const KMap: React.FC<IKPersonalProps> = () => {
             <div className="k-map-body">
                 <KProgressBar/>
                 {/*{stage === 1 && <KVideoCall/>}*/}
-                {stage === 1 && <KIdentity doc={'doc'}/>}
+                {/*{stage === 1 && <KIdentity doc={'doc'}/>}*/}
                 {/*{stage === 1 && <KSuccess/>}*/}
                 {/*{stage === 1 && <KSuccess/>}*/}
 
-                {/*{stage === 1 && <KGreetings/>}*/}
-                {/*{stage === 2 && <KPersonal/>}*/}
-                {/*{stage === 3 && <KIdentity doc={'doc'}/>}*/}
-                {/*{stage === 4 && <KIdentity doc={'selfie'}/>}*/}
-                {/*{stage === 5 && <KVideoCall/>}*/}
-                {/*{stage === 6 && <KSuccess/>}*/}
+                {stage === 1 && <KGreetings/>}
+                {stage === 2 && <KPersonal/>}
+                {stage === 3 && <KIdentity doc={'doc'}/>}
+                {stage === 4 && <KIdentity doc={'selfie'}/>}
+                {stage === 5 && <KVideoCall/>}
+                {stage === 6 && <KSuccess/>}
             </div>
             <div className="k-map-footer">
                 <div
