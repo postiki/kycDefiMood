@@ -6,7 +6,9 @@ import KCalendar from "./KCalendar/KCalendar";
 import Select from "../../UI/Select";
 
 import * as api from '../../../services/api';
-import {stageUp} from "../../../entities/progress-manager";
+import {stageUp, userEmail$} from "../../../entities/progress-manager";
+import ModalPage from "../../UI/ModalPage";
+import {useStore} from "effector-react";
 
 interface IKVideoCallProps {
 
@@ -14,12 +16,14 @@ interface IKVideoCallProps {
 
 const KVideoCall: React.FC<IKVideoCallProps> = () => {
     const translation = useTranslation('schedule')
+    const email = useStore(userEmail$)
+
     const [selectedTime, setSelectedTime] = useState('')
     const [selectedDate, setSelectedDay] = useState('')
 
     const saveDate = () => {
         try {
-            api.saveSchedule(localStorage.getItem('email'), `${selectedDate} ${selectedTime}`).then(r => r.ok && stageUp())
+            api.saveSchedule(email, `${selectedDate} ${selectedTime}`).then(r => r.ok && stageUp())
         } catch (e) {
             console.error(e)
         }
@@ -29,8 +33,8 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
 
     if (isMobile) {
         return (
-            <div className={'kyc-schedule'}>
-                <div className={'kyc-schedule-wrapper'}>
+            <ModalPage>
+                <div className={'kyc-schedule'}>
                     <h1>{translation('title')}</h1>
                     <KCalendar onChange={(date) => setSelectedDay(date)}/>
                     <Select
@@ -40,23 +44,25 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
                     />
                     <Button handleClick={() => saveDate()} title={translation('btn')}/>
                 </div>
-            </div>
+            </ModalPage>
         )
     }
 
     return (
-        <div className={'kyc-schedule'}>
-            <h1>{translation('title')}</h1>
-            <div className={'kyc-schedule-container'}>
-                <KCalendar onChange={(date) => setSelectedDay(date)}/>
-                <Select
-                    onChange={(e) => setSelectedTime(e)}
-                    title={translation('timeFromTitle')}
-                    points={['10:30 (GMT+3)', '11:30 (GMT+3)', '12:30 (GMT+3)']}
-                />
+        <ModalPage>
+            <div className={'kyc-schedule'}>
+                <h1>{translation('title')}</h1>
+                <div className={'kyc-schedule-container'}>
+                    <KCalendar onChange={(date) => setSelectedDay(date)}/>
+                    <Select
+                        onChange={(e) => setSelectedTime(e)}
+                        title={translation('timeFromTitle')}
+                        points={['10:30 (GMT+3)', '11:30 (GMT+3)', '12:30 (GMT+3)']}
+                    />
+                </div>
+                <Button handleClick={() => saveDate()} title={translation('btn')}/>
             </div>
-            <Button handleClick={() => saveDate()} title={translation('btn')}/>
-        </div>
+        </ModalPage>
     )
 }
 

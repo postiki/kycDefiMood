@@ -1,5 +1,5 @@
 import './KProgressBar.scss';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import useTranslation from "../../../hooks/useTranslation";
 import {useStore} from "effector-react";
 import {stage$} from "../../../entities/progress-manager";
@@ -22,26 +22,6 @@ interface IKProgressBarProps {
 const KProgressBar: React.FC<IKProgressBarProps> = () => {
     const translation = useTranslation('progressbar')
     const stage = useStore(stage$)
-
-    // useEffect(() => {
-    // switch (stage) {
-    //     case 2:
-    //         setSeparatedStage(prevState => ({...prevState, personal: true}))
-    //         break;
-    //     case 3:
-    //         setSeparatedStage(prevState => ({...prevState, identity: true}))
-    //         break;
-    //     case 4:
-    //         setSeparatedStage(prevState => ({...prevState, selfie: true}))
-    //         break;
-    //     case 5:
-    //         setSeparatedStage(prevState => ({...prevState, schedule: true}))
-    //         break;
-    //     case 6:
-    //         setSeparatedStage(prevState => ({...prevState, success: true}))
-    //         break;
-    // }
-    // }, [stage])
 
     const isMobile = window.innerWidth < 1366
 

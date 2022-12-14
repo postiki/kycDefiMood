@@ -5,10 +5,10 @@ import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 import * as api from '../../../../services/api';
-import {setStage} from "../../../../entities/progress-manager";
+import {setStage, userEmail$} from "../../../../entities/progress-manager";
 import {useDebounce} from "react-use";
-import validateEmail from "../../../../services/validateEmail";
 import validateCode from "../../../../services/validateCode";
+import {useStore} from "effector-react";
 
 interface IKGreetingsVerifyCodeProps {
     handleComplete: () => void
@@ -16,6 +16,8 @@ interface IKGreetingsVerifyCodeProps {
 
 const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
+    const email = useStore(userEmail$)
+
     const [code, setCode] = useState('')
     const [error, setError] = useState('')
     const [disabledBtn, setDisabledBtn] = useState(false)
@@ -23,7 +25,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     //TODO add resend code
 
     const saveUser = () => {
-        api.saveUser(localStorage.getItem('email')).then(r => {
+        api.saveUser(email).then(r => {
             const completeStage = r.stage
 
             switch (completeStage) {
@@ -47,7 +49,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     } //TODO remove to effector
 
     const handleApplyCode = () => {
-        api.checkVerifyCode(code, localStorage.getItem('id')).then(invalid => {
+        api.checkVerifyCode(code.split('-').join(''), localStorage.getItem('id')).then(invalid => {
             if (!invalid) {
                 setError('');
                 saveUser()
@@ -59,7 +61,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
 
     useDebounce(
         () => {
-            if (!validateCode(code)) {
+            if (!validateCode(code.split('-').join(''))) {
                 setError('incorrectCode')
                 setDisabledBtn(true)
                 return;
@@ -82,7 +84,9 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                 placeHolder={translation('sendCodeFormPlaceHolder')}
                 small
                 value={code}
+                enabledError
                 error={translation(`${error}`)}
+                mask={'999-999-999'}
             />
             <Button disabled={disabledBtn} handleClick={handleApplyCode} title={translation('btnEnter')}/>
             <p>

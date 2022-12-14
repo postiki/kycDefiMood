@@ -8,9 +8,10 @@ import * as api from '../../../../services/api';
 import {idGenerator} from "../../../../services/idGenerator";
 import {useDebounce} from "react-use";
 import validateEmail from "../../../../services/validateEmail";
+import {addUserEmail} from "../../../../entities/progress-manager";
 
 interface IKGreetingsEmailProps {
-    handleComplete: (props: string) => void
+    handleComplete: () => void
 }
 
 const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
@@ -22,14 +23,17 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     const handleSendCode = () => {
         api.getVerifyCode(email, idGenerator(24)).then(r => {
             localStorage.setItem('id', r.id)
-            localStorage.setItem('email', email)
-            handleComplete(email)
+
+            // @ts-ignore
+            addUserEmail(email)
+
+            handleComplete()
         })
     } //TODO remove to effector
 
     useDebounce(
         () => {
-            if(email.length === 0){
+            if (email.length === 0) {
                 setDisabledBtn(true)
                 return;
             }
@@ -55,6 +59,7 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
                 title={translation('formTitle')}
                 placeHolder={translation('formPlaceHolder')}
                 value={email}
+                enabledError
                 error={translation(`${error}`)}
             />
             <Button disabled={disabledBtn} handleClick={handleSendCode} title={translation('btnEnter')}/>

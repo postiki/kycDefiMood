@@ -5,17 +5,20 @@ import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 
 import * as api from '../../../../services/api';
+import {useStore} from "effector-react";
+import {userEmail$} from "../../../../entities/progress-manager";
 
 interface IKGreetingsReferralProps {
-    handleComplete: (props: string) => void
+    handleComplete: () => void
 }
 
 const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
     const [referralId, setReferralId] = useState('')
+    const email = useStore(userEmail$)
 
     const handleApply = () => {
-        api.addRefCode(localStorage.getItem('email'), referralId).then(r => r.ok && handleComplete(referralId))
+        api.addRefCode(email, referralId.split('-').join('')).then(r => r.ok && handleComplete())
     }
 
     return (
@@ -28,6 +31,7 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
                 placeHolder={translation('referralFormPlaceHolder')}
                 small
                 value={referralId}
+                mask={'999-999-999'}
             />
             <Button handleClick={handleApply} title={translation('btnEnter')}/>
         </div>

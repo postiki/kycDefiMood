@@ -14,7 +14,7 @@ const KGreetingsComplete: React.FC<IKGreetingsCompleteProps> = ({handleComplete,
     return (
         <div className={'greetings-complete'}>
             <h1>{translation('title')}</h1>
-            <h2>{translation('completeTitle')}</h2>
+            <h2>{translation('completeTitle')}<br/>ヽ(・∀・)ﾉ</h2>
             <Button handleClick={handleComplete} title={translation('btnContinue')}/>
             <p>
                 {translation('enabledReferral')}

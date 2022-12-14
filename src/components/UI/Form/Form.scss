@@ -8,12 +8,18 @@
   display: flex;
   flex-direction: column;
 
+  margin-top: 4px;
+
   box-sizing: border-box;
 
-  &-error{
-    text-align: right;
+  &--enabledError {
+    padding-bottom: 23px;
+  }
 
-    padding: 5px 0 10px 0;
+  &-error {
+    padding-top: 5px;
+
+    text-align: right;
     white-space: nowrap;
 
     @include h4-regular;
@@ -22,17 +28,25 @@
 
   &--small {
     max-width: 192px;
+
+    input {
+      text-align: center;
+
+      padding: 0 !important;
+    }
   }
 
   &--error {
     position: relative;
+
     width: 100%;
     height: auto;
+
+    padding: 0;
 
     box-sizing: border-box;
 
     color: #EB5757 !important;
-
 
 
     input {
@@ -51,7 +65,7 @@
         color: #EB5757 !important;
       }
 
-      &:focus{
+      &:focus {
         color: #EB5757 !important;
       }
     }
@@ -106,7 +120,17 @@
 }
 
 @media (min-width: 360px) and (max-width: 428px) {
-  .kyc-form--error > div{
+  .kyc-form--error > div {
     white-space: break-spaces;
+  }
+  .kyc-form {
+    margin-top: 4px;
+
+    &--enabledError {
+      padding-bottom: 41px;
+    }
+  }
+  .kyc-form--error {
+    padding: 0;
   }
 }

@@ -5,13 +5,14 @@ import Form from "../../UI/Form";
 import Select from "../../UI/Select";
 import Button from "../../UI/Button";
 import CheckBox from "../../UI/CheckBox";
-import {stageUp} from "../../../entities/progress-manager";
+import {stageUp, userEmail$} from "../../../entities/progress-manager";
 
 import country from '../../../data/country.json'
 import SelectCountry from "../../UI/SelectCountry";
-import KContinueOnPhone from "../KIdentity/KContinueOnPhone";
 
 import * as api from '../../../services/api';
+import ModalPage from "../../UI/ModalPage";
+import {useStore} from "effector-react";
 
 interface IKPersonalProps {
 
@@ -19,6 +20,7 @@ interface IKPersonalProps {
 
 const KPersonal: React.FC<IKPersonalProps> = () => {
     const translation = useTranslation('personal')
+    const email = useStore(userEmail$)
 
     const [name, setName] = useState<string | null>('')
     const [date, setDate] = useState<string | null>('')
@@ -58,7 +60,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
             pTg: pTg,
         }
 
-        api.addPersonalInfo(localStorage.getItem('email'), info).then(r => console.log(r))
+        api.addPersonalInfo(email, info).then(r => console.log(r))
 
         stageUp()
     }
@@ -85,8 +87,8 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const isMobile = window.innerWidth < 1366
 
     return (
-        <div className="kyc-personal">
-            <div className="kyc-personal__wrapper">
+        <ModalPage>
+            <div className="kyc-personal">
                 <h1>{translation('title')}</h1>
                 <div className="kyc-personal-firstRow">
                     <Form
@@ -107,6 +109,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formDateTitle')}
                             placeHolder={translation('formDatePlaceHolder')}
                             value={date}
+                            mask={'99/99/9999'}
                         />
                     }
                 </div>
@@ -119,6 +122,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         title={translation('formDateTitle')}
                         placeHolder={translation('formDatePlaceHolder')}
                         value={date}
+                        mask={'99/99/9999'}
                     />
                 }
                 <div className="kyc-personal-secondRow">
@@ -198,7 +202,8 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         onToggle={() => setChecked(!checked)}
                         checked={checked}
                     />
-                    {!checked && !isMobile && <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
+                    {!checked && !isMobile &&
+                        <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
                 </div>
                 {!checked && isMobile && <Button handleClick={handleComplete} title={translation('btnContinue')}/>}
 
@@ -286,7 +291,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                     </>
                 )}
             </div>
-        </div>
+        </ModalPage>
     );
 }
 

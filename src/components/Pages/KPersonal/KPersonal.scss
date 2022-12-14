@@ -1,28 +1,15 @@
 @import './src/scss/mixins';
 
 .kyc-personal {
-  width: calc(825 / 1440 * 100vw);
-  height: auto;
+  width: 100%;
+  height: 100%;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 
-  padding: 35px 0;
-
-  border: 3px solid var(--border-color);
-
-  &__wrapper {
-    width: 76%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    gap: 30px;
-  }
+  gap: 30px;
 
   h1 {
     @include h2-bold;

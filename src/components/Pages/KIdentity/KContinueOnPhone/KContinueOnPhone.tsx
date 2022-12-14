@@ -23,8 +23,6 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
             expiresIn: Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
         }, process.env.REACT_APP_SECRECT_TOKEN || '');
 
-        // console.log(`${process.env.REACT_APP_API_QR}/?token=${token}`)
-
         return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}`)
     }
 
@@ -44,7 +42,7 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
                     <div className={'kyc-continue__body-right'}>
                         <div className={'kyc-continue__body-right-wrapper'}>
                             <h2>{translation('subtitle')}</h2>
-                            <div style={{height: "auto", margin: "0 auto", maxWidth: 64, width: "100%"}}>
+                            <div style={{height: "auto", margin: "0 auto", maxWidth: 100, width: "100%"}}>
                                 <QRCode
                                     size={256}
                                     style={{height: "auto", maxWidth: "100%", width: "100%"}}

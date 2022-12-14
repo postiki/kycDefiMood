@@ -36,7 +36,10 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
                 'kyc-select-country': true,
                 'kyc-select-country--open': showDropdown,
             })}
-            onClick={() => setShowDropdown(!showDropdown)}
+            onClick={() => {
+                setShowDropdown(!showDropdown)
+                setFilter('')
+            }}
         >
             <div className={'kyc-select-country-title'}>
                 <p>{title}</p>

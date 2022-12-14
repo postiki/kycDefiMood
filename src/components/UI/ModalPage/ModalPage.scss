@@ -1,0 +1,22 @@
+@import './src/scss/mixins';
+
+.k-modal {
+  width: calc(635 / 1440 * 100vw);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 35px 95px;
+
+  border: 3px solid var(--border-color);
+}
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .k-modal {
+    width: 90%;
+    height: 85%;
+
+    padding: 13px 20px;
+  }
+}

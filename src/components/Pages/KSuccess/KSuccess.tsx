@@ -2,6 +2,7 @@ import './KSuccess.scss'
 import React from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
+import ModalPage from "../../UI/ModalPage";
 
 interface IKSuccessProps {
 
@@ -9,13 +10,15 @@ interface IKSuccessProps {
 
 const KSuccess: React.FC<IKSuccessProps> = () => {
     const translation = useTranslation('success')
+    const isMobile = window.innerWidth < 1366
     return (
-        <div className={'kyc-success'}>
-            <div className={'kyc-success__wrapper'}>
-                <h1>{translation('title')}</h1>
-                <div className={'kyc-success__input'}>
-                    <p>Input(</p>
-                    <span>
+        <ModalPage>
+            <div className={'kyc-success'}>
+                <div className={'kyc-success__wrapper'}>
+                    <h1>{translation('title')}</h1>
+                    <div className={'kyc-success__input'}>
+                        <p>Input(</p>
+                        <span>
                         Personal_info;
                         <br/>
                         Passport_photo;
@@ -23,18 +26,25 @@ const KSuccess: React.FC<IKSuccessProps> = () => {
                         Selfie;
                         <br/>
                     </span>
-                    <p>)</p>
-                </div>
-                <div className={'kyc-success__output'}>
-                    <p>Output(</p>
-                    <span>
-                    {translation('complete')}
+                        <p>)</p>
+                    </div>
+                    <div className={'kyc-success__output'}>
+                        <p>Output(</p>
+                        <span>
+                    {translation(`${isMobile ? 'completeMobile' : 'complete'}`)}
+                            {isMobile &&
+                                <>
+                                    <br/>
+                                    ヽ(・∀・)ﾉ
+                                </>
+                            }
                     </span>
-                    <p>)</p>
+                        <p>)</p>
+                    </div>
+                    <Button handleClick={() => console.log('success')} title={translation('btn')}/>
                 </div>
-                <Button handleClick={() => console.log('success')} title={translation('btn')}/>
             </div>
-        </div>
+        </ModalPage>
     )
 }
 

@@ -12,18 +12,18 @@
       "formPlaceHolder": "example@gmail.com",
       "sendCode": "Verification code sent to your email",
       "sendCodeFormTitle": "Verification_code",
-      "sendCodeFormPlaceHolder": "000 - 000 - 000",
+      "sendCodeFormPlaceHolder": "000-000-000",
       "sendCodeNotReceive": "Code still not received?",
       "sendCodeSendAgain": "Send code again",
-      "completeTitle": "Email successfully verified ヽ(・∀・)ﾉ",
+      "completeTitle": "Email successfully verified",
       "enabledReferral": "Do you have a referral code?",
       "enterCode": "enterCode",
       "referralCode": "Enter referral code",
       "referralFormTitle": "Referral_code",
-      "referralFormPlaceHolder": "012 - 345 - 678",
+      "referralFormPlaceHolder": "012-345-678",
       "errorEmail": "Email entered incorrectly, please check the spelling of your email",
       "errorCode": "Incorrect code",
-      "incorrectCode": "code must be of 6 digits"
+      "incorrectCode": "Code must be of 9 digits"
     },
     "personal": {
       "btnEnter": "Enter",
@@ -70,7 +70,7 @@
       "personal": "Personal info",
       "identity": "Identity document",
       "selfie": "Selfie",
-      "schedule": "Video call",
+      "schedule": "Video interview",
       "success": "Success"
     },
     "identity": {
@@ -88,6 +88,7 @@
     },
     "success": {
       "title": "Submission  completed successfully",
+      "completeMobile": "Registration completed successfully,thank you",
       "complete": "Registration completed successfully,thank you ヽ(・∀・)ﾉ",
       "btn": "Done"
     }

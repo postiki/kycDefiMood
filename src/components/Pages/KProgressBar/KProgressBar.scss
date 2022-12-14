@@ -1,8 +1,8 @@
 @import './src/scss/mixins';
 
 .kyc-progressbar {
-  width: calc(245 / 1440 * 100vw);
-  height: calc(480 / 1080 * 100vh);
+  width: calc(234 / 1440 * 100vw);
+  height: calc(590 / 1080 * 100vh);
 
   display: flex;
   align-items: flex-start;
@@ -23,8 +23,8 @@
     gap: 10px;
 
     &-box {
-      width: 37px;
-      height: 37px;
+      width: 34px;
+      height: 34px;
 
       display: flex;
       align-items: center;
