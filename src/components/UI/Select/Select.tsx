@@ -9,10 +9,10 @@ interface ISelectorProps {
     onChange: (props: string) => void
     title: string,
     points: Array<string>,
-    doted?: boolean,
+    icon?: string,
 }
 
-const Select: React.FC<ISelectorProps> = ({onChange, title, points, doted}) => {
+const Select: React.FC<ISelectorProps> = ({onChange, title, points, icon}) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [selectItem, setSelectItem] = useState(points[0])
 
@@ -30,7 +30,7 @@ const Select: React.FC<ISelectorProps> = ({onChange, title, points, doted}) => {
         >
             <div className={'kyc-select-title'}>{title}</div>
             <div className={'kyc-select-item'}>
-                <p>🕑{' '}{selectItem}</p>
+                <p>{icon}{' '}{selectItem}</p>
                 <div className={'kyc-select-item__arrow'}>
                     <ArrowNext/>
                 </div>
@@ -60,6 +60,7 @@ Select.propTypes = {
     onChange: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     points: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    icon: PropTypes.string.isRequired,
 }
 
 export default Select;

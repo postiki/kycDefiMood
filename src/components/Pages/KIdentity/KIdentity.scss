@@ -43,6 +43,13 @@
 
     border: 3px solid var(--border-color);
 
+    svg{
+      width: 70%;
+
+      fill: transparent;
+      color: var(--text-color);
+    }
+
     &-preview {
       width: 100%;
       height: 100%;

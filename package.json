@@ -17,6 +17,7 @@
     "dotenv": "^16.0.3",
     "effector": "^22.4.0",
     "effector-react": "^22.3.4",
+    "ethers": "^5.7.2",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "npm": "^9.1.3",

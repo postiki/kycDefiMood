@@ -41,7 +41,7 @@ const KSuccess: React.FC<IKSuccessProps> = () => {
                     </span>
                         <p>)</p>
                     </div>
-                    <Button handleClick={() => console.log('success')} title={translation('btn')}/>
+                    {/*<Button handleClick={() => console.log('success')} title={translation('btn')}/>*/}
                 </div>
             </div>
         </ModalPage>

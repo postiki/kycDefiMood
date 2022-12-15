@@ -74,7 +74,8 @@
       "success": "Success"
     },
     "identity": {
-      "title": "Take a photo of the identity document",
+      "doc": "Take a photo of the identity document",
+      "selfie": "Take a selfie",
       "access": "Give access to the camera",
       "allowBtn" : "Allow",
       "btn": "UploadPhoto",

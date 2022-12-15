@@ -19,8 +19,8 @@ interface ISelectorProps {
 
 const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
     const [showDropdown, setShowDropdown] = useState(false)
-    const [selectItem, setSelectItem] = useState(points[66])
-    const [filter, setFilter] = useState(points[66].name)
+    const [selectItem, setSelectItem] = useState(points[0])
+    const [filter, setFilter] = useState(points[0].name)
 
     useEffect(() => {
         onChange(selectItem.name)
@@ -44,7 +44,6 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
             <div className={'kyc-select-country-title'}>
                 <p>{title}</p>
             </div>
-
             <div
                  className={classNames({
                      'kyc-select-country-input': true,
@@ -68,6 +67,9 @@ const SelectCountry: React.FC<ISelectorProps> = ({onChange, title, points}) => {
                                 key={index}
                                 className={'kyc-select-country-dropdown-item'}
                                 onClick={() => setSelectItem(country)}
+                                style={{
+                                    display: country.code === 'default' ? 'none': 'flex'
+                                }}
                             >
                                 <div className={'kyc-select-country-dropdown-item-flag'}>
                                     {flags.filter(i => i.code === country.code).map(i => i.emoji)}

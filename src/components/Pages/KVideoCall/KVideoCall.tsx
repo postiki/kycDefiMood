@@ -41,6 +41,7 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
                         onChange={(e) => setSelectedTime(e)}
                         title={translation('timeFromTitle')}
                         points={['10:30 (GMT+3)', '11:30 (GMT+3)', '12:30 (GMT+3)']}
+                        icon={'🕑'}
                     />
                     <Button handleClick={() => saveDate()} title={translation('btn')}/>
                 </div>
@@ -57,7 +58,8 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
                     <Select
                         onChange={(e) => setSelectedTime(e)}
                         title={translation('timeFromTitle')}
-                        points={['10:30 (GMT+3)', '11:30 (GMT+3)', '12:30 (GMT+3)']}
+                        points={['10:30 (GMT)', '11:30 (GMT)', '12:30 (GMT)']}
+                        icon={'🕑'}
                     />
                 </div>
                 <Button handleClick={() => saveDate()} title={translation('btn')}/>

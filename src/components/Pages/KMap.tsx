@@ -1,5 +1,5 @@
 import './KMap.scss';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import KHeader from "./KHeader";
 import KProgressBar from "./KProgressBar";
 import {useStore} from "effector-react";
@@ -45,8 +45,6 @@ const KMap: React.FC<IKPersonalProps> = () => {
             }
         }
     }, [decodedToken, token])
-
-    useEffect(() => {console.log(stage)}, [stage])
 
     return (
         <div className="k-map">

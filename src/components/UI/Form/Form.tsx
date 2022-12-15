@@ -13,10 +13,21 @@ interface IFormProps {
     enabledError?: boolean
     error?: string
     mask?: string
+    type?: string
 
 }
 
-const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value, enabledError, error, mask}) => {
+const Form: React.FC<IFormProps> = ({
+                                        onChange,
+                                        title,
+                                        placeHolder,
+                                        small,
+                                        value,
+                                        enabledError,
+                                        error,
+                                        mask,
+                                        type
+}) => {
 
     return (
         <div className={classNames({
@@ -28,7 +39,7 @@ const Form: React.FC<IFormProps> = ({onChange, title, placeHolder, small, value,
         >
             <p>{title}</p>
             <InputMask mask={mask || ''} value={value || ''} onChange={onChange}>
-                <input placeholder={placeHolder}/>
+                <input placeholder={placeHolder} type={type}/>
             </InputMask>
             {error && <div className={'kyc-form-error'}>{error}</div>}
         </div>
@@ -44,6 +55,7 @@ Form.propTypes = {
     enabledError: PropTypes.bool,
     error: PropTypes.string,
     mask: PropTypes.string,
+    type: PropTypes.string,
 }
 
 export default Form;

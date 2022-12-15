@@ -1,5 +1,5 @@
 import './KIdentity.scss'
-import React, { useState} from "react";
+import React, {useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KContinueOnPhone from "./KContinueOnPhone";
@@ -8,6 +8,8 @@ import * as api from '../../../services/api';
 import {stageUp, userEmail$} from "../../../entities/progress-manager";
 import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
+import Selfie from "../../SvgIcon/Selfie";
+import Doc from "../../SvgIcon/Doc";
 
 interface IKIdentifyProps {
     doc: string
@@ -52,22 +54,31 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
         )
     }
 
+    const icon = {
+        doc: <Doc/>,
+        selfie: <Selfie/>
+    }
+
     return (
         <ModalPage>
             <div className={'kyc-identify'}>
-                <h1>{translation('title')}</h1>
+                <h1>{translation(`${doc}`)}</h1>
                 <div className={'kyc-identify-photo'}>
                     {!selectedFile &&
                         <div
                             style={{
                                 width: '100%',
-                                height: '55%',
+                                height: '70%',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
+                                gap: '20px'
                             }}
                         >
+                            { // @ts-ignore
+                                icon[doc]
+                            }
                             <input
                                 type="file"
                                 name="file"
@@ -87,9 +98,8 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
                              }}
                         />
                     }
-                    {/*{selectedFile && <div className={'kyc-identify-photo-preview-capture'}></div>}*/}
                 </div>
-                <Button handleClick={handleUpload} title={translation('btn')}/>
+                <Button disabled={!isFilePicked} handleClick={handleUpload} title={translation('btn')}/>
                 <h3 onClick={handleRetake}>{translation('retake')}</h3>
             </div>
         </ModalPage>

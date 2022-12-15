@@ -107,3 +107,26 @@
     }
   }
 }
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-select {
+    display: flex;
+    flex-direction: column;
+
+    border: 3px solid var(--border-color);
+
+    height: auto;
+
+    &-item{
+      min-height: 42px;
+    }
+
+    &-dropdown{
+      position: inherit;
+      top:inherit;
+      left: inherit;
+
+      border: none;
+    }
+  }
+}

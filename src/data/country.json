@@ -1,5 +1,9 @@
 [
   {
+    "name": "Select country",
+    "code": "default"
+  },
+  {
     "name": "Afghanistan",
     "code": "AF"
   },

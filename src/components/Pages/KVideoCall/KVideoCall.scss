@@ -23,3 +23,10 @@
   }
 
 }
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-schedule{
+    height: auto;
+    gap: 20px;
+  }
+}
