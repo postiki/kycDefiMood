@@ -295,16 +295,16 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         error={error.docNumber}
                     />
                 }
-                <Form
-                    onChange={(e) => {
-                        setAddr(e.target.value)
-                        localStorage.setItem('addr', e.target.value)
-                    }}
-                    title={translation('formWalletTitle')}
-                    placeHolder={translation('formWalletPlaceHolder')}
-                    value={addr}
-                    error={error.addr}
-                />
+                {/*<Form*/}
+                {/*    onChange={(e) => {*/}
+                {/*        setAddr(e.target.value)*/}
+                {/*        localStorage.setItem('addr', e.target.value)*/}
+                {/*    }}*/}
+                {/*    title={translation('formWalletTitle')}*/}
+                {/*    placeHolder={translation('formWalletPlaceHolder')}*/}
+                {/*    value={addr}*/}
+                {/*    error={error.addr}*/}
+                {/*/>*/}
                 {/*<div className="kyc-personal-fourRow">*/}
                 {/*    <CheckBox*/}
                 {/*        label={translation('checkBoxLabel')}*/}

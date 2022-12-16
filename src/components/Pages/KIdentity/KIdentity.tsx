@@ -1,5 +1,5 @@
 import './KIdentity.scss'
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KContinueOnPhone from "./KContinueOnPhone";
@@ -10,6 +10,7 @@ import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
 import Selfie from "../../SvgIcon/Selfie";
 import Doc from "../../SvgIcon/Doc";
+import {blob} from "stream/consumers";
 
 interface IKIdentifyProps {
     doc: string
@@ -19,88 +20,112 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const translation = useTranslation('identity')
     const email = useStore(userEmail$)
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [photo, setPhoto] = useState(null)
+    const [file, setFile] = useState('')
+    const [playing, setPlaying] = useState(false);
+    const [mediaStream, setMediaStream] = useState<any | null>(null);
+    const webcamVideo = useRef();
 
-    const [isFilePicked, setIsFilePicked] = useState(false);
-    const [src, setSrc] = useState('')
+    const typeCamera = doc === 'doc' ? {video: {facingMode: "user"}} : {video: { facingMode: { exact: "environment" } }}
 
-    //@ts-ignore
-    const changeHandler = (event) => {
-        setSelectedFile(event.target.files[0]);
-        setSrc(URL.createObjectURL(event.target.files[0]))
-        setIsFilePicked(true);
+    const startStream = async () => {
+        setFile('')
+        const stream = await navigator.mediaDevices.getUserMedia({
+            ...typeCamera,
+            audio: false,
+        })
+            .then((newStream) => {
+                // @ts-ignore
+                webcamVideo.current.srcObject = newStream;
+                setMediaStream(newStream)
+            })
+
+        setPlaying(true)
     };
 
-    const handleUpload = () => {
-        let formData = new FormData();
-        const file = selectedFile;
-        if (file) {
-            formData.append('File', file, `${doc}:${email}`);
 
-        }
-        console.log(formData)
-        api.uploadImage(formData, doc).then(r => r.ok && stageUp())
-    }
+    const stopStream = () => {
+        mediaStream.getTracks().forEach((track: any) => track.stop());
+        setPlaying(false)
+    };
 
-    const handleRetake = () => {
-        setSelectedFile(null)
-    }
+    const track = mediaStream?.getVideoTracks()[0];
 
-    const isMobile = window.innerWidth < 1366
+    const grabImage = () => {
+        let imageCapture = new (window as any).ImageCapture(track)
+        imageCapture.takePhoto()
+            .then((blob: any) => {
+                setPhoto(blob)
+                setFile(URL.createObjectURL(blob))
+                stopStream()
+            })
+            .catch((error: any) => console.error(error));
 
-    if (!isMobile) {
-        return (
-            <KContinueOnPhone/>
-        )
     }
 
     const icon = {
         doc: <Doc/>,
         selfie: <Selfie/>
     }
+    const handleUpload = () => {
+        let formData = new FormData();
+        if (photo) {
+            formData.append('File', photo, `${doc}:${localStorage.getItem('email')}`);
+
+        }
+        console.log(formData)
+        api.uploadImage(formData, doc).then(r => r.ok && stageUp())
+    }
+
 
     return (
         <ModalPage>
             <div className={'kyc-identify'}>
                 <h1>{translation(`${doc}`)}</h1>
                 <div className={'kyc-identify-photo'}>
-                    {!selectedFile &&
-                        <div
-                            style={{
-                                width: '100%',
-                                height: '70%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                gap: '20px'
-                            }}
-                        >
-                            { // @ts-ignore
-                                icon[doc]
-                            }
-                            <input
-                                type="file"
-                                name="file"
-                                accept="image/*;capture=camera"
-                                // @ts-ignore
-                                capture="camera"
-                                onChange={changeHandler}
-                            />
-                            {/*<Button handleClick={() => console.log('')} title={translation('allowBtn')}/>*/}
-                            {/*<p>{translation('access')}</p>*/}
-                        </div>
+                    { // @ts-ignore
+                        !playing && !file && icon[doc]
                     }
-                    {selectedFile &&
-                        <div className={'kyc-identify-photo-preview'}
-                             style={{
-                                 backgroundImage: `url(${src})`
-                             }}
-                        />
-                    }
+
+                    <video
+                        style={{
+                            display: playing ? 'flex' : 'none',
+                            width: '90%',
+                            height: '70%'
+                        }}
+                        // @ts-ignore
+                        ref={webcamVideo}
+                        autoPlay
+                        playsInline
+                    />
+
+                    {!playing && !file &&
+                        <Button handleClick={startStream} title={'allowBtn'}/>}
+                    <div className={'kyc-identify-photo-preview'}
+                         style={{
+                             display: file ? 'flex' : 'none',
+                             backgroundImage: `url(${file})`
+                         }}
+                    />
                 </div>
-                <Button disabled={!isFilePicked} handleClick={handleUpload} title={translation('btn')}/>
-                <h3 onClick={handleRetake}>{translation('retake')}</h3>
+                {!playing &&
+                    <Button disabled={!file} handleClick={handleUpload} title={'upload'}/>
+                }
+                {!file && playing &&
+                    <Button
+                        handleClick={() => {
+                            grabImage()
+                        }}
+                        title={'take photo'}
+                    />}
+
+                {!playing &&
+                    <h3
+                        // onClick={startStream}
+                    >
+                        {translation('retake')}
+                    </h3>
+                }
             </div>
         </ModalPage>
     )
