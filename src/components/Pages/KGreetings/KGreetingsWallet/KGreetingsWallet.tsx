@@ -5,7 +5,7 @@ import useTranslation from "../../../../hooks/useTranslation";
 import Button from "../../../UI/Button";
 import CheckBox from "../../../UI/CheckBox";
 import PropTypes from "prop-types";
-import {connectWallet} from "../../../../services/connect-wallet";
+// import {connectWallet} from "../../../../services/connect-wallet";
 
 interface IKGreetingWalletProps {
     handleComplete: () => void,
@@ -16,7 +16,7 @@ const KGreetingWallet: React.FC<IKGreetingWalletProps> = ({handleComplete}) => {
     const [checked, setChecked] = useState(false)
 
     const handleConnect = async () => {
-        await connectWallet().then(() => handleComplete())
+        // await connectWallet().then(() => handleComplete())
     }
 
     return (
