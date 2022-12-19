@@ -25,7 +25,7 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const [mediaStream, setMediaStream] = useState<any | null>(null);
     const webcamVideo = useRef();
 
-    const typeCamera = doc === 'doc' ? {video: {facingMode: "user"}} : {video: {facingMode: {exact: "environment"}}}
+    const typeCamera = doc === 'doc' ? {video: {facingMode: {exact: "environment"}}} : {video: {facingMode: "user"}}
 
     const canvas = document.getElementById('canvas');
     // @ts-ignore
