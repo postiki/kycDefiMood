@@ -37,15 +37,15 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
     }
 
     const handleCompleteEmail = () => {
-        setStage(2)
+        setStage(1)
 
     }
     const handleCompleteVerify = () => {
-        setStage(3)
+        setStage(2)
     }
 
     const handleAddReferral = () => {
-        setStage(4)
+        setStage(3)
     }
 
     const handleCompleteReferral = () => {
