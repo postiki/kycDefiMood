@@ -2,6 +2,7 @@ const BASE_URL = process.env.REACT_APP_API_ENDPOINT || '';
 const JSON_HEADERS = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
 };
 
 export async function getVerifyCode(email, id) {
@@ -96,6 +97,8 @@ export async function addPersonalInfo(email, {...props}) {
             pTg: props?.pTg,
         }),
     });
+
+    console.log(res)
 
     if (!res.ok) {
         throw new Error(res.statusText);

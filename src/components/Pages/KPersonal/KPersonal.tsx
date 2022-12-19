@@ -79,8 +79,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
             if (date) {
                 const dateNow = new Date()
-                const day = dateNow.getDay()
-                const month = dateNow.getMonth()
                 const year = dateNow.getFullYear()
                 const splitDate = date.split('/')
 
