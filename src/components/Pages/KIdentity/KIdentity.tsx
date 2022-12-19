@@ -52,8 +52,6 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
         setPlaying(false)
     };
 
-    const track = mediaStream?.getVideoTracks()[0];
-
     const grabImage = () => {
         // @ts-ignore
         context.drawImage(webcamVideo.current, 0, 0, canvas.width, canvas.height);
@@ -66,17 +64,6 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
         })
 
         stopStream()
-
-        // // @ts-ignore
-        // let imageCapture = new ImageCapture(track)
-        // imageCapture.takePhoto()
-        //     .then((blob: any) => {
-        //         setPhoto(blob)
-        //         setFile(URL.createObjectURL(blob))
-        //         stopStream()
-        //     })
-        //     .catch((error: any) => console.error(error));
-
     }
 
     const icon = {
