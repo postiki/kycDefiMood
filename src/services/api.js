@@ -31,8 +31,6 @@ export async function checkVerifyCode(code, id) {
         }),
     });
 
-    console.log(res)
-
     const body = await res.json();
 
     if (!res.ok) {

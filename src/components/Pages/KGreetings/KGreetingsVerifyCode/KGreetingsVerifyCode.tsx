@@ -26,6 +26,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
 
     const saveUser = () => {
         api.saveUser(email).then(r => {
+            console.log(r)
             const completeStage = r.stage
 
             switch (completeStage) {

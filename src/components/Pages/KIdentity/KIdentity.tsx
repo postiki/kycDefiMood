@@ -1,5 +1,5 @@
 import './KIdentity.scss'
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KContinueOnPhone from "./KContinueOnPhone";
@@ -10,7 +10,6 @@ import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
 import Selfie from "../../SvgIcon/Selfie";
 import Doc from "../../SvgIcon/Doc";
-import {blob} from "stream/consumers";
 
 interface IKIdentifyProps {
     doc: string
@@ -26,7 +25,7 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const [mediaStream, setMediaStream] = useState<any | null>(null);
     const webcamVideo = useRef();
 
-    const typeCamera = doc === 'doc' ? {video: {facingMode: "user"}} : {video: { facingMode: { exact: "environment" } }}
+    const typeCamera = doc === 'doc' ? {video: {facingMode: "user"}} : {video: {facingMode: {exact: "environment"}}}
 
     const startStream = async () => {
         setFile('')
@@ -52,7 +51,8 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const track = mediaStream?.getVideoTracks()[0];
 
     const grabImage = () => {
-        let imageCapture = new (window as any).ImageCapture(track)
+        // @ts-ignore
+        let imageCapture = new ImageCapture(track)
         imageCapture.takePhoto()
             .then((blob: any) => {
                 setPhoto(blob)
@@ -73,10 +73,16 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
             formData.append('File', photo, `${doc}:${email}`);
 
         }
-        console.log(formData)
         api.uploadImage(formData, doc).then(r => r.ok && stageUp())
     }
 
+    const isMobile = window.innerWidth < 1366
+
+    if (!isMobile) {
+        return (
+            <KContinueOnPhone/>
+        )
+    }
 
     return (
         <ModalPage>
