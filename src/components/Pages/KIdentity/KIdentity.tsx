@@ -27,6 +27,10 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
 
     const typeCamera = doc === 'doc' ? {video: {facingMode: "user"}} : {video: {facingMode: {exact: "environment"}}}
 
+    const canvas = document.getElementById('canvas');
+    // @ts-ignore
+    const context = canvas?.getContext('2d');
+
     const startStream = async () => {
         setFile('')
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -52,14 +56,26 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
 
     const grabImage = () => {
         // @ts-ignore
-        let imageCapture = new ImageCapture(track)
-        imageCapture.takePhoto()
-            .then((blob: any) => {
-                setPhoto(blob)
-                setFile(URL.createObjectURL(blob))
-                stopStream()
-            })
-            .catch((error: any) => console.error(error));
+        context.drawImage(webcamVideo.current, 0, 0, canvas.width, canvas.height);
+
+        // @ts-ignore
+        canvas.toBlob((blob) => {
+            console.log()
+            setFile(URL.createObjectURL(blob))
+            setPhoto(blob)
+        })
+
+        stopStream()
+
+        // // @ts-ignore
+        // let imageCapture = new ImageCapture(track)
+        // imageCapture.takePhoto()
+        //     .then((blob: any) => {
+        //         setPhoto(blob)
+        //         setFile(URL.createObjectURL(blob))
+        //         stopStream()
+        //     })
+        //     .catch((error: any) => console.error(error));
 
     }
 
@@ -103,6 +119,15 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
                         ref={webcamVideo}
                         autoPlay
                         playsInline
+                    />
+
+                    <canvas
+                        style={{
+                            display: 'none'
+                        }}
+                        id="canvas"
+                        width="1080"
+                        height="1920"
                     />
 
                     {!playing && !file &&

@@ -2,11 +2,13 @@
 
 .kyc-checkBox {
   width: auto;
-  height: 25px;
+  height: auto;
 
   display: flex;
   align-items: center;
   gap: 15px;
+
+  justify-content: space-between;
 
   &__box {
     width: 18px;
@@ -27,6 +29,8 @@
   }
 
   &__label {
+    width: 90%;
+
     @include h3-regular;
     color: var(--title-color);
   }

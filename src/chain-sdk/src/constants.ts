@@ -1,0 +1,1 @@
+export const RPC_POLLING_INTERVAL = 15_000;

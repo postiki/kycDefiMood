@@ -7,19 +7,22 @@ import KGreetingsReferral from "./KGreetingsReferral";
 import KGreetingsComplete from "./KGreetingsComplete";
 import {stageUp} from "../../../entities/progress-manager";
 import ModalPage from "../../UI/ModalPage";
+import KGreetingsWallet from "./KGreetingsWallet";
 
 const stageHighSeizMobile = {
     0: '265px',
-    1: '308px',
-    2: '237px',
-    3: '254px',
+    1: '265px',
+    2: '308px',
+    3: '237px',
+    4: '254px',
 }
 
 const stageHighSeiz = {
     0: '228px',
-    1: '271px',
-    2: '183px',
-    3: '228px',
+    1: '228px',
+    2: '271px',
+    3: '183px',
+    4: '228px',
 }
 
 interface IKGreetingsProps {
@@ -29,16 +32,20 @@ interface IKGreetingsProps {
 const KGreetings: React.FC<IKGreetingsProps> = () => {
     const [stage, setStage] = useState(0)
 
+    const handleCompleteWallet = () => {
+      setStage(1)
+    }
+
     const handleCompleteEmail = () => {
-        setStage(1)
+        setStage(2)
 
     }
     const handleCompleteVerify = () => {
-        setStage(2)
+        setStage(3)
     }
 
     const handleAddReferral = () => {
-        setStage(3)
+        setStage(4)
     }
 
     const handleCompleteReferral = () => {
@@ -63,11 +70,12 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
                      height: witchSize
                  }}
             >
-                {stage === 0 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
-                {stage === 1 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
-                {stage === 2 &&
+                {stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}
+                {stage === 1 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
+                {stage === 2 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
+                {stage === 3 &&
                     <KGreetingsComplete handleComplete={handleComplete} handleAddReferral={handleAddReferral}/>}
-                {stage === 3 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}
+                {stage === 4 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}
             </div>
         </ModalPage>
     );

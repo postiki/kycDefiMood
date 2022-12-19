@@ -5,9 +5,8 @@ import KProgressBar from "./KProgressBar";
 import {useStore} from "effector-react";
 import {useJwt} from "react-jwt";
 
-import {addUserEmail, setStage, stage$, userEmail$} from "../../entities/progress-manager";
+import {addUserEmail, setStage, stage$} from "../../entities/progress-manager";
 
-import {useTheme} from "../../hooks/useThemes";
 import KIdentity from "./KIdentity";
 import KGreetings from "./KGreetings";
 import KPersonal from "./KPersonal";
