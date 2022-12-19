@@ -70,7 +70,7 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const handleUpload = () => {
         let formData = new FormData();
         if (photo) {
-            formData.append('File', photo, `${doc}:${localStorage.getItem('email')}`);
+            formData.append('File', photo, `${doc}:${email}`);
 
         }
         console.log(formData)
