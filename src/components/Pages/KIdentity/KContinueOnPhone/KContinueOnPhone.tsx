@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 import useTranslation from "../../../../hooks/useTranslation";
 import Button from "../../../UI/Button";
-import {stage$} from "../../../../entities/progress-manager";
+import {stage$, userEmail$} from "../../../../entities/progress-manager";
 import {useStore} from "effector-react";
 
 interface IKContinueOnPhoneProps {
@@ -16,11 +16,12 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
     const translation = useTranslation('continue')
     const [url, setUrl] = useState('')
     const stage = useStore(stage$)
+    const email = useStore(userEmail$)
 
     const newUrl = () => {
         const token = jwt.sign({
-            info: `${stage}_${localStorage.getItem('email')}`,
-            expiresIn: Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//1 minute
+            info: `${stage}_${email}`,
+            expiresIn: Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//10 minute
         }, process.env.REACT_APP_SECRECT_TOKEN || '');
 
         return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}`)
