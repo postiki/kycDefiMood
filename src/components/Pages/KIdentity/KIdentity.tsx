@@ -58,9 +58,11 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
                     webcamVideo.current.srcObject = newStream;
                 setMediaStream(newStream)
 
-                const settings = newStream.getTracks()[0]?.getSettings()
-                setCamWidth(settings.width || 0)
-                setCamHeight(settings.height || 0)
+                const settings = newStream.getTracks()[0]?.getCapabilities()
+                if (settings.width && settings.height) {
+                    setCamWidth(settings.width.max || 0)
+                    setCamHeight(settings.height.max || 0)
+                }
             })
 
         setPlaying(true)
