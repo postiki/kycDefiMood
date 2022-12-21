@@ -60,8 +60,8 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
 
                 const settings = newStream.getTracks()[0]?.getCapabilities()
                 if (settings.width && settings.height) {
-                    setCamWidth(settings.width.max || 0)
-                    setCamHeight(settings.height.max || 0)
+                    setCamHeight(settings.width.max || 0)
+                    setCamWidth(settings.height.max || 0)
                 }
             })
 
