@@ -1,5 +1,5 @@
 import './KIdentity.scss'
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KContinueOnPhone from "./KContinueOnPhone";
@@ -30,6 +30,20 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const canvas = document.getElementById('canvas');
     // @ts-ignore
     const context = canvas?.getContext('2d');
+
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !file && handleUpload();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [file]);
 
     const startStream = async () => {
         setFile('')

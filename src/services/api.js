@@ -72,7 +72,7 @@ export async function addRefCode(email, refCode) {
         throw new Error(res.statusText);
     }
 
-    return res
+    return res.json()
 }
 
 export async function addPersonalInfo(email, {...props}) {
@@ -97,8 +97,6 @@ export async function addPersonalInfo(email, {...props}) {
             pTg: props?.pTg,
         }),
     });
-
-    console.log(res)
 
     if (!res.ok) {
         throw new Error(res.statusText);

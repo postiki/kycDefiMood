@@ -1,5 +1,5 @@
 import './KVideoCall.scss'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KCalendar from "./KCalendar/KCalendar";
@@ -20,6 +20,21 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
 
     const [selectedTime, setSelectedTime] = useState('')
     const [selectedDate, setSelectedDay] = useState('')
+    const disabled = !selectedDate || !selectedDate
+
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !disabled && saveDate();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [disabled]);
 
     const saveDate = () => {
         try {
@@ -62,7 +77,7 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
                         icon={'🕑'}
                     />
                 </div>
-                <Button handleClick={() => saveDate()} title={translation('btn')}/>
+                <Button disabled={disabled} handleClick={saveDate} title={translation('btn')}/>
             </div>
         </ModalPage>
     )

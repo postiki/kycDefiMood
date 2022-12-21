@@ -32,10 +32,6 @@ interface IKGreetingsProps {
 const KGreetings: React.FC<IKGreetingsProps> = () => {
     const [stage, setStage] = useState(0)
 
-    const handleCompleteWallet = () => {
-      setStage(1)
-    }
-
     const handleCompleteEmail = () => {
         setStage(1)
 

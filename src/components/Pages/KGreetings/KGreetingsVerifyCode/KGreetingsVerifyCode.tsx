@@ -1,14 +1,15 @@
 import './KGreetingsVerifyCode.scss'
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
 import * as api from '../../../../services/api';
-import {setStage, userEmail$} from "../../../../entities/progress-manager";
+import { setStage, userEmail$} from "../../../../entities/progress-manager";
 import {useDebounce} from "react-use";
 import validateCode from "../../../../services/validateCode";
 import {useStore} from "effector-react";
+import {idGenerator} from "../../../../services/idGenerator";
 
 interface IKGreetingsVerifyCodeProps {
     handleComplete: () => void
@@ -22,29 +23,41 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const [error, setError] = useState('')
     const [disabledBtn, setDisabledBtn] = useState(false)
 
-    //TODO add resend code
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !disabledBtn && handleSendCode();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [disabledBtn]);
 
     const saveUser = () => {
         api.saveUser(email).then(r => {
-            console.log(r)
-            const completeStage = r.stage
+            if(r.stage){
+                const completeStage = r.stage
 
-            switch (completeStage) {
-                case '2':
-                    handleComplete()
-                    break
-                case '3':
-                    setStage(3)
-                    break
-                case '4':
-                    setStage(4)
-                    break
-                case '5':
-                    setStage(5)
-                    break
-                case '6':
-                    setStage(6)
-                    break
+                switch (completeStage) {
+                    case '2':
+                        handleComplete()
+                        break
+                    case '3':
+                        setStage(3)
+                        break
+                    case '4':
+                        setStage(4)
+                        break
+                    case '5':
+                        setStage(5)
+                        break
+                    case '6':
+                        setStage(6)
+                        break
+                }
             }
         })
     } //TODO remove to effector
@@ -60,6 +73,12 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
         });
     } //TODO remove to effector
 
+    const handleSendCode = () => {
+        api.getVerifyCode(email, idGenerator(24)).then(r => {
+            localStorage.setItem('id', r.id)
+        })
+    } //TODO remove to effector
+
     useDebounce(
         () => {
             if (!validateCode(code.split('-').join(''))) {
@@ -70,9 +89,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
 
             setError('')
             setDisabledBtn(false)
-        },
-        200,
-        [code]
+        }, 200, [code]
     );
 
     return (
@@ -87,13 +104,13 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                 value={code}
                 enabledError
                 error={translation(`${error}`)}
-                mask={'999-999-999'}
+                mask={'999-999'}
             />
             <Button disabled={disabledBtn} handleClick={handleApplyCode} title={translation('btnEnter')}/>
             <p>
                 {translation('sendCodeNotReceive')}
                 <br/>
-                <span>
+                <span onClick={handleSendCode}>
                     {translation('sendCodeSendAgain')}
                 </span>
             </p>

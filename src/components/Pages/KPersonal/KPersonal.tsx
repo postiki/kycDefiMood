@@ -4,7 +4,6 @@ import useTranslation from "../../../hooks/useTranslation";
 import Form from "../../UI/Form";
 import Select from "../../UI/Select";
 import Button from "../../UI/Button";
-import CheckBox from "../../UI/CheckBox";
 import {stageUp, userEmail$} from "../../../entities/progress-manager";
 
 import country from '../../../data/country.json'
@@ -14,7 +13,6 @@ import * as api from '../../../services/api';
 import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
 import {useDebounce} from "react-use";
-import validateEmail from "../../../services/validateEmail";
 import {ethers} from "ethers";
 
 interface IKPersonalProps {
@@ -51,9 +49,26 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         addr: '',
         docNumber: '',
         pName: '',
+        pSite: '',
         pDesc: '',
-        pSite: ''
+        pGh: '',
+        pTw: '',
+        pDc: '',
+        pTg: '',
     })
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !disabledBtn && handleComplete();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [disabledBtn]);
 
     const regExFullName = /^[a-zA-Z ]*$/;
     const validName = (regExFullName.test(name || '') || name === '');
@@ -65,6 +80,12 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const regExPSite = /^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
     const validPSite = (regExPSite.test(pSite || '') || pSite === '');
+
+    //TODO add valid domain
+    const validPGh =  (regExPSite.test(pGh || '') || pGh === '');
+    const validPTw =  (regExPSite.test(pTw || '') || pTw === '');
+    const validPDc =  (regExPSite.test(pDc || '') || pDc === '');
+    const validPTg =  (regExPSite.test(pTg || '') || pTg === '');
 
 
     useDebounce(
@@ -117,14 +138,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pName: ''}))
             }
 
-            if (pDesc && !validPDesc) {
-                setError(prevState => ({...prevState, pDesc: 'error'}))
-                setDisabledBtn(true)
-                return
-            } else {
-                setError(prevState => ({...prevState, pDesc: ''}))
-            }
-
             if (pSite && !validPSite) {
                 setError(prevState => ({...prevState, pSite: 'error'}))
                 setDisabledBtn(true)
@@ -133,11 +146,50 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pSite: ''}))
             }
 
+            if (pDesc && !validPDesc) {
+                setError(prevState => ({...prevState, pDesc: 'error'}))
+                setDisabledBtn(true)
+                return
+            } else {
+                setError(prevState => ({...prevState, pDesc: ''}))
+            }
+
+            if(pGh && !validPGh){
+                setError(prevState => ({...prevState, pGh: 'error'}))
+                setDisabledBtn(true)
+                return
+            } else {
+                setError(prevState => ({...prevState, pGh: ''}))
+            }
+
+            if(pTw && !validPTw){
+                setError(prevState => ({...prevState, pTw: 'error'}))
+                setDisabledBtn(true)
+                return
+            } else {
+                setError(prevState => ({...prevState, pTw: ''}))
+            }
+
+            if(pDc && !validPDc){
+                setError(prevState => ({...prevState, pDc: 'error'}))
+                setDisabledBtn(true)
+                return
+            } else {
+                setError(prevState => ({...prevState, pDc: ''}))
+            }
+
+            if(pTg && !validPTg){
+                setError(prevState => ({...prevState, pTg: 'error'}))
+                setDisabledBtn(true)
+                return
+            } else {
+                setError(prevState => ({...prevState, pTg: ''}))
+            }
 
             setDisabledBtn(false)
         },
         200,
-        [name, date, addr, docNumber, pName, pDesc, pSite]
+        [name, date, addr, docNumber, pName, pDesc, pSite, pGh, pTw, pDc, pTg]
     );
 
     const handleComplete = () => {
@@ -158,9 +210,9 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
             pTg: pTg,
         }
 
-        api.addPersonalInfo(email, info).then(r => console.log(r))
-
-        stageUp()
+        api.addPersonalInfo(email, info).then(success => {
+            if (success) stageUp()
+        })
     }
 
     useEffect(() => {
@@ -372,6 +424,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formPGhTitle')}
                             placeHolder={translation('formPGhPlaceHolder')}
                             value={pGh}
+                            error={error.pGh}
                         />
                         <Form
                             onChange={(e) => {
@@ -381,6 +434,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formPTwTitle')}
                             placeHolder={translation('formPTwPlaceHolder')}
                             value={pTw}
+                            error={error.pTw}
                         />
                         <Form
                             onChange={(e) => {
@@ -390,6 +444,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formPDcTitle')}
                             placeHolder={translation('formPDcPlaceHolder')}
                             value={pDc}
+                            error={error.pDc}
                         />
                         <Form
                             onChange={(e) => {
@@ -399,6 +454,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formPTgTitle')}
                             placeHolder={translation('formPTgPlaceHolder')}
                             value={pTg}
+                            error={error.pTg}
                         />
                         <Button disabled={disabledBtn} handleClick={handleComplete} title={translation('btnContinue')}/>
                     </>
