@@ -57,6 +57,9 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         pTg: '',
     })
 
+    const disabled = !name || !date || !citizenship || !residence ||
+        !docType || !docNumber || !pName || !pSite || !pDesc || !(pGh || pTw || pDc || pTg)
+
     useEffect(() => {
         const handleEnter = (event: any) => {
             if (event.keyCode === 13) {
@@ -72,8 +75,10 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const regExFullName = /^[a-zA-Z ]*$/;
     const validName = (regExFullName.test(name || '') || name === '');
-    const validPName = (regExFullName.test(pName || '') || pName === '');
-    const validPDesc = (regExFullName.test(pDesc || '') || pDesc === '');
+
+    const regExPDesc = /^[a-zA-Z0-9 ]*$/;
+    const validPName = (regExPDesc.test(pName || '') || pName === '');
+    const validPDesc = (regExPDesc.test(pDesc || '') || pDesc === '');
 
     const regExDate = /(^0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4}$)/
     const invalidDate = (regExDate.test(date || '') || date === '');
@@ -456,7 +461,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             value={pTg}
                             error={error.pTg}
                         />
-                        <Button disabled={disabledBtn} handleClick={handleComplete} title={translation('btnContinue')}/>
+                        <Button disabled={disabledBtn || disabled} handleClick={handleComplete} title={translation('btnContinue')}/>
                     </>
                 )}
             </div>
