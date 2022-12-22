@@ -77,6 +77,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const validName = (regExFullName.test(name || '') || name === '');
 
     const regExPDesc = /^[a-zA-Z0-9 ]*$/;
+    const validDocNumb = (regExPDesc.test(docNumber || '') || docNumber === '');
     const validPName = (regExPDesc.test(pName || '') || pName === '');
     const validPDesc = (regExPDesc.test(pDesc || '') || pDesc === '');
 
@@ -87,10 +88,10 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const validPSite = (regExPSite.test(pSite || '') || pSite === '');
 
     //TODO add valid domain
-    const validPGh =  (regExPSite.test(pGh || '') || pGh === '');
-    const validPTw =  (regExPSite.test(pTw || '') || pTw === '');
-    const validPDc =  (regExPSite.test(pDc || '') || pDc === '');
-    const validPTg =  (regExPSite.test(pTg || '') || pTg === '');
+    const validPGh = (regExPSite.test(pGh || '') || pGh === '');
+    const validPTw = (regExPSite.test(pTw || '') || pTw === '');
+    const validPDc = (regExPSite.test(pDc || '') || pDc === '');
+    const validPTg = (regExPSite.test(pTg || '') || pTg === '');
 
 
     useDebounce(
@@ -127,7 +128,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, addr: ''}))
             }
 
-            if (!docNumber && docNumber === '') {
+            if (docNumber && !validDocNumb) {
                 setError(prevState => ({...prevState, docNumber: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -159,7 +160,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pDesc: ''}))
             }
 
-            if(pGh && !validPGh){
+            if (pGh && !validPGh) {
                 setError(prevState => ({...prevState, pGh: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -167,7 +168,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pGh: ''}))
             }
 
-            if(pTw && !validPTw){
+            if (pTw && !validPTw) {
                 setError(prevState => ({...prevState, pTw: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -175,7 +176,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pTw: ''}))
             }
 
-            if(pDc && !validPDc){
+            if (pDc && !validPDc) {
                 setError(prevState => ({...prevState, pDc: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -183,7 +184,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pDc: ''}))
             }
 
-            if(pTg && !validPTg){
+            if (pTg && !validPTg) {
                 setError(prevState => ({...prevState, pTg: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -332,7 +333,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formDocNumbTitle')}
                             placeHolder={translation('formDocNumbPlaceHolder')}
                             value={docNumber}
-                            type={'number'}
                             error={error.docNumber}
                         />
                     }
@@ -461,7 +461,8 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             value={pTg}
                             error={error.pTg}
                         />
-                        <Button disabled={disabledBtn || disabled} handleClick={handleComplete} title={translation('btnContinue')}/>
+                        <Button disabled={disabledBtn || disabled} handleClick={handleComplete}
+                                title={translation('btnContinue')}/>
                     </>
                 )}
             </div>
