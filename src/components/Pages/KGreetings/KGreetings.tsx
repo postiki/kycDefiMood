@@ -33,19 +33,19 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
     const [stage, setStage] = useState(0)
 
     const handleCompleteWallet = () => {
-      setStage(1)
+        // setStage(1)
     }
 
     const handleCompleteEmail = () => {
-        setStage(2)
+        setStage(1)
 
     }
     const handleCompleteVerify = () => {
-        setStage(3)
+        setStage(2)
     }
 
     const handleAddReferral = () => {
-        setStage(4)
+        setStage(3)
     }
 
     const handleCompleteReferral = () => {
@@ -70,12 +70,14 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
                      height: witchSize
                  }}
             >
-                {stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}
-                {stage === 1 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
-                {stage === 2 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
-                {stage === 3 &&
+                {/*{stage === 0 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}*/}
+                {/*{stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}*/}
+
+                {stage === 0 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
+                {stage === 1 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
+                {stage === 2 &&
                     <KGreetingsComplete handleComplete={handleComplete} handleAddReferral={handleAddReferral}/>}
-                {stage === 4 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}
+                {stage === 3 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}
             </div>
         </ModalPage>
     );

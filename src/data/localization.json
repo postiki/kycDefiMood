@@ -14,7 +14,7 @@
       "formPlaceHolder": "example@gmail.com",
       "sendCode": "Verification code sent to your email",
       "sendCodeFormTitle": "Verification_code",
-      "sendCodeFormPlaceHolder": "000-000-000",
+      "sendCodeFormPlaceHolder": "000-000",
       "sendCodeNotReceive": "Code still not received?",
       "sendCodeSendAgain": "Send code again",
       "completeTitle": "Email successfully verified",
@@ -25,7 +25,7 @@
       "referralFormPlaceHolder": "012-345-678",
       "errorEmail": "Email entered incorrectly, please check the spelling of your email",
       "errorCode": "Incorrect code",
-      "incorrectCode": "Code must be of 9 digits"
+      "incorrectCode": "Code must be of 6 digits"
     },
     "personal": {
       "btnEnter": "Enter",
@@ -47,17 +47,17 @@
       "formPNameTitle": "Project_name",
       "formPNamePlaceHolder": "Example project name",
       "formPSiteTitle": "Project_site",
-      "formPSitePlaceHolder": "Example project site",
+      "formPSitePlaceHolder": "project.org",
       "formPDescTitle": "Project_description",
       "formPDescPlaceHolder": "Brifley write about the project",
       "formPGhTitle": "Project_GitHub",
-      "formPGhPlaceHolder": "https://GitHub.com",
+      "formPGhPlaceHolder": "github.com/example",
       "formPTwTitle": "Project_Twitter",
-      "formPTwPlaceHolder": "https://twitter.com",
+      "formPTwPlaceHolder": "twitter.com/example",
       "formPDcTitle": "Project_Discord",
-      "formPDcPlaceHolder": "https://discord.gg/example",
+      "formPDcPlaceHolder": "discord.gg/example",
       "formPTgTitle": "Project_Telegram",
-      "formPTgPlaceHolder": "https://t.me/example"
+      "formPTgPlaceHolder": "t.me/example"
     },
     "continue": {
       "btnGoBack": "Go back",

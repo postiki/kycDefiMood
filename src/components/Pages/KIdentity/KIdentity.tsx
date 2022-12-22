@@ -1,5 +1,5 @@
 import './KIdentity.scss'
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KContinueOnPhone from "./KContinueOnPhone";
@@ -23,24 +23,46 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     const [file, setFile] = useState('')
     const [playing, setPlaying] = useState(false);
     const [mediaStream, setMediaStream] = useState<any | null>(null);
-    const webcamVideo = useRef();
+    const [camWidth, setCamWidth] = useState(0)
+    const [camHeight, setCamHeight] = useState(0)
+    const webcamVideo = useRef<any>();
 
     const typeCamera = doc === 'doc' ? {video: {facingMode: {exact: "environment"}}} : {video: {facingMode: "user"}}
 
-    const canvas = document.getElementById('canvas');
-    // @ts-ignore
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const context = canvas?.getContext('2d');
+
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !file && handleUpload();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [file]);
 
     const startStream = async () => {
         setFile('')
-        const stream = await navigator.mediaDevices.getUserMedia({
+        await navigator.mediaDevices.getUserMedia({
             ...typeCamera,
             audio: false,
         })
             .then((newStream) => {
-                // @ts-ignore
-                webcamVideo.current.srcObject = newStream;
+
+                if (webcamVideo.current)
+                    webcamVideo.current.srcObject = newStream;
                 setMediaStream(newStream)
+
+                const settings = newStream.getTracks()[0]?.getCapabilities()
+                if (settings.width && settings.height) {
+                    setCamHeight(settings.width.max || 0)
+                    setCamWidth(settings.height.max || 0)
+                }
             })
 
         setPlaying(true)
@@ -53,15 +75,15 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
     };
 
     const grabImage = () => {
-        // @ts-ignore
-        context.drawImage(webcamVideo.current, 0, 0, canvas.width, canvas.height);
+        if (context) {
+            context.drawImage(webcamVideo.current, 0, 0, camWidth, camHeight);
+        }
 
-        // @ts-ignore
-        canvas.toBlob((blob) => {
-            console.log()
-            setFile(URL.createObjectURL(blob))
-            setPhoto(blob)
-        })
+        if (canvas)
+            canvas.toBlob((blob: any) => {
+                setFile(URL.createObjectURL(blob))
+                setPhoto(blob)
+            })
 
         stopStream()
     }
@@ -99,10 +121,9 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
                     <video
                         style={{
                             display: playing ? 'flex' : 'none',
-                            width: '90%',
-                            height: '70%'
+                            width: '100%',
+                            height: '100%'
                         }}
-                        // @ts-ignore
                         ref={webcamVideo}
                         autoPlay
                         playsInline
@@ -113,8 +134,8 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
                             display: 'none'
                         }}
                         id="canvas"
-                        width="1080"
-                        height="1920"
+                        width={camWidth}
+                        height={camHeight}
                     />
 
                     {!playing && !file &&
@@ -139,7 +160,7 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
 
                 {!playing &&
                     <h3
-                        // onClick={startStream}
+                        onClick={startStream}
                     >
                         {translation('retake')}
                     </h3>

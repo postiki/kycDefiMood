@@ -53,7 +53,8 @@ const KMap: React.FC<IKPersonalProps> = () => {
                 {/*{stage === 1 && <KVideoCall/>}*/}
                 {/*{stage === 1 && <KIdentity doc={'doc'}/>}*/}
                 {/*{stage === 1 && <KSuccess/>}*/}
-                {/*{stage === 1 && <KSuccess/>}*/}
+                {/*{stage === 1 && <KPersonal/>}*/}
+                {/*{stage === 1 && <KGreetings/>}*/}
 
                 {stage === 1 && <KGreetings/>}
                 {stage === 2 && <KPersonal/>}

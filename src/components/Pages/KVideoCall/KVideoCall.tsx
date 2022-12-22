@@ -1,5 +1,5 @@
 import './KVideoCall.scss'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useTranslation from "../../../hooks/useTranslation";
 import Button from "../../UI/Button";
 import KCalendar from "./KCalendar/KCalendar";
@@ -20,6 +20,21 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
 
     const [selectedTime, setSelectedTime] = useState('')
     const [selectedDate, setSelectedDay] = useState('')
+    const disabled = !selectedDate || !selectedDate
+
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !disabled && saveDate();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [disabled]);
 
     const saveDate = () => {
         try {
@@ -40,7 +55,7 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
                     <Select
                         onChange={(e) => setSelectedTime(e)}
                         title={translation('timeFromTitle')}
-                        points={['10:30 (GMT+3)', '11:30 (GMT+3)', '12:30 (GMT+3)']}
+                        points={['10:30 (GMT)', '11:30 (GMT)', '12:30 (GMT)']}
                         icon={'🕑'}
                     />
                     <Button handleClick={() => saveDate()} title={translation('btn')}/>
@@ -62,7 +77,7 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
                         icon={'🕑'}
                     />
                 </div>
-                <Button handleClick={() => saveDate()} title={translation('btn')}/>
+                <Button disabled={disabled} handleClick={saveDate} title={translation('btn')}/>
             </div>
         </ModalPage>
     )

@@ -1,5 +1,5 @@
 import './KGreetingsComplete.scss'
-import React from "react";
+import React, {useEffect} from "react";
 import useTranslation from "../../../../hooks/useTranslation";
 import Button from "../../../UI/Button";
 
@@ -10,6 +10,19 @@ interface IKGreetingsCompleteProps {
 
 const KGreetingsComplete: React.FC<IKGreetingsCompleteProps> = ({handleComplete, handleAddReferral}) => {
     const translation = useTranslation('greetings')
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                handleComplete();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, []);
 
     return (
         <div className={'greetings-complete'}>

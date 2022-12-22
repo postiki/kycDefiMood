@@ -28,14 +28,14 @@ const KCalendar: React.FC<IKCalendarProps> = ({onChange}) => {
     let setUpCalendar = () => {
         let blanks = [];
         for (let i = 0; i < Number(moment().add(currentMonth, 'month').startOf('month').format('d')) - 1; i++) {
-            blanks.push(<td className="calendarDay empty">{""}</td>)
+            blanks.push(<td key={i + 100} className="calendarDay empty">{""}</td>)
         }
         let daysInMonth = [];
         for (let d = 1; d <= moment().daysInMonth(); d++) {
             if (d.toString() === moment().format('D')) {
                 daysInMonth.push(
                     <td
-                        key={d}
+                        key={0 - d}
                         className={d === Number(moment().add(data, 'days').format('D')) ? 'today' : ''}
                         onClick={() => setData(d - new Date().getDate())}
                     >{d}</td>
@@ -43,7 +43,7 @@ const KCalendar: React.FC<IKCalendarProps> = ({onChange}) => {
             } else {
                 daysInMonth.push(
                     <td
-                        key={d}
+                        key={0 -d}
                         className={d === Number(moment().add(data, 'days').format('D')) ? 'today' : ''}
                         onClick={() => setData(d - new Date().getDate())}
                     >{d}</td>

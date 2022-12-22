@@ -1,5 +1,5 @@
 import './KGreetingsEmail.scss'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
@@ -19,6 +19,19 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
     const [disabledBtn, setDisabledBtn] = useState(true)
+
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                !disabledBtn && handleSendCode();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, [disabledBtn]);
 
     const handleSendCode = () => {
         api.getVerifyCode(email, idGenerator(24)).then(r => {

@@ -1,5 +1,5 @@
 import './KGreetingsReferral.scss'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
@@ -17,8 +17,23 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
     const [referralId, setReferralId] = useState('')
     const email = useStore(userEmail$)
 
+    useEffect(() => {
+        const handleEnter = (event: any) => {
+            if (event.keyCode === 13) {
+                handleComplete();
+            }
+        };
+        window.addEventListener('keydown', handleEnter);
+
+        return () => {
+            window.removeEventListener('keydown', handleEnter);
+        };
+    }, []);
+
     const handleApply = () => {
-        api.addRefCode(email, referralId.split('-').join('')).then(r => r.ok && handleComplete())
+        api.addRefCode(email, referralId.split('-').join('')).then(success => {
+            if (success) handleComplete()
+        })
     }
 
     return (

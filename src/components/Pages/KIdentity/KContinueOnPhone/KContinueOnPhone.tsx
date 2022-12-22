@@ -4,7 +4,6 @@ import QRCode from "react-qr-code";
 import jwt from 'jsonwebtoken'
 
 import useTranslation from "../../../../hooks/useTranslation";
-import Button from "../../../UI/Button";
 import {stage$, userEmail$} from "../../../../entities/progress-manager";
 import {useStore} from "effector-react";
 
@@ -56,18 +55,6 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
                         </div>
                     </div>
                 </div>
-                <Button
-                    handleClick={() => console.log({
-                        // 'token': token,
-                        // 'encodedString': encodedToken,
-                        // 'originalURL': originalURL,
-                        // 'encodedURL': encodedURL,
-                        // 'decodedURL': decodedURL,
-                        // 'decodedString': decodedString,
-                    })}
-                    title={translation('btnGoBack')}
-                    alt
-                />
             </div>
         </div>
     )
