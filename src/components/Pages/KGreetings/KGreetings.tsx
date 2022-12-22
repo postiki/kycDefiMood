@@ -66,6 +66,8 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
                      height: witchSize
                  }}
             >
+                {/*{stage === 0 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}*/}
+
                 {stage === 0 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
                 {stage === 1 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
                 {stage === 2 &&

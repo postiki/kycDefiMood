@@ -23,7 +23,7 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     useEffect(() => {
         const handleEnter = (event: any) => {
             if (event.keyCode === 13) {
-               !disabledBtn && handleSendCode();
+                !disabledBtn && handleSendCode();
             }
         };
         window.addEventListener('keydown', handleEnter);
