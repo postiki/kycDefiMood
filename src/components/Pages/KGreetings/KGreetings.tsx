@@ -8,6 +8,8 @@ import KGreetingsComplete from "./KGreetingsComplete";
 import {stageUp} from "../../../entities/progress-manager";
 import ModalPage from "../../UI/ModalPage";
 import KGreetingsWallet from "./KGreetingsWallet";
+import PropTypes from "prop-types";
+import useTranslation from "../../../hooks/useTranslation";
 
 const stageHighSeizMobile = {
     0: '265px',
@@ -26,10 +28,11 @@ const stageHighSeiz = {
 }
 
 interface IKGreetingsProps {
-
+    isExpired: boolean
 }
 
-const KGreetings: React.FC<IKGreetingsProps> = () => {
+const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
+    const translation = useTranslation('greetings')
     const [stage, setStage] = useState(0)
 
     const handleCompleteEmail = () => {
@@ -59,6 +62,16 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
 
     const witchSize = window.innerWidth > 1366 ? size : sizeMobile
 
+    if (isExpired){
+        return (
+            <ModalPage>
+                <div className="kyc-greetings-mobile">
+                    <h1 className={'mobile'}>{translation('tokenExpired')}</h1>
+                </div>
+            </ModalPage>
+        )
+    }
+
     return (
         <ModalPage>
             <div className="kyc-greetings"
@@ -67,6 +80,7 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
                  }}
             >
                 {/*{stage === 0 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}*/}
+                {/*{stage === 0 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}*/}
 
                 {stage === 0 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
                 {stage === 1 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
@@ -76,6 +90,10 @@ const KGreetings: React.FC<IKGreetingsProps> = () => {
             </div>
         </ModalPage>
     );
+}
+
+KGreetings.propTypes ={
+    isExpired:PropTypes.bool.isRequired,
 }
 
 export default KGreetings;

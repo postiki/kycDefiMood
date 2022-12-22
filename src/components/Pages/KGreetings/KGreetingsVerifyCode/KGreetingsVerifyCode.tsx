@@ -1,6 +1,6 @@
 import './KGreetingsVerifyCode.scss'
 
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import useTranslation from "../../../../hooks/useTranslation";
 import Form from "../../../UI/Form";
 import Button from "../../../UI/Button";
@@ -11,6 +11,19 @@ import validateCode from "../../../../services/validateCode";
 import {useStore} from "effector-react";
 import {idGenerator} from "../../../../services/idGenerator";
 import classNames from "classnames";
+
+const Timer = () => {
+    const [timer, setTimer] = useState(60);
+    const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+
+    useEffect(() => {
+        timer > 0 && setTimeout(timeOutCallback, 1000);
+    }, [timer, timeOutCallback]);
+
+    return (
+        <>{`[${timer}]`}</>
+    )
+}
 
 interface IKGreetingsVerifyCodeProps {
     handleComplete: () => void
@@ -23,6 +36,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const [code, setCode] = useState('')
     const [error, setError] = useState('')
     const [disabledBtn, setDisabledBtn] = useState(false)
+    const [codeSend, setCodeSent] = useState(false)
 
     const saveUser = () => {
         api.saveUser(email).then(r => {
@@ -46,33 +60,11 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                         setStage(6)
                         break
                 }
-                setSendCode(false)
             }
         })
     } //TODO remove to effector
-
-    const [sendCode, setSendCode] = useState(false)
-    const [codeSendAt, setCodeSendAt] = useState(0)
-    const [minutes, setMinutes] = useState(1);
-    const [seconds, setSeconds] = useState(0);
-
-    const deadline = Date.now() + 60000;
-    const getTime = (deadline: number) => {
-        const time = deadline - Date.now();
-
-        setMinutes(Math.floor((time / 1000 / 60) % 60));
-        setSeconds(Math.floor((time / 1000) % 60));
-    }
-
-    useEffect(() => {
-        const interval = setInterval(() => getTime(deadline), 1000);
-
-        return () => clearInterval(interval);
-    }, [codeSendAt]);
-
     const handleApplyCode = async () => {
-        setSendCode(true)
-        setCodeSendAt(Date.now())
+        setCodeSent(true)
         const invalid = await api.checkVerifyCode(code.split('-').join(''), localStorage.getItem('id'))
         if (!invalid) {
             setError('');
@@ -82,10 +74,8 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
         }
 
     } //TODO remove to effector
-
     const handleSendCode = async () => {
-        setSendCode(true)
-        setCodeSendAt(Date.now())
+        setCodeSent(true)
         const result = await api.getVerifyCode(email, idGenerator(24))
         if (result.id) {
             localStorage.setItem('id', result.id)
@@ -104,6 +94,20 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
             setDisabledBtn(false)
         }, 200, [code]
     );
+
+    const [timer, setTimer] = useState(60);
+    const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+
+    useEffect(() => {
+        if (codeSend) timer > 0 && setTimeout(timeOutCallback, 1000);
+    }, [timer, timeOutCallback, codeSend]);
+
+    useEffect(() => {
+        if (timer === 0) {
+            setCodeSent(false)
+            setTimer(60)
+        }
+    }, [timer])
 
     return (
         <div className={'greetings-verify'}>
@@ -124,13 +128,13 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                 {translation('sendCodeNotReceive')}
                 <br/>
                 <span
-                    onClick={handleSendCode}
+                    onClick={() => !codeSend && handleSendCode()}
                     className={classNames({
-                        'disabled': seconds > 0 && sendCode
+                        'disabled': codeSend && timer > 0
                     })}
                 >
                     {`${translation('sendCodeSendAgain')}`}
-                    {seconds > 0 && sendCode && `[${minutes}:${seconds}]`}
+                    {codeSend && timer > 0 && <Timer/>}
                 </span>
             </p>
         </div>

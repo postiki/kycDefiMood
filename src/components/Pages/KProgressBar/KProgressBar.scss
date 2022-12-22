@@ -61,6 +61,11 @@
 
   border: 3px solid var(--border-color);
 
+  p{
+    @include h3-bold;
+    color: red;
+  }
+
   h1 {
     @include h3-bold;
     color: var(--text-color);

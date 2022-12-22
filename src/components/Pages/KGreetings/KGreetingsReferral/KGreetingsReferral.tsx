@@ -7,6 +7,7 @@ import Button from "../../../UI/Button";
 import * as api from '../../../../services/api';
 import {useStore} from "effector-react";
 import {userEmail$} from "../../../../entities/progress-manager";
+import {useDebounce} from "react-use";
 
 interface IKGreetingsReferralProps {
     handleComplete: () => void
@@ -15,6 +16,8 @@ interface IKGreetingsReferralProps {
 const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
     const [referralId, setReferralId] = useState('')
+    const [disabledBtn, setDisabledBtn] = useState(true)
+    const [error, setError] = useState('')
     const email = useStore(userEmail$)
 
     useEffect(() => {
@@ -36,6 +39,25 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
         })
     }
 
+    const regExRefId = /^[a-zA-Z]*$/;
+    const validRefId = (regExRefId.test(referralId.split('-').join('') || '') || referralId === '');
+
+    useDebounce(
+        () => {
+            if (referralId && !validRefId) {
+                setError('error')
+                setDisabledBtn(true)
+                return
+            } else {
+                setError('')
+            }
+
+            setDisabledBtn(false)
+        },
+        200,
+        [referralId]
+    );
+
     return (
         <div className={'greetings-referral'}>
             <h1>{translation('title')}</h1>
@@ -46,9 +68,10 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
                 placeHolder={translation('referralFormPlaceHolder')}
                 small
                 value={referralId}
-                mask={'999-999-999'}
+                mask={'aaa-aaa-aaa'}
+                error={error}
             />
-            <Button handleClick={handleApply} title={translation('btnEnter')}/>
+            <Button disabled={disabledBtn} handleClick={handleApply} title={translation('btnEnter')}/>
         </div>
     )
 }

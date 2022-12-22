@@ -4,6 +4,7 @@ import useTranslation from "../../../hooks/useTranslation";
 import {useStore} from "effector-react";
 import {stage$} from "../../../entities/progress-manager";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
 const stages = {
     0: 'start',
@@ -16,10 +17,10 @@ const stages = {
 }
 
 interface IKProgressBarProps {
-
+    isExpired: boolean
 }
 
-const KProgressBar: React.FC<IKProgressBarProps> = () => {
+const KProgressBar: React.FC<IKProgressBarProps> = ({isExpired}) => {
     const translation = useTranslation('progressbar')
     const stage = useStore(stage$)
 
@@ -27,6 +28,14 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
 
     // @ts-ignore
     const stageName = stages[stage]
+
+    if (isExpired) {
+        return (
+            <div className="kyc-progressbar-mobile">
+                <p>{translation('error')}</p>
+            </div>
+        )
+    }
 
     if (isMobile) {
         return (
@@ -119,6 +128,10 @@ const KProgressBar: React.FC<IKProgressBarProps> = () => {
             </div>
         </div>
     );
+}
+
+KProgressBar.propTypes = {
+    isExpired: PropTypes.bool.isRequired
 }
 
 export default KProgressBar;

@@ -85,13 +85,19 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const invalidDate = (regExDate.test(date || '') || date === '');
 
     const regExPSite = /^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+    const regExPSiteHttps = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
     const validPSite = (regExPSite.test(pSite || '') || pSite === '');
+    const validPSiteHttps = (regExPSiteHttps.test(pSite || '') || pSite === '');
 
     //TODO add valid domain
     const validPGh = (regExPSite.test(pGh || '') || pGh === '');
+    const validPGhHttps = (regExPSiteHttps.test(pGh || '') || pGh === '');
     const validPTw = (regExPSite.test(pTw || '') || pTw === '');
+    const validPTwHttps = (regExPSiteHttps.test(pTw || '') || pTw === '');
     const validPDc = (regExPSite.test(pDc || '') || pDc === '');
+    const validPDcHttps = (regExPSiteHttps.test(pDc || '') || pDc === '');
     const validPTg = (regExPSite.test(pTg || '') || pTg === '');
+    const validPTgHttps = (regExPSiteHttps.test(pTg || '') || pTg === '');
 
 
     useDebounce(
@@ -144,7 +150,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pName: ''}))
             }
 
-            if (pSite && !validPSite) {
+            if (pSite && !validPSite && !validPSiteHttps) {
                 setError(prevState => ({...prevState, pSite: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -160,7 +166,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pDesc: ''}))
             }
 
-            if (pGh && !validPGh) {
+            if (pGh && !validPGh && !validPGhHttps) {
                 setError(prevState => ({...prevState, pGh: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -168,7 +174,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pGh: ''}))
             }
 
-            if (pTw && !validPTw) {
+            if (pTw && !validPTw && !validPTwHttps) {
                 setError(prevState => ({...prevState, pTw: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -176,7 +182,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pTw: ''}))
             }
 
-            if (pDc && !validPDc) {
+            if (pDc && !validPDc && !validPDcHttps) {
                 setError(prevState => ({...prevState, pDc: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -184,7 +190,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pDc: ''}))
             }
 
-            if (pTg && !validPTg) {
+            if (pTg && !validPTg && !validPTgHttps) {
                 setError(prevState => ({...prevState, pTg: 'error'}))
                 setDisabledBtn(true)
                 return

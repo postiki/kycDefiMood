@@ -22,10 +22,11 @@
       "enterCode": "enterCode",
       "referralCode": "Enter referral code",
       "referralFormTitle": "Referral_code",
-      "referralFormPlaceHolder": "012-345-678",
+      "referralFormPlaceHolder": "add-ref-cod",
       "errorEmail": "Email entered incorrectly, please check the spelling of your email",
       "errorCode": "Incorrect code",
-      "incorrectCode": "Code must be of 6 digits"
+      "incorrectCode": "Code must be of 6 digits",
+      "tokenExpired": "QR-code expired, please refresh QR-code and scan again"
     },
     "personal": {
       "btnEnter": "Enter",
@@ -73,7 +74,8 @@
       "identity": "Identity document",
       "selfie": "Selfie",
       "schedule": "Video interview",
-      "success": "Success"
+      "success": "Success",
+      "error": "Error"
     },
     "identity": {
       "doc": "Take a photo of the identity document",

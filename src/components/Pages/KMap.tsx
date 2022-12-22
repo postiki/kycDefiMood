@@ -1,5 +1,5 @@
 import './KMap.scss';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import KHeader from "./KHeader";
 import KProgressBar from "./KProgressBar";
 import {useStore} from "effector-react";
@@ -26,10 +26,13 @@ const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
     const queryParameters = new URLSearchParams(window.location.search)
     const token = queryParameters.get("token")
-    const {decodedToken} = useJwt(token || '');
+    const {decodedToken} = useJwt(token || '');//TODO check of work
+
+    const [expired, setExpired] = useState(false)
 
     //TODO remove all ts ignore
     useEffect(() => {
+        console.log(decodedToken)
         if (decodedToken) {
             // @ts-ignore
             const splitMsg = (decodedToken.info).split('_')
@@ -37,6 +40,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
 
             // @ts-ignore
             let isExpired = new Date() > new Date(decodedToken.expiresIn)
+            if(isExpired) setExpired(true)
 
             if (decodedToken && !isExpired) {
 
@@ -49,14 +53,14 @@ const KMap: React.FC<IKPersonalProps> = () => {
         <div className="k-map">
             <KHeader/>
             <div className="k-map-body">
-                <KProgressBar/>
+                <KProgressBar isExpired={expired}/>
                 {/*{stage === 1 && <KVideoCall/>}*/}
                 {/*{stage === 1 && <KIdentity doc={'doc'}/>}*/}
                 {/*{stage === 1 && <KSuccess/>}*/}
                 {/*{stage === 1 && <KPersonal/>}*/}
                 {/*{stage === 1 && <KGreetings/>}*/}
 
-                {stage === 1 && <KGreetings/>}
+                {stage === 1 && <KGreetings isExpired={expired}/>}
                 {stage === 2 && <KPersonal/>}
                 {stage === 3 && <KIdentity doc={'doc'}/>}
                 {stage === 4 && <KIdentity doc={'selfie'}/>}
