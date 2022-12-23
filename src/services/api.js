@@ -123,7 +123,7 @@ export async function uploadImage(formData, doc) {
 }
 
 export async function saveSchedule(email, date) {
-    const res = await fetch(`${BASE_URL}/schedule`, {
+    const res = await fetch(`${BASE_URL}/user/schedule`, {
         method: 'POST',
         headers: JSON_HEADERS,
         body: JSON.stringify({
