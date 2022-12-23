@@ -77,6 +77,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const validName = (regExFullName.test(name || '') || name === '');
 
     const regExPDesc = /^[a-zA-Z0-9 ]*$/;
+    const validDocNumb = (regExPDesc.test(docNumber || '') || docNumber === '');
     const validPName = (regExPDesc.test(pName || '') || pName === '');
     const validPDesc = (regExPDesc.test(pDesc || '') || pDesc === '');
 
@@ -84,13 +85,19 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const invalidDate = (regExDate.test(date || '') || date === '');
 
     const regExPSite = /^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+    const regExPSiteHttps = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
     const validPSite = (regExPSite.test(pSite || '') || pSite === '');
+    const validPSiteHttps = (regExPSiteHttps.test(pSite || '') || pSite === '');
 
     //TODO add valid domain
-    const validPGh =  (regExPSite.test(pGh || '') || pGh === '');
-    const validPTw =  (regExPSite.test(pTw || '') || pTw === '');
-    const validPDc =  (regExPSite.test(pDc || '') || pDc === '');
-    const validPTg =  (regExPSite.test(pTg || '') || pTg === '');
+    const validPGh = (regExPSite.test(pGh || '') || pGh === '');
+    const validPGhHttps = (regExPSiteHttps.test(pGh || '') || pGh === '');
+    const validPTw = (regExPSite.test(pTw || '') || pTw === '');
+    const validPTwHttps = (regExPSiteHttps.test(pTw || '') || pTw === '');
+    const validPDc = (regExPSite.test(pDc || '') || pDc === '');
+    const validPDcHttps = (regExPSiteHttps.test(pDc || '') || pDc === '');
+    const validPTg = (regExPSite.test(pTg || '') || pTg === '');
+    const validPTgHttps = (regExPSiteHttps.test(pTg || '') || pTg === '');
 
 
     useDebounce(
@@ -127,7 +134,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, addr: ''}))
             }
 
-            if (!docNumber && docNumber === '') {
+            if (docNumber && !validDocNumb) {
                 setError(prevState => ({...prevState, docNumber: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -143,7 +150,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pName: ''}))
             }
 
-            if (pSite && !validPSite) {
+            if (pSite && !validPSite && !validPSiteHttps) {
                 setError(prevState => ({...prevState, pSite: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -159,7 +166,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pDesc: ''}))
             }
 
-            if(pGh && !validPGh){
+            if (pGh && !validPGh && !validPGhHttps) {
                 setError(prevState => ({...prevState, pGh: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -167,7 +174,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pGh: ''}))
             }
 
-            if(pTw && !validPTw){
+            if (pTw && !validPTw && !validPTwHttps) {
                 setError(prevState => ({...prevState, pTw: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -175,7 +182,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pTw: ''}))
             }
 
-            if(pDc && !validPDc){
+            if (pDc && !validPDc && !validPDcHttps) {
                 setError(prevState => ({...prevState, pDc: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -183,7 +190,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 setError(prevState => ({...prevState, pDc: ''}))
             }
 
-            if(pTg && !validPTg){
+            if (pTg && !validPTg && !validPTgHttps) {
                 setError(prevState => ({...prevState, pTg: 'error'}))
                 setDisabledBtn(true)
                 return
@@ -232,7 +239,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
         setPName(localStorage.getItem('pName'))
         setPSite(localStorage.getItem('pSite'))
-        setPDesc(localStorage.getItem('pDesc'))
+        // setPDesc(localStorage.getItem('pDesc'))
         setPGh(localStorage.getItem('pGh'))
         setPTw(localStorage.getItem('pTw'))
         setPDc(localStorage.getItem('pDc'))
@@ -332,7 +339,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             title={translation('formDocNumbTitle')}
                             placeHolder={translation('formDocNumbPlaceHolder')}
                             value={docNumber}
-                            type={'number'}
                             error={error.docNumber}
                         />
                     }
@@ -411,16 +417,26 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                                 error={error.pSite}
                             />
                         }
-                        <Form
-                            onChange={(e) => {
-                                setPDesc(e.target.value)
-                                localStorage.setItem('pDesc', e.target.value)
-                            }}
-                            title={translation('formPDescTitle')}
-                            placeHolder={translation('formPDescPlaceHolder')}
-                            value={pDesc}
-                            error={error.pDesc}
-                        />
+                        {/*<Form*/}
+                        {/*    onChange={(e) => {*/}
+                        {/*        setPDesc(e.target.value)*/}
+                        {/*        localStorage.setItem('pDesc', e.target.value)*/}
+                        {/*    }}*/}
+                        {/*    title={translation('formPDescTitle')}*/}
+                        {/*    placeHolder={translation('formPDescPlaceHolder')}*/}
+                        {/*    value={pDesc}*/}
+                        {/*    error={error.pDesc}*/}
+                        {/*/>*/}
+                        <div className={'project-description'}>
+                            <p>{translation('formPDescTitle')}</p>
+                            <textarea
+                                onChange={(e) => {
+                                    setPDesc(e.target.value)
+                                }}
+                                placeholder={translation('formPDescPlaceHolder')}
+                            />
+                            <div className={'counter'}>{pDesc?.length} / 200 {translation('symbols')}</div>
+                        </div>
                         <Form
                             onChange={(e) => {
                                 setPGh(e.target.value)
@@ -461,7 +477,8 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                             value={pTg}
                             error={error.pTg}
                         />
-                        <Button disabled={disabledBtn || disabled} handleClick={handleComplete} title={translation('btnContinue')}/>
+                        <Button disabled={disabledBtn || disabled} handleClick={handleComplete}
+                                title={translation('btnContinue')}/>
                     </>
                 )}
             </div>

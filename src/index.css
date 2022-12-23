@@ -38,6 +38,9 @@ html[data-theme='dark'] {
     --button-backgroud-hover: #50FFA0;
     --button-backgroud-disabled: rgba(66, 219, 136, 0.5);
     --button-backgroud-active: #35B36F;
+
+    --disabled: #848786;
+
     --bg-gif: url(/public/images/black.gif)
 }
 
@@ -52,5 +55,8 @@ html[data-theme='light'] {
     --button-backgroud-hover: #00059C;
     --button-backgroud-disabled: #BBBDEF;
     --button-backgroud-active: #00035B;
+
+    --disabled: #848786;
+
     --bg-gif: url(/public/images/white.gif)
 }

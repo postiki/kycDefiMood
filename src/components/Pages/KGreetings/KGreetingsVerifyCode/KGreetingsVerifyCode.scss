@@ -19,9 +19,19 @@
   span{
     color: var(--title-color);
     border-bottom: 1px solid var(--title-color);
+
+    &:hover{
+      color: var(--button-backgroud-hover);
+      border-bottom: 1px solid var(--button-backgroud-hover);
+    }
+
+    &:active{
+      color: var(--button-backgroud-active);
+      border-bottom: 1px solid var(--button-backgroud-active);
+    }
   }
   .disabled{
-    color: #848786;
-    border-bottom: 1px solid #848786;
+    color: var(--disabled);
+    border-bottom: 1px solid var(--disabled);
   }
 }

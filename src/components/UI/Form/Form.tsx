@@ -14,7 +14,6 @@ interface IFormProps {
     error?: string
     mask?: string
     type?: string
-
 }
 
 const Form: React.FC<IFormProps> = ({

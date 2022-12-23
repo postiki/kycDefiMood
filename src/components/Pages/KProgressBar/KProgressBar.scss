@@ -42,7 +42,7 @@
 
     &-label {
       @include h3-bold;
-      color: #848786;
+      color: var(--disabled);
 
       &--active {
         color: var(--title-color);
@@ -60,6 +60,11 @@
   justify-content: center;
 
   border: 3px solid var(--border-color);
+
+  p{
+    @include h3-bold;
+    color: red;
+  }
 
   h1 {
     @include h3-bold;
