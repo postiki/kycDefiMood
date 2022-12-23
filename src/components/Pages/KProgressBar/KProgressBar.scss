@@ -42,7 +42,7 @@
 
     &-label {
       @include h3-bold;
-      color: #848786;
+      color: var(--disabled);
 
       &--active {
         color: var(--title-color);

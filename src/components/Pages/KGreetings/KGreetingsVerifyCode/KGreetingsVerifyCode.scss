@@ -31,7 +31,7 @@
     }
   }
   .disabled{
-    color: var(--button-backgroud-disabled);
-    border-bottom: 1px solid var(--button-backgroud-disabled);
+    color: var(--disabled);
+    border-bottom: 1px solid var(--disabled);
   }
 }

@@ -32,7 +32,6 @@ const KMap: React.FC<IKPersonalProps> = () => {
 
     //TODO remove all ts ignore
     useEffect(() => {
-        console.log(decodedToken)
         if (decodedToken) {
             // @ts-ignore
             const splitMsg = (decodedToken.info).split('_')

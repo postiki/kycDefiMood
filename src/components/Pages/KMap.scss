@@ -44,7 +44,7 @@
 
     p {
       @include h3-regular;
-      color: #848786;
+      color: var(--disabled);
     }
 
     span {

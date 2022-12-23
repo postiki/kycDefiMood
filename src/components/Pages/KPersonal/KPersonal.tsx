@@ -239,7 +239,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
         setPName(localStorage.getItem('pName'))
         setPSite(localStorage.getItem('pSite'))
-        setPDesc(localStorage.getItem('pDesc'))
+        // setPDesc(localStorage.getItem('pDesc'))
         setPGh(localStorage.getItem('pGh'))
         setPTw(localStorage.getItem('pTw'))
         setPDc(localStorage.getItem('pDc'))
@@ -417,16 +417,26 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                                 error={error.pSite}
                             />
                         }
-                        <Form
-                            onChange={(e) => {
-                                setPDesc(e.target.value)
-                                localStorage.setItem('pDesc', e.target.value)
-                            }}
-                            title={translation('formPDescTitle')}
-                            placeHolder={translation('formPDescPlaceHolder')}
-                            value={pDesc}
-                            error={error.pDesc}
-                        />
+                        {/*<Form*/}
+                        {/*    onChange={(e) => {*/}
+                        {/*        setPDesc(e.target.value)*/}
+                        {/*        localStorage.setItem('pDesc', e.target.value)*/}
+                        {/*    }}*/}
+                        {/*    title={translation('formPDescTitle')}*/}
+                        {/*    placeHolder={translation('formPDescPlaceHolder')}*/}
+                        {/*    value={pDesc}*/}
+                        {/*    error={error.pDesc}*/}
+                        {/*/>*/}
+                        <div className={'project-description'}>
+                            <p>{translation('formPDescTitle')}</p>
+                            <textarea
+                                onChange={(e) => {
+                                    setPDesc(e.target.value)
+                                }}
+                                placeholder={translation('formPDescPlaceHolder')}
+                            />
+                            <div className={'counter'}>{pDesc?.length} / 200 {translation('symbols')}</div>
+                        </div>
                         <Form
                             onChange={(e) => {
                                 setPGh(e.target.value)

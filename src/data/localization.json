@@ -51,6 +51,7 @@
       "formPSitePlaceHolder": "project.org",
       "formPDescTitle": "Project_description",
       "formPDescPlaceHolder": "Brifley write about the project",
+      "symbols": "symbols",
       "formPGhTitle": "Project_GitHub",
       "formPGhPlaceHolder": "github.com/example",
       "formPTwTitle": "Project_Twitter",
