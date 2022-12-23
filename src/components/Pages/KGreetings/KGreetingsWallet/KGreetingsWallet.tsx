@@ -6,6 +6,7 @@ import Button from "../../../UI/Button";
 import CheckBox from "../../../UI/CheckBox";
 import PropTypes from "prop-types";
 import {MetamaskWallet} from "../../../../services/metmask/metamask-wallet";
+import {addOwnerAddr} from "../../../../entities/progress-manager";
 
 interface IKGreetingWalletProps {
     handleComplete: () => void,
@@ -22,7 +23,9 @@ const KGreetingWallet: React.FC<IKGreetingWalletProps> = ({handleComplete}) => {
             const wallet = new MetamaskWallet()
             await wallet.connect()
             const addr = await wallet.getAddr()
-            console.log(addr)
+
+            // @ts-ignore
+            await addOwnerAddr(addr)
             await handleComplete()
         } catch (e: any) {
             console.error(e)

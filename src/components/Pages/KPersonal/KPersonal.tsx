@@ -4,7 +4,7 @@ import useTranslation from "../../../hooks/useTranslation";
 import Form from "../../UI/Form";
 import Select from "../../UI/Select";
 import Button from "../../UI/Button";
-import {stageUp, userEmail$} from "../../../entities/progress-manager";
+import {addOwnerAddr, ownerAddr$, stageUp, userEmail$} from "../../../entities/progress-manager";
 
 import country from '../../../data/country.json'
 import SelectCountry from "../../UI/SelectCountry";
@@ -22,6 +22,7 @@ interface IKPersonalProps {
 const KPersonal: React.FC<IKPersonalProps> = () => {
     const translation = useTranslation('personal')
     const email = useStore(userEmail$)
+    const ownerAddr = useStore(ownerAddr$)
 
     const [name, setName] = useState<string | null>('')
     const [date, setDate] = useState<string | null>('')
@@ -29,7 +30,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const [residence, setResidence] = useState<string | null>('')
     const [docType, setDocType] = useState<string | null>('')
     const [docNumber, setDocNumber] = useState<string | null>('')
-    const [addr, setAddr] = useState<string | null>('')
+    const [addrProject, setAddrProject] = useState<string | null>('')
     const [chain, setChain] = useState<string | null>('')
 
     const [checked, setChecked] = useState(true)
@@ -47,7 +48,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const [error, setError] = useState({
         name: '',
         date: '',
-        addr: '',
+        addrProject: '',
         chain: '',
         docNumber: '',
         pName: '',
@@ -59,7 +60,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         pTg: '',
     })
 
-    const disabled = !name || !date || !citizenship || !residence || !chain || !addr ||
+    const disabled = !name || !date || !citizenship || !residence || !chain || !addrProject ||
         !docType || !docNumber || !pName || !pSite || !pDesc || !(pGh || pTw || pDc || pTg)
 
     useEffect(() => {
@@ -137,8 +138,8 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 }
             }
 
-            if (addr && !ethers.utils.isAddress(addr)) {
-                setError(prevState => ({...prevState, addr: 'error'}))
+            if (addrProject && !ethers.utils.isAddress(addrProject)) {
+                setError(prevState => ({...prevState, addrProject: 'error'}))
                 setDisabledBtn(true)
                 return
             } else {
@@ -212,7 +213,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
             setDisabledBtn(false)
         },
         200,
-        [name, date, addr, docNumber, pName, pDesc, pSite, pGh, pTw, pDc, pTg, chain]
+        [name, date, addrProject, docNumber, pName, pDesc, pSite, pGh, pTw, pDc, pTg, chain]
     );
 
     const handleComplete = () => {
@@ -223,7 +224,9 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
             residence: residence,
             docType: docType,
             docNumber: docNumber,
-            addr: addr,
+            addrProject: addrProject,
+            ownerAddr: ownerAddr,
+            projectChain: chain,
             pName: pName,
             pSite: pSite,
             pDesc: pDesc,
@@ -245,7 +248,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         setResidence(localStorage.getItem('residence'))
         setDocType(localStorage.getItem('docType'))
         setDocNumber(localStorage.getItem('docNumber'))
-        setAddr(localStorage.getItem('addr'))
+        setAddrProject(localStorage.getItem('addr'))
         setChain(localStorage.getItem('chain'))
 
 
@@ -421,13 +424,13 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         }
                         <Form
                             onChange={(e) => {
-                                setAddr(e.target.value)
+                                setAddrProject(e.target.value)
                                 localStorage.setItem('addr', e.target.value)
                             }}
                             title={translation('formWalletTitle')}
                             placeHolder={translation('formWalletPlaceHolder')}
-                            value={addr}
-                            error={error.addr}
+                            value={addrProject}
+                            error={error.addrProject}
                         />
                         <Form
                             onChange={(e) => {
