@@ -15,12 +15,29 @@ const KGreetingWallet: React.FC<IKGreetingWalletProps> = ({handleComplete}) => {
     const translation = useTranslation('greetings')
     const [checked, setChecked] = useState(false)
 
+    const isMobile = window.innerWidth < 1366
+
     const handleConnect = async () => {
-        const wallet = new MetamaskWallet()
-        await wallet.connect()
-        const addr = await wallet.getAddr()
-        console.log(addr)
-        await handleComplete()
+        try {
+            const wallet = new MetamaskWallet()
+            await wallet.connect()
+            const addr = await wallet.getAddr()
+            console.log(addr)
+            await handleComplete()
+        } catch (e: any) {
+            console.error(e)
+            switch (e.code === 4200) {
+                case isMobile:
+                    console.log('mobile')
+                    window.open('https://metamask.app.link/dapp/kyc.systems/')
+                    break
+
+                case !isMobile:
+                    console.log('pc')
+                    window.open('https://metamask.io/')
+                    break
+            }
+        }
     }
 
     return (

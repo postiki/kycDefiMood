@@ -30,6 +30,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
     const [docType, setDocType] = useState<string | null>('')
     const [docNumber, setDocNumber] = useState<string | null>('')
     const [addr, setAddr] = useState<string | null>('')
+    const [chain, setChain] = useState<string | null>('')
 
     const [checked, setChecked] = useState(true)
 
@@ -47,6 +48,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         name: '',
         date: '',
         addr: '',
+        chain: '',
         docNumber: '',
         pName: '',
         pSite: '',
@@ -57,7 +59,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         pTg: '',
     })
 
-    const disabled = !name || !date || !citizenship || !residence ||
+    const disabled = !name || !date || !citizenship || !residence || !chain || !addr ||
         !docType || !docNumber || !pName || !pSite || !pDesc || !(pGh || pTw || pDc || pTg)
 
     useEffect(() => {
@@ -75,6 +77,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const regExFullName = /^[a-zA-Z ]*$/;
     const validName = (regExFullName.test(name || '') || name === '');
+    const validChain = (regExFullName.test(chain || '') || chain === '');
 
     const regExPDesc = /^[a-zA-Z0-9 ]*$/;
     const validDocNumb = (regExPDesc.test(docNumber || '') || docNumber === '');
@@ -108,6 +111,14 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                 return
             } else {
                 setError(prevState => ({...prevState, name: ''}))
+            }
+
+            if (chain && !validChain) {
+                setError(prevState => ({...prevState, chain: 'error'}))
+                setDisabledBtn(true)
+                return
+            } else {
+                setError(prevState => ({...prevState, chain: ''}))
             }
 
             if (date) {
@@ -201,7 +212,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
             setDisabledBtn(false)
         },
         200,
-        [name, date, addr, docNumber, pName, pDesc, pSite, pGh, pTw, pDc, pTg]
+        [name, date, addr, docNumber, pName, pDesc, pSite, pGh, pTw, pDc, pTg, chain]
     );
 
     const handleComplete = () => {
@@ -235,6 +246,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
         setDocType(localStorage.getItem('docType'))
         setDocNumber(localStorage.getItem('docNumber'))
         setAddr(localStorage.getItem('addr'))
+        setChain(localStorage.getItem('chain'))
 
 
         setPName(localStorage.getItem('pName'))
@@ -356,16 +368,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         error={error.docNumber}
                     />
                 }
-                {/*<Form*/}
-                {/*    onChange={(e) => {*/}
-                {/*        setAddr(e.target.value)*/}
-                {/*        localStorage.setItem('addr', e.target.value)*/}
-                {/*    }}*/}
-                {/*    title={translation('formWalletTitle')}*/}
-                {/*    placeHolder={translation('formWalletPlaceHolder')}*/}
-                {/*    value={addr}*/}
-                {/*    error={error.addr}*/}
-                {/*/>*/}
                 {/*<div className="kyc-personal-fourRow">*/}
                 {/*    <CheckBox*/}
                 {/*        label={translation('checkBoxLabel')}*/}
@@ -417,6 +419,26 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                                 error={error.pSite}
                             />
                         }
+                        <Form
+                            onChange={(e) => {
+                                setAddr(e.target.value)
+                                localStorage.setItem('addr', e.target.value)
+                            }}
+                            title={translation('formWalletTitle')}
+                            placeHolder={translation('formWalletPlaceHolder')}
+                            value={addr}
+                            error={error.addr}
+                        />
+                        <Form
+                            onChange={(e) => {
+                                setChain(e.target.value)
+                                localStorage.setItem('chain', e.target.value)
+                            }}
+                            title={translation('formChainTitle')}
+                            placeHolder={translation('formChainPlaceHolder')}
+                            value={chain}
+                            error={error.chain}
+                        />
                         {/*<Form*/}
                         {/*    onChange={(e) => {*/}
                         {/*        setPDesc(e.target.value)*/}
