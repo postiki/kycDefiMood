@@ -74,13 +74,13 @@ const KCalendar: React.FC<IKCalendarProps> = ({onChange}) => {
                 'kyc-calendar': true,
                 'kyc-calendar--open': showCalendar
             })}
-            onClick={() => setShowCalendar(!showCalendar)}
         >
             <div
                  className={classNames({
                      'kyc-calendar-preview': true,
                      'kyc-calendar-preview--open': showCalendar
                  })}
+                 onClick={() => setShowCalendar(!showCalendar)}
             >
                 <p>{translation('pickerTitle')}</p>
                 <div>📅</div>
