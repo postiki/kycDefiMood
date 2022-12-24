@@ -1,0 +1,18 @@
+name: Deploy PROD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  create-deployment-artifacts:
+    name: Create deployment artifacts
+    runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Update docker image
+      run: |
+        cd ..
+        bash start.prod.sh
