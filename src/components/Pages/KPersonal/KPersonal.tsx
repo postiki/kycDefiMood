@@ -504,7 +504,7 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         />
                         <Button disabled={disabledBtn || disabled} handleClick={handleComplete}
                                 title={translation('btnContinue')}/>
-                        <Button handleClick={() => alert(error)}
+                        <Button handleClick={() => alert({...error})}
                                 title={'alert'}/>
                     </>
                 )}
