@@ -26,7 +26,8 @@
       "errorEmail": "Email entered incorrectly, please check the spelling of your email",
       "errorCode": "Incorrect code",
       "incorrectCode": "Code must be of 6 digits",
-      "tokenExpired": "QR-code expired, please refresh QR-code and scan again"
+      "tokenExpired": "QR-code expired, please refresh QR-code and scan again",
+      "goBack" : "go back"
     },
     "personal": {
       "btnEnter": "Enter",

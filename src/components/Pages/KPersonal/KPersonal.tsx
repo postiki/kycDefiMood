@@ -106,7 +106,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     useDebounce(
         () => {
-           if(addrProject) console.log(ethers.utils.isAddress(addrProject))
             if (name && !validName) {
                 setError(prevState => ({...prevState, name: 'error'}))
                 setDisabledBtn(true)

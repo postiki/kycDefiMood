@@ -37,6 +37,20 @@
     border: 3px solid var(--button-backgroud);
 
     color: var(--button-backgroud);
+
+    &:hover{
+      background-color: var(--background-color);
+      border: 3px solid var(--button-backgroud);
+
+      color: var(--button-backgroud);
+    }
+
+    &:active{
+      background-color: var(--background-color);
+      border: 3px solid var(--button-backgroud);
+
+      color: var(--button-backgroud);
+    }
   }
 }
 
