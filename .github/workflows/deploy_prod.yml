@@ -27,5 +27,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd ~/test/
+            cd ~/docker-config/frontend/
             git fetch origin master
+            git reset --hard FETCH_HEAD
+            git clean -d -f --exclude secrets
+            cd ~/docker-config/
+            bash start.prod.sh
+            echo "Deployed successfully"
