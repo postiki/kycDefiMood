@@ -4,7 +4,7 @@ import useTranslation from "../../../hooks/useTranslation";
 import Form from "../../UI/Form";
 import Select from "../../UI/Select";
 import Button from "../../UI/Button";
-import {addOwnerAddr, ownerAddr$, stageUp, userEmail$} from "../../../entities/progress-manager";
+import {ownerAddr$, stageUp, userEmail$} from "../../../entities/progress-manager";
 
 import country from '../../../data/country.json'
 import SelectCountry from "../../UI/SelectCountry";
@@ -263,6 +263,22 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const isMobile = window.innerWidth < 1366
 
+    const [debug, setDebug] = useState(false)
+    let test = {
+        name: error.name,
+        date: error.date,
+        docNumber: error.docNumber,
+        addrProject: error.addrProject,
+        projectChain: error.chain,
+        pName: error.pName,
+        pSite: error.pSite,
+        pDesc: error.pDesc,
+        pGh: error.pGh,
+        pTw: error.pTw,
+        pDc: error.pDc,
+        pTg: error.pTg,
+    }
+
     return (
         <ModalPage>
             <div className="kyc-personal">
@@ -367,7 +383,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         title={translation('formDocNumbTitle')}
                         placeHolder={translation('formDocNumbPlaceHolder')}
                         value={docNumber}
-                        type={'number'}
                         error={error.docNumber}
                     />
                 }
@@ -504,8 +519,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         />
                         <Button disabled={disabledBtn || disabled} handleClick={handleComplete}
                                 title={translation('btnContinue')}/>
-                        <Button handleClick={() => alert({...error})}
-                                title={'alert'}/>
                     </>
                 )}
             </div>
