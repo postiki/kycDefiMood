@@ -29,5 +29,3 @@ jobs:
           script: |
             cd ~/test/
             git fetch origin master
-            git reset --hard FETCH_HEAD
-            git clean -d -f --exclude secrets
