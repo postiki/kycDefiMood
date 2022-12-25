@@ -57,7 +57,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
                 {/*{stage === 1 && <KIdentity doc={'doc'}/>}*/}
                 {/*{stage === 1 && <KSuccess/>}*/}
                 {/*{stage === 1 && <KPersonal/>}*/}
-                {/*{stage === 1 && <KGreetings/>}*/}
+                {/*{stage === 1 && <KGreetings isExpired={expired}/>}*/}
 
                 {stage === 1 && <KGreetings isExpired={expired}/>}
                 {stage === 2 && <KPersonal/>}

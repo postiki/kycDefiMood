@@ -51,6 +51,10 @@ const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
         setStage(4)
     }
 
+    const handleGoBackReferral = () => {
+      setStage(3)
+    }
+
     const handleCompleteReferral = () => {
         stageUp()
     }
@@ -84,15 +88,15 @@ const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
                  }}
             >
                 {/*{stage === 0 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}*/}
-                {/*{stage === 0 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}*/}
+                {/*{stage === 0 && <KGreetingsReferral handleComplete={handleCompleteReferral} handleGoBack={handleGoBackReferral}/>}*/}
                 {/*{stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}*/}
 
                 {stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}
                 {stage === 1 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
-                {stage === 2 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify}/>}
+                {stage === 2 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify} />}
                 {stage === 3 &&
                     <KGreetingsComplete handleComplete={handleComplete} handleAddReferral={handleAddReferral}/>}
-                {stage === 4 && <KGreetingsReferral handleComplete={handleCompleteReferral}/>}
+                {stage === 4 && <KGreetingsReferral handleComplete={handleCompleteReferral} handleGoBack={handleGoBackReferral}/>}
             </div>
         </ModalPage>
     );

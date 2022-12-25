@@ -106,7 +106,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     useDebounce(
         () => {
-           if(addrProject) console.log(ethers.utils.isAddress(addrProject))
             if (name && !validName) {
                 setError(prevState => ({...prevState, name: 'error'}))
                 setDisabledBtn(true)
@@ -505,6 +504,8 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
                         />
                         <Button disabled={disabledBtn || disabled} handleClick={handleComplete}
                                 title={translation('btnContinue')}/>
+                        <Button handleClick={() => alert({...error})}
+                                title={'alert'}/>
                     </>
                 )}
             </div>

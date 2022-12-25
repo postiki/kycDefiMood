@@ -8,17 +8,21 @@ import * as api from '../../../../services/api';
 import {useStore} from "effector-react";
 import {userEmail$} from "../../../../entities/progress-manager";
 import {useDebounce} from "react-use";
+import PropTypes from "prop-types";
 
 interface IKGreetingsReferralProps {
     handleComplete: () => void
+    handleGoBack: () => void
 }
 
-const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}) => {
+const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete, handleGoBack}) => {
     const translation = useTranslation('greetings')
     const [referralId, setReferralId] = useState('')
     const [disabledBtn, setDisabledBtn] = useState(true)
     const [error, setError] = useState('')
     const email = useStore(userEmail$)
+
+    const disabled = !referralId;
 
     useEffect(() => {
         const handleEnter = (event: any) => {
@@ -71,9 +75,17 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete}
                 mask={'aaa-aaa-aaa'}
                 error={error}
             />
-            <Button disabled={disabledBtn} handleClick={handleApply} title={translation('btnEnter')}/>
+            <div className={'greetings-referral-buttons'}>
+                <Button disabled={disabledBtn || disabled} handleClick={handleApply} title={translation('btnEnter')}/>
+                <Button alt handleClick={handleGoBack} title={translation('goBack')}/>
+            </div>
         </div>
     )
+}
+
+KGreetingsReferral.propTypes = {
+    handleComplete: PropTypes.func.isRequired,
+    handleGoBack: PropTypes.func.isRequired
 }
 
 export default KGreetingsReferral
