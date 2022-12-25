@@ -17,16 +17,16 @@ jobs:
           known_hosts: unnecessary
 
       - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H 159.223.240.93 >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz -e "ssh -p 22" . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/test/
+        run: rsync -avz -e "ssh -p 22" . dev@$159.223.240.93:~/test/
 
       - name: Restart Node Server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: 159.223.240.93
+          username: dev
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
