@@ -20,7 +20,7 @@ jobs:
         run: ssh-keyscan -H 159.223.240.93 >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz -e "ssh -p 22" . dev@$159.223.240.93:~/test/
+        run: rsync -avz -e "ssh -p 22" . dev@159.223.240.93:~/test/
 
       - name: Restart Node Server
         uses: appleboy/ssh-action@master
