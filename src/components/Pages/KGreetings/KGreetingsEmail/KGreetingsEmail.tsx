@@ -9,6 +9,7 @@ import {idGenerator} from "../../../../services/idGenerator";
 import {useDebounce} from "react-use";
 import validateEmail from "../../../../services/validateEmail";
 import {addUserEmail} from "../../../../entities/progress-manager";
+import {hideLoader, showLoader} from "../../../../entities/loader";
 
 interface IKGreetingsEmailProps {
     handleComplete: () => void
@@ -34,6 +35,7 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
     }, [disabledBtn]);
 
     const handleSendCode = () => {
+        showLoader()
         api.getVerifyCode(email, idGenerator(24)).then(r => {
             localStorage.setItem('id', r.id)
 
@@ -41,6 +43,8 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
             addUserEmail(email)
 
             handleComplete()
+
+            hideLoader()
         })
     } //TODO remove to effector
 

@@ -12,11 +12,9 @@ import KGreetings from "./KGreetings";
 import KPersonal from "./KPersonal";
 import KVideoCall from "./KVideoCall/KVideoCall";
 import KSuccess from "./KSuccess";
-
-interface IToken {
-    expiresIn: string
-    info: string
-}
+import Loader from "../UI/Loader";
+import {showingLoader$} from "../../entities/loader";
+import classNames from "classnames";
 
 interface IKPersonalProps {
 
@@ -24,11 +22,13 @@ interface IKPersonalProps {
 
 const KMap: React.FC<IKPersonalProps> = () => {
     const stage = useStore(stage$)
+    const showingLoader = useStore(showingLoader$);
+
+    const [expired, setExpired] = useState(false)
+
     const queryParameters = new URLSearchParams(window.location.search)
     const token = queryParameters.get("token")
     const {decodedToken} = useJwt(token || '');//TODO check of work
-
-    const [expired, setExpired] = useState(false)
 
     //TODO remove all ts ignore
     useEffect(() => {
@@ -39,7 +39,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
 
             // @ts-ignore
             let isExpired = new Date() > new Date(decodedToken.expiresIn)
-            if(isExpired) setExpired(true)
+            if (isExpired) setExpired(true)
 
             if (decodedToken && !isExpired) {
 
@@ -49,10 +49,15 @@ const KMap: React.FC<IKPersonalProps> = () => {
     }, [decodedToken, token])
 
     return (
-        <div className="k-map">
+        <div className={classNames({
+            'k-map': true,
+            'k-map--loading': showingLoader
+        })}>
+            {showingLoader && <Loader/>}
             <KHeader/>
             <div className="k-map-body">
                 <KProgressBar isExpired={expired}/>
+
                 {/*{stage === 1 && <KVideoCall/>}*/}
                 {/*{stage === 1 && <KIdentity doc={'doc'}/>}*/}
                 {/*{stage === 1 && <KSuccess/>}*/}
@@ -70,7 +75,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
                 <div
                     className={'k-map-footer-logo'}
                 />
-                <p>Powered by <span>defimoon</span></p>
+                <p>Powered by <span onClick={() => window.open('https://defimoon.org')}>defimoon</span></p>
             </div>
         </div>
     );

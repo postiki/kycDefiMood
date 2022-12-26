@@ -14,6 +14,7 @@ import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
 import {useDebounce} from "react-use";
 import {ethers} from "ethers";
+import {hideLoader, showLoader} from "../../../entities/loader";
 
 interface IKPersonalProps {
 
@@ -236,8 +237,12 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
             pTg: pTg,
         }
 
+        showLoader()
+
         api.addPersonalInfo(email, info).then(success => {
             if (success) stageUp()
+
+            hideLoader()
         })
     }
 

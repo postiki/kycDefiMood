@@ -5,8 +5,14 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 15px calc(165 / 1440 * 100vw) 36px calc(165 / 1440 * 100vw);
   background-color: var(--background-color);
+
+  &--loading{
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+  }
 
   &-body {
     width: 100%;
@@ -23,13 +29,14 @@
     height: 386px;
 
     text-align: center;
-    pointer-events: none;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     background-color: var(--background-color);
+
+    pointer-events: all;
 
     &-logo {
       width: 350px;

@@ -10,6 +10,7 @@ import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
 import Selfie from "../../SvgIcon/Selfie";
 import Doc from "../../SvgIcon/Doc";
+import {hideLoader, showLoader} from "../../../entities/loader";
 
 interface IKIdentifyProps {
     doc: string
@@ -98,7 +99,11 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
             formData.append('File', photo, `${doc}:${email}`);
 
         }
-        api.uploadImage(formData, doc).then(r => r.ok && stageUp())
+        showLoader()
+        api.uploadImage(formData, doc).then(r => {
+            r.ok && stageUp()
+            hideLoader()
+        })
     }
 
     const isMobile = window.innerWidth < 1366

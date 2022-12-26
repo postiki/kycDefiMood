@@ -9,6 +9,7 @@ import {useStore} from "effector-react";
 import {userEmail$} from "../../../../entities/progress-manager";
 import {useDebounce} from "react-use";
 import PropTypes from "prop-types";
+import {hideLoader, showLoader} from "../../../../entities/loader";
 
 interface IKGreetingsReferralProps {
     handleComplete: () => void
@@ -38,8 +39,11 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete,
     }, []);
 
     const handleApply = () => {
+        showLoader()
         api.addRefCode(email, referralId.split('-').join('')).then(success => {
             if (success) handleComplete()
+
+            hideLoader()
         })
     }
 

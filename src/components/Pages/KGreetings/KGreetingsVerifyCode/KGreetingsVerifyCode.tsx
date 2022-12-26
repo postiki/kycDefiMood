@@ -11,6 +11,8 @@ import validateCode from "../../../../services/validateCode";
 import {useStore} from "effector-react";
 import {idGenerator} from "../../../../services/idGenerator";
 import classNames from "classnames";
+import PropTypes from "prop-types";
+import {hideLoader, showLoader} from "../../../../entities/loader";
 
 const Timer = () => {
     const [timer, setTimer] = useState(60);
@@ -26,10 +28,11 @@ const Timer = () => {
 }
 
 interface IKGreetingsVerifyCodeProps {
-    handleComplete: () => void
+    handleComplete: () => void,
+    outOfRefCode: () => void
 }
 
-const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleComplete}) => {
+const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleComplete, outOfRefCode}) => {
     const translation = useTranslation('greetings')
     const email = useStore(userEmail$)
 
@@ -39,7 +42,10 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
     const [codeSend, setCodeSent] = useState(false)
 
     const saveUser = () => {
+        showLoader()
         api.saveUser(email).then(r => {
+            if(r.referralId) outOfRefCode()
+
             if (r.stage) {
                 const completeStage = r.stage
 
@@ -61,8 +67,12 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                         break
                 }
             }
+
+            hideLoader()
         })
-    } //TODO remove to effector
+    }
+    //TODO remove to effector
+
     const handleApplyCode = async () => {
         setCodeSent(true)
         const invalid = await api.checkVerifyCode(code.split('-').join(''), localStorage.getItem('id'))
@@ -74,6 +84,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
         }
 
     } //TODO remove to effector
+
     const handleSendCode = async () => {
         setCodeSent(true)
         const result = await api.getVerifyCode(email, idGenerator(24))
@@ -139,6 +150,11 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
             </p>
         </div>
     )
+}
+
+KGreetingsVerifyCode.propTypes = {
+    handleComplete: PropTypes.func.isRequired,
+    outOfRefCode: PropTypes.func.isRequired,
 }
 
 export default KGreetingsVerifyCode

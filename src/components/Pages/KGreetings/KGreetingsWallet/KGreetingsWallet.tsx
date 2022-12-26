@@ -45,6 +45,7 @@ const KGreetingWallet: React.FC<IKGreetingWalletProps> = ({handleComplete}) => {
 
     return (
         <div className={'greetings-wallet'}>
+
             <h1>{translation('title')}</h1>
             <Button
                 handleClick={handleConnect}

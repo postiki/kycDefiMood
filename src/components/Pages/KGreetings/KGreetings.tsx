@@ -34,6 +34,7 @@ interface IKGreetingsProps {
 const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
     const translation = useTranslation('greetings')
     const [stage, setStage] = useState(0)
+    const [enableAddRefCode, setEnableAddRefCode] = useState(true)
 
     const handleCompleteWallet = () => {
         setStage(1)
@@ -52,7 +53,7 @@ const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
     }
 
     const handleGoBackReferral = () => {
-      setStage(3)
+        setStage(3)
     }
 
     const handleCompleteReferral = () => {
@@ -70,7 +71,7 @@ const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
 
     const witchSize = window.innerWidth > 1366 ? size : sizeMobile
 
-    if (isExpired){
+    if (isExpired) {
         return (
             <ModalPage>
                 <div className="kyc-greetings-mobile">
@@ -91,19 +92,42 @@ const KGreetings: React.FC<IKGreetingsProps> = ({isExpired}) => {
                 {/*{stage === 0 && <KGreetingsReferral handleComplete={handleCompleteReferral} handleGoBack={handleGoBackReferral}/>}*/}
                 {/*{stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}*/}
 
-                {stage === 0 && <KGreetingsWallet handleComplete={handleCompleteWallet}/>}
-                {stage === 1 && <KGreetingsEmail handleComplete={handleCompleteEmail}/>}
-                {stage === 2 && <KGreetingsVerifyCode handleComplete={handleCompleteVerify} />}
+                {stage === 0 &&
+                    <KGreetingsWallet
+                        handleComplete={handleCompleteWallet}
+                    />
+                }
+                {stage === 1 &&
+                    <KGreetingsEmail
+                        handleComplete={handleCompleteEmail}
+                    />}
+
+                {stage === 2 &&
+                    <KGreetingsVerifyCode
+                        handleComplete={handleCompleteVerify}
+                        outOfRefCode={() => setEnableAddRefCode(false)}
+                    />
+                }
                 {stage === 3 &&
-                    <KGreetingsComplete handleComplete={handleComplete} handleAddReferral={handleAddReferral}/>}
-                {stage === 4 && <KGreetingsReferral handleComplete={handleCompleteReferral} handleGoBack={handleGoBackReferral}/>}
+                    <KGreetingsComplete
+                        handleComplete={handleComplete}
+                        handleAddReferral={handleAddReferral}
+                        enableAddRefCode={enableAddRefCode}
+                    />
+                }
+                {stage === 4 &&
+                    <KGreetingsReferral
+                        handleComplete={handleCompleteReferral}
+                        handleGoBack={handleGoBackReferral}
+                    />
+                }
             </div>
         </ModalPage>
     );
 }
 
-KGreetings.propTypes ={
-    isExpired:PropTypes.bool.isRequired,
+KGreetings.propTypes = {
+    isExpired: PropTypes.bool.isRequired,
 }
 
 export default KGreetings;

@@ -9,6 +9,7 @@ import * as api from '../../../services/api';
 import {stageUp, userEmail$} from "../../../entities/progress-manager";
 import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
+import {hideLoader, showLoader} from "../../../entities/loader";
 
 interface IKVideoCallProps {
 
@@ -38,7 +39,11 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
 
     const saveDate = () => {
         try {
-            api.saveSchedule(email, `${selectedDate} ${selectedTime}`).then(r => r.ok && stageUp())
+            showLoader()
+            api.saveSchedule(email, `${selectedDate} ${selectedTime}`).then(r => {
+                r.ok && stageUp()
+                hideLoader()
+            })
         } catch (e) {
             console.error(e)
         }
