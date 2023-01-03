@@ -45,7 +45,7 @@ const KGreetingsReferral: React.FC<IKGreetingsReferralProps> = ({handleComplete,
 
             hideLoader()
         })
-    }
+    } //TODO remove to effector
 
     const regExRefId = /^[a-zA-Z]*$/;
     const validRefId = (regExRefId.test(referralId.split('-').join('') || '') || referralId === '');

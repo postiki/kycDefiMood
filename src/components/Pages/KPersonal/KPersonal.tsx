@@ -268,22 +268,6 @@ const KPersonal: React.FC<IKPersonalProps> = () => {
 
     const isMobile = window.innerWidth < 1366
 
-    const [debug, setDebug] = useState(false)
-    let test = {
-        name: error.name,
-        date: error.date,
-        docNumber: error.docNumber,
-        addrProject: error.addrProject,
-        projectChain: error.chain,
-        pName: error.pName,
-        pSite: error.pSite,
-        pDesc: error.pDesc,
-        pGh: error.pGh,
-        pTw: error.pTw,
-        pDc: error.pDc,
-        pTg: error.pTg,
-    }
-
     return (
         <ModalPage>
             <div className="kyc-personal">

@@ -23,9 +23,7 @@ const KGreetingWallet: React.FC<IKGreetingWalletProps> = ({handleComplete}) => {
             const wallet = new MetamaskWallet()
             await wallet.connect()
             const addr = await wallet.getAddr()
-
-            // @ts-ignore
-            await addOwnerAddr(addr)
+            await addOwnerAddr(addr || '')
             await handleComplete()
         } catch (e: any) {
             console.error(e)

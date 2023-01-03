@@ -11,6 +11,7 @@ import {useStore} from "effector-react";
 import Selfie from "../../SvgIcon/Selfie";
 import Doc from "../../SvgIcon/Doc";
 import {hideLoader, showLoader} from "../../../entities/loader";
+import PropTypes from "prop-types";
 
 interface IKIdentifyProps {
     doc: string
@@ -173,6 +174,10 @@ const KIdentity: React.FC<IKIdentifyProps> = ({doc}) => {
             </div>
         </ModalPage>
     )
+}
+
+KIdentity.propTypes ={
+    doc: PropTypes.string.isRequired
 }
 
 export default KIdentity;

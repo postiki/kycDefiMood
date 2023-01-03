@@ -42,7 +42,6 @@ const KMap: React.FC<IKPersonalProps> = () => {
             if (isExpired) setExpired(true)
 
             if (decodedToken && !isExpired) {
-
                 setStage(Number(splitMsg[0]))
             }
         }
@@ -72,9 +71,7 @@ const KMap: React.FC<IKPersonalProps> = () => {
                 {stage === 6 && <KSuccess/>}
             </div>
             <div className="k-map-footer">
-                <div
-                    className={'k-map-footer-logo'}
-                />
+                <div className={'k-map-footer-logo'}/>
                 <p>Powered by <span onClick={() => window.open('https://defimoon.org')}>defimoon</span></p>
             </div>
         </div>

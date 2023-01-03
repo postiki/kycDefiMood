@@ -38,12 +38,8 @@ const KGreetingsEmail: React.FC<IKGreetingsEmailProps> = ({handleComplete}) => {
         showLoader()
         api.getVerifyCode(email, idGenerator(24)).then(r => {
             localStorage.setItem('id', r.id)
-
-            // @ts-ignore
             addUserEmail(email)
-
             handleComplete()
-
             hideLoader()
         })
     } //TODO remove to effector

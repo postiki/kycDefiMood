@@ -2,9 +2,9 @@ import {createEvent, createStore} from "effector";
 
 export const stage$ = createStore<number>(1)
 export const userEmail$ = createStore<string>('')
-export const addUserEmail = createEvent()
+export const addUserEmail = createEvent<string>()
 export const ownerAddr$ = createStore<string>('')
-export const addOwnerAddr = createEvent()
+export const addOwnerAddr = createEvent<string>()
 export const stageUp = createEvent()
 export const stageDown = createEvent()
 export const setStage = createEvent<number>()
