@@ -63,7 +63,7 @@ const KGreetingsVerifyCode: React.FC<IKGreetingsVerifyCodeProps> = ({handleCompl
                         setStage(5)
                         break
                     case '6':
-                        setStage(6)
+                        handleComplete()
                         break
                 }
             }
