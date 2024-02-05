@@ -3,12 +3,16 @@
     "header": {
       "title": "kyc.systems"
     },
+    "map": {
+      "tokenExpired": "QR-code expired, please refresh QR-code and scan again"
+    },
     "greetings": {
-      "walletBtn": "Connect your wallet",
+      "walletBtn": "Continue",
       "disclaimer": "If you are a project owner, connect the contract owner’s wallet for verification",
       "btnEnter": "Enter",
       "btnContinue": "Enter",
       "title": "Welcome, now you will pass KYC",
+      "subTitle": "Please connect your wallet",
       "subtitle": "First, verify your email",
       "formTitle": "Email",
       "formPlaceHolder": "example@gmail.com",
@@ -26,8 +30,7 @@
       "errorEmail": "Email entered incorrectly, please check the spelling of your email",
       "errorCode": "Incorrect code",
       "incorrectCode": "Code must be of 6 digits",
-      "tokenExpired": "QR-code expired, please refresh QR-code and scan again",
-      "goBack" : "go back"
+      "goBack": "go back"
     },
     "personal": {
       "btnEnter": "Enter",
@@ -70,14 +73,16 @@
       "identity": "“Identity document”, “Selfie”:",
       "subtitle": "To pass the confirmation of the identity document and selfie, continue on the phone",
       "scan": "Scan by phone",
-      "refresh":"Refresh QR-code"
+      "refresh": "Refresh QR-code"
     },
     "progressbar": {
       "start": "Let's start",
+      "wallet": "Connect wallet",
       "personal": "Personal info",
-      "identity": "Identity document",
+      "project": "Project info",
+      "doc": "Identity document",
       "selfie": "Selfie",
-      "schedule": "Video interview",
+      "interview": "Video interview",
       "success": "Success",
       "error": "Error"
     },
@@ -85,9 +90,10 @@
       "doc": "Take a photo of the identity document",
       "selfie": "Take a selfie",
       "access": "Give access to the camera",
-      "allowBtn" : "Allow",
+      "allowBtn": "Allow",
       "btn": "UploadPhoto",
-      "retake": "Retake photo"
+      "retake": "Retake photo",
+      "take": "Take photo"
     },
     "schedule": {
       "title": "Schedule an interview",

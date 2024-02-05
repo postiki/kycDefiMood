@@ -5,8 +5,15 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 15px calc(165 / 1440 * 100vw) 36px calc(165 / 1440 * 100vw);
   background-color: var(--background-color);
+
+  &--loading {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 !important;
+
+    overflow: hidden;
+  }
 
   &-body {
     width: 100%;
@@ -14,6 +21,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 20px;
 
     padding-bottom: 80px;
   }
@@ -23,13 +31,14 @@
     height: 386px;
 
     text-align: center;
-    pointer-events: none;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     background-color: var(--background-color);
+
+    pointer-events: all;
 
     &-logo {
       width: 350px;
@@ -39,7 +48,7 @@
       background-color: transparent;
       background-position: center;
 
-     background-image: var(--bg-gif);
+      background-image: var(--bg-gif);
     }
 
     p {
@@ -54,11 +63,40 @@
   }
 }
 
+.debug {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 50%;
+  height: 50%;
+
+  transform: translate(-50%, -50%);
+  border: 10px solid var(--border-color);
+  background: var(--background-color);
+
+  display: flex;
+  gap: 20px;
+  z-index: 1000;
+
+  padding: 50px;
+
+  &-item {
+    width: 150px;
+    height: 30px;
+
+    background: var(--button-backgroud);
+    color: var(--button-text-color);
+  }
+
+}
+
 @media (min-width: 360px) and (max-width: 428px) {
   .k-map {
     padding: 40px 15px;
+    gap: 0;
 
-    &-body{
+    &-body {
       flex-direction: column;
       align-items: center;
       gap: 25px;

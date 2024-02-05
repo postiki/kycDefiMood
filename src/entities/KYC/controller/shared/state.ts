@@ -1,0 +1,1 @@
+export const createStatesObject = (statesObject: any) => Object.freeze(statesObject);

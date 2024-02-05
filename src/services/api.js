@@ -1,9 +1,22 @@
+import {parseConfig} from "./parseConfig";
+
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT || '';
 const JSON_HEADERS = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
 };
+
+export async function getConfig(type) {
+    const res = await fetch(`${BASE_URL}/config/${type}`);
+
+    const body = await res.json();
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return parseConfig(body.config)
+}
 
 export async function getVerifyCode(email, id) {
     const res = await fetch(`${BASE_URL}/verify`, {
@@ -32,38 +45,65 @@ export async function checkVerifyCode(code, id) {
         }),
     });
 
+    // const body = await res.json();
+
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return res.json();
+}
+
+export async function checkUserStatus(email) {
+    const res = await fetch(`${BASE_URL}/user/status/${email}`);
+
+    const body = await res.json();
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return body
+}
+
+export async function saveUser(email, type) {
+    const res = await fetch(`${BASE_URL}/user`, {
+        method: 'POST',
+        headers: JSON_HEADERS,
+        body: JSON.stringify({
+            email: email,
+            type: type
+        }),
+    });
+
     const body = await res.json();
 
     if (!res.ok) {
         throw new Error(res.statusText);
     }
 
-    return body.invalid
+    return body.token
 }
 
-export async function saveUser(email, refCode) {
-    const res = await fetch(`${BASE_URL}/user`, {
-        method: 'POST',
-        headers: JSON_HEADERS,
-        body: JSON.stringify({
-            email: email,
-            refCode: refCode
-        }),
-    });
+export async function getUserId(email) {
+    const res = await fetch(`${BASE_URL}/user/${email}`);
 
+    const body = await res.json();
     if (!res.ok) {
-        throw new Error(res.statusText);
+        throw new Error(body.message);
     }
-
-    return res.json()
+    return body;
 }
 
-export async function addRefCode(email, refCode) {
+export async function addRefCode(userId, refCode) {
     const res = await fetch(`${BASE_URL}/user/referral`, {
         method: 'POST',
-        headers: JSON_HEADERS,
+        headers: {
+            Authorization: `Bearer ${userId}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify({
-            email: email,
             refCode: refCode
         }),
     });
@@ -75,20 +115,44 @@ export async function addRefCode(email, refCode) {
     return res.json()
 }
 
-export async function addPersonalInfo(email, {...props}) {
-    const res = await fetch(`${BASE_URL}/user/info`, {
+export async function addPersonalInfo(userId, {...props}) {
+    const res = await fetch(`${BASE_URL}/user/personal`, {
         method: 'POST',
-        headers: JSON_HEADERS,
+        headers: {
+            Authorization: `Bearer ${userId}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify({
-            email: email,
             name: props.name,
             date: props.date,
             citizenship: props.citizenship,
             residence: props.residence,
             docType: props.docType,
             docNumber: props.docNumber,
+            addr: props.addr
+        }),
+    });
+
+    if (!res.ok) {
+        throw new Error(res.statusText);
+    }
+
+    return res.json()
+}
+
+export async function addProjectInfo(userId, {...props}) {
+    const res = await fetch(`${BASE_URL}/user/project`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${userId}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
             addrProject: props.addrProject,
-            ownerAddr: props.ownerAddr,
             projectChain: props.projectChain,
             pName: props?.pName,
             pSite: props?.pSite,
@@ -111,7 +175,6 @@ export async function addPersonalInfo(email, {...props}) {
 export async function uploadImage(formData, doc) {
     const res = await fetch(`${BASE_URL}/upload/${doc}`, {
         method: 'POST',
-        // headers: JSON_HEADERS,
         body: formData
     });
 
@@ -122,12 +185,16 @@ export async function uploadImage(formData, doc) {
     return res
 }
 
-export async function saveSchedule(email, date) {
+export async function saveSchedule(userId, date) {
     const res = await fetch(`${BASE_URL}/user/schedule`, {
         method: 'POST',
-        headers: JSON_HEADERS,
+        headers: {
+            Authorization: `Bearer ${userId}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify({
-            email: email,
             date: date,
         })
     });

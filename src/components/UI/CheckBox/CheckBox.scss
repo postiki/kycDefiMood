@@ -1,6 +1,7 @@
 @import './src/scss/mixins';
 
 .kyc-checkBox {
+  max-width: 390px;
   width: auto;
   height: auto;
 
@@ -31,8 +32,8 @@
   &__label {
     width: 90%;
 
-    @include h3-regular;
-    color: var(--title-color);
+    @include h4-regular;
+    color: var(--text-color);
   }
 }
 

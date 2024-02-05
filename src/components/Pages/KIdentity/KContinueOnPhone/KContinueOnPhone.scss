@@ -13,6 +13,7 @@
   border: 3px solid var(--border-color);
 
   &__wrapper {
+    position: relative;
     width: 76%;
     height: 100%;
 
@@ -22,6 +23,15 @@
     justify-content: space-between;
 
     gap: 30px;
+
+    &-title{
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      @include h4-regular;
+      color: var(--text-color);
+    }
   }
 
   &__body {

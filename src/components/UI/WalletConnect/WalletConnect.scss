@@ -1,0 +1,48 @@
+@import './src/scss/mixins';
+
+.wallet-connect {
+  display: flex;
+
+  width: 237px;
+  height: 55px;
+
+  &-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 49px;
+    height: 49px;
+
+    border: 3px solid var(--title-color);
+
+    &-marker {
+      width: 25px;
+      height: 25px;
+
+      background: rgba(132, 135, 134, 0.5);
+
+      &--connect {
+        background: var(--title-color);
+        background: var(--title-color);
+      }
+    }
+  }
+
+  button {
+    appearance: none;
+    background: var(--title-color);
+    border: none;
+
+    padding: 0 15px;
+
+    @include h3-bold;
+    color: var(--button-text-color);
+  }
+}
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .wallet-connect{
+    width: auto;
+  }
+}

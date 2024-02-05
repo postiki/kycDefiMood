@@ -4,28 +4,31 @@ import QRCode from "react-qr-code";
 import jwt from 'jsonwebtoken'
 
 import useTranslation from "../../../../hooks/useTranslation";
-import {stage$, userEmail$} from "../../../../entities/progress-manager";
 import {useStore} from "effector-react";
+import {userEmail$, userId$, userType$} from "../../../../entities/user";
+import PropTypes from "prop-types";
 
 interface IKContinueOnPhoneProps {
-
+    type: string
 }
 
-const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
+const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = ({type}) => {
     const translation = useTranslation('continue')
     const [url, setUrl] = useState('')
-    const stage = useStore(stage$)
     const email = useStore(userEmail$)
+    const userId = useStore(userId$)
+    const userType = useStore(userType$)
 
     const newUrl = () => {
+        console.log(type)
         const token = jwt.sign({
-            info: `${stage}_${email}`,
+            info: `${type}:${email}:${userId}`,
             expiresIn: Math.floor(Date.now()) + Number(process.env.REACT_APP_TOKEN_EXP)//10 minute
         }, process.env.REACT_APP_SECRECT_TOKEN || '');
 
-        // console.log(`http://localhost:3000/?token=${token}`)
+        console.log(`http://localhost:3000/?token=${token}&userType=${userType}`)
 
-        return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}`)
+        return setUrl(`${process.env.REACT_APP_API_QR}/?token=${token}&userType=${userType}`)
     }
 
     useEffect(() => {
@@ -34,6 +37,9 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
     return (
         <div className={'kyc-continue'}>
             <div className={'kyc-continue__wrapper'}>
+                <div className="kyc-continue__wrapper-title">
+                    <p>/person.config.js</p>
+                </div>
                 <h1>{translation('title')}</h1>
                 <div className={'kyc-continue__body'}>
                     <div className={'kyc-continue__body-left'}>
@@ -60,6 +66,10 @@ const KContinueOnPhone: React.FC<IKContinueOnPhoneProps> = () => {
             </div>
         </div>
     )
+}
+
+KContinueOnPhone.propTypes ={
+    type: PropTypes.string.isRequired
 }
 
 export default KContinueOnPhone;

@@ -13,7 +13,23 @@
     color: rgba(132, 135, 134, 0.5);
   }
 
-  svg{
+  svg {
     width: 28px;
+  }
+
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-header{
+    flex-direction: column;
+    gap: 35px;
+
+    padding-bottom: 40px;
   }
 }

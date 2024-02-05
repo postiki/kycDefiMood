@@ -1,0 +1,143 @@
+@import './src/scss/mixins';
+
+.kyc-project {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  h1 {
+    @include h2-bold;
+    color: var(--title-color);
+  }
+
+  &-firstRow {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55% 41%;
+    justify-content: space-between;
+  }
+
+  &-secondRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 24px;
+  }
+
+  &-thirdRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 30px;
+  }
+
+  &-fourRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 30px;
+  }
+
+  &-fiveRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 30px;
+  }
+}
+
+.project-description {
+  position: relative;
+  width: 100%;
+  height: 144px;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 4px;
+
+  box-sizing: border-box;
+
+  border: 3px solid var(--border-color);
+
+  textarea {
+    width: 100%;
+    height: 100%;
+
+    padding: 12px 15px;
+
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+
+    box-sizing: border-box;
+
+    color: var(--text-color) !important;
+
+    background-color: var(--background-color);
+    border: none;
+
+    @include h3-regular;
+  }
+
+  p {
+    position: absolute;
+
+    top: -11px;
+    left: 20px;
+
+    padding: 0 5px;
+
+    background: var(--background-color);
+
+    @include h4-regular;
+    color: var(--text-color);
+  }
+
+  .counter {
+    position: absolute;
+    bottom: 13px;
+    right: 15px;
+
+    @include h4-regular;
+    color: var(--disabled);
+  }
+}
+
+@media (min-width: 360px) and (max-width: 428px) {
+  .kyc-personal {
+    width: 100%;
+    height: auto;
+
+    &__wrapper {
+      width: 90%;
+      height: 100%;
+
+      align-items: center;
+    }
+
+    &-firstRow {
+      width: 100%;
+      display: flex;
+    }
+  }
+}

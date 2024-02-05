@@ -6,9 +6,11 @@ import KCalendar from "./KCalendar/KCalendar";
 import Select from "../../UI/Select";
 
 import * as api from '../../../services/api';
-import {stageUp, userEmail$} from "../../../entities/progress-manager";
 import ModalPage from "../../UI/ModalPage";
 import {useStore} from "effector-react";
+import {hideLoader, showLoader} from "../../../entities/loader";
+import {userId$} from "../../../entities/user";
+import {performTransition} from "../../../entities/KYC/controller";
 
 interface IKVideoCallProps {
 
@@ -16,7 +18,7 @@ interface IKVideoCallProps {
 
 const KVideoCall: React.FC<IKVideoCallProps> = () => {
     const translation = useTranslation('schedule')
-    const email = useStore(userEmail$)
+    const userId = useStore(userId$)
 
     const [selectedTime, setSelectedTime] = useState('')
     const [selectedDate, setSelectedDay] = useState('')
@@ -38,7 +40,11 @@ const KVideoCall: React.FC<IKVideoCallProps> = () => {
 
     const saveDate = () => {
         try {
-            api.saveSchedule(email, `${selectedDate} ${selectedTime}`).then(r => r.ok && stageUp())
+            showLoader()
+            api.saveSchedule(userId, `${selectedDate} ${selectedTime}`).then(r => {
+                r.ok && performTransition('next')
+                hideLoader()
+            })
         } catch (e) {
             console.error(e)
         }
